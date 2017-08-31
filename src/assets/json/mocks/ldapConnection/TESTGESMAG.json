@@ -1,0 +1,22 @@
+{
+	"TESTGESMAG": {
+		"listGroupAD": [
+			{
+				"group": "GROUP1",
+				"members": [
+					"personne 1",
+					"personne 2",
+					"personne 3"
+				]
+			},
+			{
+				"group": "GROUP2",
+				"members": [
+					"personne 1",
+					"personne 2",
+					"personne 3"
+				]
+			}
+		]
+	}
+}

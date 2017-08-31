@@ -1,0 +1,17 @@
+{	
+	"gesmag": {
+		"requests": [
+		],
+		"environments": [
+			{
+				"environment": "INT", 
+				"server": "testserver1"
+			},
+			{
+				"environment": "PROD",
+				"server": "testserver2"
+			}
+		],
+		"groupADNamePattern" : "TEST_GESMAG_*"
+	}
+}

@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+.black {
+    color: black;
+}
+
+.displayCol {
+    vertical-align:middle;
+    padding:0;
+}
+
+.displayCell {
+    padding: 8px;
+}
+
+.displayNone {
+    display: none;
+}

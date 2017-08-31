@@ -1,0 +1,138 @@
+{	
+	"edt": {
+		"requests": [
+			{
+				"name" : "getBDocInfo",
+				"request": "requestTest",
+				"description": ""
+			},
+			{
+				"name" : "getBDocStatus",
+				"request": "requestTest",
+				"description": ""
+			},
+			{
+				"name" : "getEspaceDisqueHomeInfos",
+				"request": "requestTest ££user££ ",
+				"description": ""
+			},
+			{
+				"name" : "getEspaceDisqueSefasInfos",
+				"request": "requestTest",
+				"description": ""
+			},
+			{
+				"name" : "getEspaceDisqueDataInfos",
+				"request": "requestTest",
+				"description": ""
+			},
+			{
+				"name" : "getVersions",
+				"request": "requestTest",
+				"description": ""
+			},
+			{
+				"name" : "getSQLVersion_createFileLog",
+				"request": "requestTest ££user££/££password££@££server££/££sid££ ££environment££",
+				"description": ""
+			},
+			{
+				"name" : "getSQLVersion_openFileLog",
+				"request": "requestTest££environment££",
+				"description": ""
+			},
+			{
+				"name" : "getSQLVersion_readFileInfos",
+				"request": "requestTest££environment££",
+				"description": ""
+			},
+			{
+				"name" : "getSQLVersion_deleteFile",
+				"request": "requestTest",
+				"description": ""
+			},
+			{
+				"name" : "getFileNameVDA",
+				"request": "requestTest££user££",
+				"description": ""
+			},
+			{
+				"name" : "readFileVDA",
+				"request": "requestTest ££fileNameVDA££",
+				"description": ""
+			},
+			{
+				"name" : "getActiveDeamons",
+				"request": "requestTest",
+				"description": ""
+			},
+			{
+				"name" : "getActiveDeamonsInfos",
+				"request": "requestTest ££pid££ ",
+				"description": ""
+			}	
+		],
+		"serversBDoc": [
+			{
+				"id": "id1",
+				"name": "DEV1", 
+				"alias": "aliasBdoc1",
+				"url": "serveurBdoc1"
+			},
+			{
+				"id": "id2",
+				"name": "DEV2", 
+				"alias": "aliasBdoc2",
+				"url": "serveurBdoc2"
+			},
+			{
+				"id": "bdocHom_1",
+				"name": "INT1", 
+				"alias": "aliasBdoc3",
+				"url": "serveurBdoc3"
+			}
+		],
+		"environmentsEDT": [
+			{
+				"environment": "DEV", 
+				"server": "testserver1",
+				"user": "user1",
+				"password": "pwd1",
+				"path": "/path/test",
+				"serverBDoc": "id1"
+			},
+			{
+				"environment": "INT",
+				"server": "testserver2",
+				"user": "user2",
+				"password": "pwd2",
+				"path": "/path/test",
+				"serverBDoc": "bdocHom_1"
+			},
+			{
+				"environment": "DEV MCO",
+				"server": "testserver3",
+				"user": "user3",
+				"password": "pwd3",
+				"path": "/path/test",
+				"serverBDoc": "id2"
+			}
+		],
+		"environmentsBdEDI": [
+			{
+				"environment": "DEV1", 
+				"server": "TESTBDEDI1",
+				"user": "userBdEDI1",
+				"password": "pwdBdEDI1",
+				"sid": "SID1"
+			},
+			{
+				"environment": "INT1", 
+				"server": "TESTBDEDI2",
+				"user": "userBdEDI2",
+				"password": "pwdBdEDI2",
+				"sid": "SID2"
+			}
+		]
+	}
+}

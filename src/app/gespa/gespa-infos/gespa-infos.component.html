@@ -1,0 +1,51 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h4 class="panel-title text-center">Informations générales</h4>
+	</div>
+	<div class="panel-body table-responsive">
+		<table class="table table-condensed">
+			<thead>
+				<tr>
+					<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
+					<th *ngIf="gespaInfosData?.error" class="text-center col-xs-1 displayCol">
+						<div *ngIf="LoadingService.loading; else infosError" class="displayCell">
+							Loading....
+						</div>
+						<ng-template #infosError>
+							<div class="displayCell">{{ gespaInfosData?.error }}</div>
+						</ng-template>
+					</th>
+					<th *ngFor="let env of gespaInfosData?.environments" class="text-center col-xs-1 displayCol">
+						<div *ngIf="LoadingService.loading; else envHead" class="displayCell">
+							Loading....
+						</div>
+						<ng-template #envHead>
+							<div class="displayCell">{{ env.environment }}</div>
+						</ng-template>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="text-center col-xs-1 displayCol"><div class="displayCell">Host</div></td>
+					<td *ngIf="gespaInfosData?.error" class="text-center col-xs-1 displayCol">
+						<div *ngIf="LoadingService.loading; else infosError" class="displayCell">
+							Loading....
+						</div>
+						<ng-template #infosError>
+							<div class="displayCell">{{ gespaInfosData?.error }}</div>
+						</ng-template>
+					</td>
+					<td *ngFor="let env of gespaInfosData?.environments" class="text-center col-xs-1 displayCol">
+						<div *ngIf="LoadingService.loading; else envBody" class="displayCell">
+							Loading....
+						</div>
+						<ng-template #envBody>
+							<div class="displayCell">{{ env.server }}</div>
+						</ng-template>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

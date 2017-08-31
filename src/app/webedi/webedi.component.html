@@ -1,0 +1,18 @@
+<div class="container">
+	<div class="page-header text-center" style="margin-bottom : 40px">
+		<h1>WebEDI</h1>
+	</div>
+
+	<h4 style="margin-bottom : 40px">Sur cette page sont visibles les informations des différents serveurs Web de WebEDI</h4>
+
+  <div class="content">
+    
+    <app-webedi-infos #environment></app-webedi-infos>
+    <app-webedi-versions [webediEnv]="environment"></app-webedi-versions>
+    <app-webedi-users></app-webedi-users>
+    <app-webedi-base></app-webedi-base>
+		
+  </div>
+		
+
+</div>

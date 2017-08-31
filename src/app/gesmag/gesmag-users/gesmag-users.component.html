@@ -1,0 +1,70 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h4 class="panel-title">
+			Utilisateurs AD
+			<div class="pull-right">
+				<a (click)="refresh()">
+							<span class="glyphicon glyphicon-refresh black"></span>
+						</a>
+				<a (click)="load(); switch()" role="button" data-toggle="collapse" href="#gesmaUsersAD" aria-expanded="false" aria-controls="edtBdoc">
+					<span [className]="SwitchGlyphiconsService.currentGlyphicon"></span>
+					
+				</a>
+			</div>
+		</h4>
+	</div>
+	<div id="gesmaUsersAD" class="panel-collapse collapse">
+		<div>
+			<div class="panel-body table-responsive">
+				<table class="table table-condensed">
+					<thead>
+						<tr>
+							<th class="text-center col-xs-1 displayCol"><div class="displayCell">Groupe</div></th>
+							<th class="text-center col-xs-1 displayCol"><div class="displayCell">Utilisateurs</div></th>
+						</tr>
+					</thead>
+					<tbody *ngIf="gesmagUsersData?.error">
+						<tr>
+							<td class="text-center col-xs-1 displayCol">
+								<div *ngIf="LoadingService.loading; else usersError" class="displayCell">
+									Loading....
+								</div>
+								<ng-template #usersError>
+										<div class="displayCell">{{ gesmagUsersData?.error }}</div>
+								</ng-template>
+							</td>
+							<td class="text-center col-xs-1 displayCol">
+								<div *ngIf="LoadingService.loading; else usersError" class="displayCell">
+									Loading....
+								</div>
+								<ng-template #usersError>
+										<div class="displayCell">{{ gesmagUsersData?.error }}</div>
+								</ng-template>
+							</td>
+						</tr>
+					</tbody>
+					<tbody *ngFor="let user of gesmagUsersData?.listGroupAD">
+						<tr>
+							<td *ngIf="LoadingService.loading; else usersGroup" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Loading....</div>
+							</td>
+							<ng-template #usersGroup>
+								<td class="text-center col-xs-1 displayCol">{{ user.group }} ({{ user.members.length }} Utilisateurs)</td>
+							</ng-template>
+							<div *ngFor="let persons of user.members">
+								<td class="text-center col-xs-1 displayCol">
+									<div *ngIf="LoadingService.loading; else usersPersons" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #usersPersons>
+										<div class="displayCell">{{ persons }}</div>
+									</ng-template>
+								</td>
+							</div>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
