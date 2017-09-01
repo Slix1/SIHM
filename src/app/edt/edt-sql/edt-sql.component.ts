@@ -12,10 +12,8 @@ import { ErrorService } from './../../services/error.service';
 })
 export class EdtSqlComponent {
 
-  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
-   public LoadingService: LoadingService, public ErrorService: ErrorService) {
-
-  };
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
   private edtSqlUrl: string = 'assets/json/mocks/sshConnection/edt.json';
   public edtSqlData: object = {};
@@ -24,7 +22,6 @@ export class EdtSqlComponent {
   public getEdtSqlData(): Object {
     this.ApiService.getData(this.edtSqlUrl)
       .then(edtSqlData => this.edtSqlData = Object.assign({}, edtSqlData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.edtSqlData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

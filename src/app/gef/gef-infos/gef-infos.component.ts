@@ -11,9 +11,7 @@ import { ErrorService } from './../../services/error.service';
 })
 export class GefInfosComponent implements OnInit {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
   private gefInfosUrl: string = 'assets/json/mocks/jsonFileConnection/gef.json';
   public gefInfosData: Object = {};
@@ -23,7 +21,6 @@ export class GefInfosComponent implements OnInit {
 
     this.ApiService.getData(this.gefInfosUrl)
       .then(GefInfosData => this.gefInfosData = Object.assign({}, GefInfosData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.gefInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

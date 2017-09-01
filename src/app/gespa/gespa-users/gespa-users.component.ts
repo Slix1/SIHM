@@ -12,10 +12,8 @@ import { ErrorService } from './../../services/error.service';
 })
 export class GespaUsersComponent {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
-  public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
   private gespaUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTGESPA.json';
   public gespaUsersData: object = {};
@@ -26,7 +24,6 @@ export class GespaUsersComponent {
 
     return this.ApiService.getData(this.gespaUsersUrl)
       .then(gespaUsers => this.gespaUsersData = Object.assign({}, gespaUsers))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.gespaUsersData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
   }

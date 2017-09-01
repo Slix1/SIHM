@@ -12,8 +12,8 @@ import { ErrorService } from './../../services/error.service';
 })
 export class EdtPackageComponent {
 
-  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
-  };
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
   private edtPackageUrl: string = 'assets/json/mocks/sshConnection/edt.json';
   public edtPackageData: object = {};
@@ -22,7 +22,6 @@ export class EdtPackageComponent {
   public getEdtPackageData(): Object {
     this.ApiService.getData(this.edtPackageUrl)
       .then(edtPackageData => this.edtPackageData = Object.assign({}, edtPackageData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.edtPackageData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

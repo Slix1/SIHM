@@ -12,9 +12,7 @@ import { ErrorService } from './../../services/error.service';
 })
 export class GesmagInfosComponent implements OnInit {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
   private gesmagInfosUrl = 'assets/json/mocks/jsonFileConnection/gesmag.json';
   public gesmagInfosData: Object = {};
@@ -24,7 +22,6 @@ export class GesmagInfosComponent implements OnInit {
 
     this.ApiService.getData(this.gesmagInfosUrl)
       .then(gesmagInfosData => this.gesmagInfosData = Object.assign({}, gesmagInfosData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.gesmagInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

@@ -12,9 +12,7 @@ import { ErrorService } from './../../services/error.service';
 })
 export class WebediInfosComponent implements OnInit {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
   private webEdiInfosUrl: string = 'assets/json/mocks/jsonFileConnection/webedi.json';
   public webEdiInfosData: object = {};
@@ -25,7 +23,6 @@ export class WebediInfosComponent implements OnInit {
 
     this.ApiService.getData(this.webEdiInfosUrl)
       .then(webEdiInfosData => this.webEdiInfosData = Object.assign({}, webEdiInfosData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.webEdiInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

@@ -11,10 +11,7 @@ import { ErrorService } from './../../services/error.service';
 })
 export class DocinfosComponent implements OnInit {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService,
-  public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
 
   private DocumentumInfosUrl: string = 'assets/json/mocks/jsonFileConnection/documentum.json';
@@ -25,7 +22,6 @@ export class DocinfosComponent implements OnInit {
 
     return this.ApiService.getData(this.DocumentumInfosUrl)
       .then(DocumentumInfos => this.DocumentumInfosData = Object.assign({}, DocumentumInfos))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.DocumentumInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

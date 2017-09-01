@@ -12,12 +12,10 @@ import { ErrorService } from './../../services/error.service';
 })
 export class GesmagUsersComponent {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
-  public ErrorService: ErrorService) {
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
-  }
-
-  private gesmagUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTGESMAG.json';
+  private gesmagUsersUrl: string = 'assets/japConnection/TESTGESMAG.json';
   public gesmagUsersData: object = {};
 
 
@@ -26,7 +24,6 @@ export class GesmagUsersComponent {
 
     return this.ApiService.getData(this.gesmagUsersUrl)
       .then(gesmagUsers => this.gesmagUsersData = Object.assign({}, gesmagUsers))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.gesmagUsersData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
   }

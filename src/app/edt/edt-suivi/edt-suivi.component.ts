@@ -12,8 +12,8 @@ import { ErrorService } from './../../services/error.service';
 })
 export class EdtSuiviComponent {
 
-  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
-   public LoadingService: LoadingService, public ErrorService: ErrorService) {};
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
   private edtSuiviUrl: string = 'a';
   public edtSuiviData: object = {};
@@ -22,7 +22,6 @@ export class EdtSuiviComponent {
   public getEdtSuiviData(): Object {
     this.ApiService.getData(this.edtSuiviUrl)
       .then(edtSuiviData => this.edtSuiviData = Object.assign({}, edtSuiviData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.edtSuiviData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

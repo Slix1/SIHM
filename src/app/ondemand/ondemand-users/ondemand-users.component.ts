@@ -12,10 +12,8 @@ import { ErrorService } from './../../services/error.service';
 })
 export class OndemandUsersComponent {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
-  public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
   private onDemandUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTONDEMAND.json';
   public onDemandUsersData: object = {};
@@ -26,7 +24,6 @@ export class OndemandUsersComponent {
 
     return this.ApiService.getData(this.onDemandUsersUrl)
       .then(onDemandUsers => this.onDemandUsersData = Object.assign({}, onDemandUsers))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.onDemandUsersData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
   }

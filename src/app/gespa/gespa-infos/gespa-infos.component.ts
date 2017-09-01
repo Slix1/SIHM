@@ -14,9 +14,7 @@ import { ErrorService } from './../../services/error.service';
 
 export class GespaInfosComponent {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
   private gespaInfosUrl: string = 'assets/json/mocks/jsonFileConnection/gespa.json';
   public gespaInfosData: object = {};
@@ -25,7 +23,6 @@ export class GespaInfosComponent {
 
     this.ApiService.getData(this.gespaInfosUrl)
       .then(gespaInfosData => this.gespaInfosData = Object.assign({}, gespaInfosData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.gespaInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

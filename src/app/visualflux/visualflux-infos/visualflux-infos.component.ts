@@ -11,9 +11,7 @@ import { ErrorService } from './../../services/error.service';
 })
 export class VisualfluxInfosComponent implements OnInit {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
   private visualFluxInfosUrl: string = 'assets/json/mocks/jsonFileConnection/visualflux.json';
   public visualFluxInfosData: object = {};
@@ -23,7 +21,6 @@ export class VisualfluxInfosComponent implements OnInit {
 
     this.ApiService.getData(this.visualFluxInfosUrl)
       .then(visualFluxInfosData => this.visualFluxInfosData = Object.assign({}, visualFluxInfosData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.visualFluxInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

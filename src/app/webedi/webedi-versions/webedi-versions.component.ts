@@ -14,10 +14,8 @@ export class WebediVersionsComponent {
 
   @Input() webediEnv: string;
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
-  public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
   private webEdiVersionsUrl: string = 'assets/json/mocConnection/url.json';
   public webEdiVersionData: Object = {};
@@ -27,7 +25,6 @@ export class WebediVersionsComponent {
 
     this.ApiService.getData(this.webEdiVersionsUrl)
       .then(webEdiVersionData => this.webEdiVersionData = Object.assign({}, webEdiVersionData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.webEdiVersionData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

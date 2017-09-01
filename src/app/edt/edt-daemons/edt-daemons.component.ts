@@ -12,8 +12,8 @@ import { ErrorService } from './../../services/error.service';
 })
 export class EdtDaemonsComponent {
 
-  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
-   public LoadingService: LoadingService, public ErrorService: ErrorService) {};
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
 
   private edtDaemonsUrl: string = 'assets/json/edt.json';
@@ -23,7 +23,6 @@ export class EdtDaemonsComponent {
   public getEdtDaemonsData(): Object {
     this.ApiService.getData(this.edtDaemonsUrl)
       .then(edtDaemonsData => this.edtDaemonsData = Object.assign({}, edtDaemonsData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.edtDaemonsData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

@@ -13,10 +13,8 @@ import { ErrorService } from './../../services/error.service';
 export class EdtdiskComponent {
 
 
-  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
-   public ErrorService: ErrorService) {
-
-  }
+ constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
   private edtDiskUrl: string = 'assets/json/mocks/sshConnection/edt.json';
   public edtDiskData: object = {};
@@ -25,7 +23,6 @@ export class EdtdiskComponent {
   public getEdtDiskData(): Object {
     this.ApiService.getData(this.edtDiskUrl)
       .then(edtDiskData => this.edtDiskData = Object.assign({}, edtDiskData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.edtDiskData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

@@ -14,10 +14,8 @@ import { ErrorService } from './../../services/error.service';
 export class DocinjecteursComponent {
 
 
-  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
-  public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
 
   private documentumInjecteursUrl: string = 'assets/json/mocks/sshConnection/documentum.json';
@@ -28,7 +26,6 @@ export class DocinjecteursComponent {
 
     this.ApiService.getData(this.documentumInjecteursUrl)
       .then(documentumInjecteursData => this.documentumInjecteursData = Object.assign({}, documentumInjecteursData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.documentumInjecteursData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

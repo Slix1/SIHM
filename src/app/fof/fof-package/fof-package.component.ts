@@ -12,9 +12,8 @@ import { ErrorService } from './../../services/error.service';
 })
 export class FofpackageComponent {
 
-  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
-  public ErrorService: ErrorService) {
-  }
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
   private fofPackageUrl: string = 'assets/json/mocks/sshConnection/fof.json';
   public fofPackageData: object = {};
@@ -23,7 +22,6 @@ export class FofpackageComponent {
   public getFofPackageData(): Object {
     this.ApiService.getData(this.fofPackageUrl)
       .then(fofPackageData => this.fofPackageData = Object.assign({}, fofPackageData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.fofPackageData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

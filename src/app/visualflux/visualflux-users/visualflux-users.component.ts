@@ -12,10 +12,8 @@ import { ErrorService } from './../../services/error.service';
 })
 export class VisualfluxUsersComponent {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
-  public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
   private visualFluxUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTVISUALFLUX.json';
   public VisualFluxUsersData: object = {};
@@ -26,7 +24,6 @@ export class VisualfluxUsersComponent {
 
     return this.ApiService.getData(this.visualFluxUsersUrl)
       .then(visualFluxUsers => this.VisualFluxUsersData = Object.assign({}, visualFluxUsers))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.VisualFluxUsersData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
   }

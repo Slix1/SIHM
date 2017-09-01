@@ -12,10 +12,8 @@ import { ErrorService } from './../../services/error.service';
 })
 export class WebediUsersComponent {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
-  public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
   private webediUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTWEBEDI.json';
   public webediUsersData: object = {};
@@ -26,7 +24,6 @@ export class WebediUsersComponent {
 
     return this.ApiService.getData(this.webediUsersUrl)
       .then(webediUsers => this.webediUsersData = Object.assign({}, webediUsers))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.webediUsersData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
   }

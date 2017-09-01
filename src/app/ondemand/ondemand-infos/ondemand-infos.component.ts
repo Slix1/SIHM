@@ -11,9 +11,7 @@ import { ErrorService } from './../../services/error.service';
 })
 export class OndemandInfosComponent implements OnInit {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
   private onDemandInfosUrl: string = 'assets/json/mocks/jsonFileConnection/ondemand.json';
   public onDemandInfosData: object = {};
@@ -23,7 +21,6 @@ export class OndemandInfosComponent implements OnInit {
 
     this.ApiService.getData(this.onDemandInfosUrl)
       .then(onDemandInfosData => this.onDemandInfosData = Object.assign({}, onDemandInfosData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.onDemandInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

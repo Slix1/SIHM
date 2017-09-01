@@ -12,10 +12,8 @@ import { ErrorService } from './../../services/error.service';
 })
 export class FofdiskComponent {
 
-  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
-  public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
   private fofDiskUrl: string = 'assets/json/mocks/sshConnection/fof.json';
   public fofDiskData: object = {};
@@ -24,7 +22,6 @@ export class FofdiskComponent {
   public getFofDiskData(): Object {
     this.ApiService.getData(this.fofDiskUrl)
       .then(fofDiskData => this.fofDiskData = Object.assign({}, fofDiskData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.fofDiskData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

@@ -16,10 +16,8 @@ import { ErrorService } from './../../services/error.service';
 export class EdtbdocComponent {
 
 
-  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
-  public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  private ErrorService: ErrorService) { }
 
   private edtBdocUrl: string = 'assets/json/mocks/jsonFileConnection/edt.json';
   public edtBdocData: object = {};
@@ -28,7 +26,6 @@ export class EdtbdocComponent {
   public getEdtBdocData(): Object {
     this.ApiService.getData(this.edtBdocUrl)
       .then(edtBdocData => this.edtBdocData = Object.assign({}, edtBdocData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.edtBdocData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

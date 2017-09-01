@@ -6,7 +6,6 @@ export class VersionsPipe implements PipeTransform {
     transform(data: any[], args?): any[] {
 
         if (data) {
-
             let dataEnv : Array<any> = [],
                 dataPackage : Array<any> = [],
                 versionsList : Array<any> = [],
@@ -51,11 +50,9 @@ export class VersionsPipe implements PipeTransform {
             });
 
 
-
-
             result['servers'] = dataEnv,
-                result['packages'] = dataPackage,
-                result['versionsList'] = versionsList;
+            result['packages'] = dataPackage,
+            result['versionsList'] = versionsList;
 
             // console.log(result);
 

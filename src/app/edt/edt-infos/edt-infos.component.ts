@@ -17,9 +17,7 @@ import 'rxjs/add/operator/finally';
 
 export class EdtinfosComponent {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
   private EdtInfosDataUrl: string = 'assets/json/mocks/jsonFileConnection/edt.json';
   public EdtInfosData: Object = {};
@@ -29,7 +27,6 @@ export class EdtinfosComponent {
 
     this.ApiService.getData(this.EdtInfosDataUrl)
       .then(EdtInfosData => this.EdtInfosData = Object.assign({}, EdtInfosData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.EdtInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
       

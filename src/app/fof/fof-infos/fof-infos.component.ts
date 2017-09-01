@@ -11,9 +11,7 @@ import { ErrorService } from './../../services/error.service';
 })
 export class FofinfosComponent implements OnInit {
 
-  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
-
-  }
+  constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
   private fofInfosUrl: string = 'assets/json/mocks/jsonFileConnection/fof.json';
   public FofInfosData: Object = {};
@@ -23,7 +21,6 @@ export class FofinfosComponent implements OnInit {
 
     this.ApiService.getData(this.fofInfosUrl)
       .then(FofInfosData => this.FofInfosData = Object.assign({}, FofInfosData))
-      .then(() => this.LoadingService.loading = false)
       .catch(error => this.FofInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

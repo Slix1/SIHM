@@ -8,16 +8,8 @@ import { SqlPipe } from './sql.pipe';
 
 
 @NgModule({
-  imports: [
-    
-  ],
+  imports: [],
   declarations: [SplitPipe, VersionsPipe, InjecteursPipe, BdocPipe, SqlPipe],
-  exports: [
-    SplitPipe,
-    VersionsPipe,
-    InjecteursPipe,
-    BdocPipe,
-    SqlPipe
-  ]
+  exports: [SplitPipe, VersionsPipe, InjecteursPipe, BdocPipe, SqlPipe]
 })
 export class CustomPipesModule { }
