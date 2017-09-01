@@ -1,18 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {
-  RouterModule,
-  Routes
-} from '@angular/router';
-import { HttpModule }           from '@angular/http';
-
-// Mock API
-// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-// import { InMemDataService }     from './in-mem-data.service';
-
-
-
-// Services
+import { RouterModule, Routes } from '@angular/router';
+import { HttpModule } from '@angular/http';
 
 // Modules
 import { HomeModule } from './home/home.module';
@@ -64,8 +53,7 @@ const routes: Routes = [
     GesmagModule,
     OndemandModule,
     DocumentumModule,
-    RouterModule.forRoot(routes),
-    // InMemoryWebApiModule.forRoot(InMemDataService)
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

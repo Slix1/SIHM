@@ -1,25 +1,26 @@
 import { Component } from '@angular/core';
-import { EdtSuiviService } from './edt-suivi.service';
-import { LoadingService } from './../../loading.service';
-import { SwitchGlyphiconsService } from './../../switchglyphicons.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
+import { ErrorService } from './../../services/error.service';
 
 @Component({
   selector: 'app-edt-suivi',
   templateUrl: './edt-suivi.component.html',
   styleUrls: ['./edt-suivi.component.css'],
-  providers: [EdtSuiviService, LoadingService, SwitchGlyphiconsService, ErrorService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService]
 })
 export class EdtSuiviComponent {
 
-  constructor(public EdtSuiviService: EdtSuiviService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
+  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
    public LoadingService: LoadingService, public ErrorService: ErrorService) {};
 
-  edtSuiviData: object = {};
+  private edtSuiviUrl: string = 'a';
+  public edtSuiviData: object = {};
 
 
   public getEdtSuiviData(): Object {
-    this.EdtSuiviService.getEdtSuiviInfos()
+    this.ApiService.getData(this.edtSuiviUrl)
       .then(edtSuiviData => this.edtSuiviData = Object.assign({}, edtSuiviData))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.edtSuiviData = {error: this.ErrorService.getErrorMessage(error)})

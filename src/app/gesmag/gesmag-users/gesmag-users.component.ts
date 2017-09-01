@@ -1,29 +1,30 @@
 import { Component } from '@angular/core';
-import { GesmagUsersService } from './gesmag-users.service';
-import { LoadingService } from './../../loading.service';
-import { SwitchGlyphiconsService } from './../../switchglyphicons.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
+import { ErrorService } from './../../services/error.service';
 
 @Component({
   selector: 'app-gesmag-users',
   templateUrl: './gesmag-users.component.html',
   styleUrls: ['./gesmag-users.component.css'],
-  providers: [GesmagUsersService, LoadingService, SwitchGlyphiconsService, ErrorService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService]
 })
 export class GesmagUsersComponent {
 
-  constructor(private GesmagUsersService: GesmagUsersService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
+  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
   public ErrorService: ErrorService) {
 
   }
 
+  private gesmagUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTGESMAG.json';
   public gesmagUsersData: object = {};
 
 
 
   public getGesmagUserUsersData(): Object {
 
-    return this.GesmagUsersService.getGesmagUsers()
+    return this.ApiService.getData(this.gesmagUsersUrl)
       .then(gesmagUsers => this.gesmagUsersData = Object.assign({}, gesmagUsers))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.gesmagUsersData = {error: this.ErrorService.getErrorMessage(error)})

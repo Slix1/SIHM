@@ -1,27 +1,28 @@
 import { Component } from '@angular/core';
-import { EdtSqlService } from './edt-sql.service';
-import { LoadingService } from './../../loading.service';
-import { SwitchGlyphiconsService } from './../../switchglyphicons.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
+import { ErrorService } from './../../services/error.service';
 
 @Component({
   selector: 'app-edt-sql',
   templateUrl: './edt-sql.component.html',
   styleUrls: ['./edt-sql.component.css'],
-  providers: [EdtSqlService, LoadingService, SwitchGlyphiconsService, ErrorService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService]
 })
 export class EdtSqlComponent {
 
-  constructor(public EdtSqlService: EdtSqlService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
+  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
    public LoadingService: LoadingService, public ErrorService: ErrorService) {
 
   };
 
-  edtSqlData: object = {};
+  private edtSqlUrl: string = 'assets/json/mocks/sshConnection/edt.json';
+  public edtSqlData: object = {};
 
 
   public getEdtSqlData(): Object {
-    this.EdtSqlService.getEdtSqlInfos()
+    this.ApiService.getData(this.edtSqlUrl)
       .then(edtSqlData => this.edtSqlData = Object.assign({}, edtSqlData))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.edtSqlData = {error: this.ErrorService.getErrorMessage(error)})

@@ -1,29 +1,30 @@
 import { Component } from '@angular/core';
-import { VisualFluxUsersService } from './visualflux-users.service';
-import { LoadingService } from './../../loading.service';
-import { SwitchGlyphiconsService } from './../../switchglyphicons.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
+import { ErrorService } from './../../services/error.service';
 
 @Component({
   selector: 'app-visualflux-users',
   templateUrl: './visualflux-users.component.html',
   styleUrls: ['./visualflux-users.component.css'],
-  providers: [VisualFluxUsersService, LoadingService, SwitchGlyphiconsService, ErrorService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService]
 })
 export class VisualfluxUsersComponent {
 
-  constructor(private VisualFluxUsersService: VisualFluxUsersService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
+  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
   public ErrorService: ErrorService) {
 
   }
 
+  private visualFluxUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTVISUALFLUX.json';
   public VisualFluxUsersData: object = {};
 
 
 
   public getVisualFluxUserUsersData(): Object {
 
-    return this.VisualFluxUsersService.getVisualFluxUsers()
+    return this.ApiService.getData(this.visualFluxUsersUrl)
       .then(visualFluxUsers => this.VisualFluxUsersData = Object.assign({}, visualFluxUsers))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.VisualFluxUsersData = {error: this.ErrorService.getErrorMessage(error)})

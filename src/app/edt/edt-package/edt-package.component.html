@@ -28,7 +28,7 @@
 										<div class="displayCell">{{ edtPackageData?.error }}</div>
 								</ng-template>
 							</th>
-							<th *ngFor="let servers of edtPackageData?.sshRequestsByEnvironment | versions:'servers'" class="text-center col-xs-1">
+							<th *ngFor="let servers of edtPackageData?.edt?.sshRequestsByEnvironment | versions:'servers'" class="text-center col-xs-1">
 								<div *ngIf="LoadingService.loading; else packageHead">
 									Loading....
 								</div>
@@ -39,7 +39,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let versionsList of edtPackageData?.sshRequestsByEnvironment | versions:'versionsList'">
+						<tr *ngFor="let versionsList of edtPackageData?.edt?.sshRequestsByEnvironment | versions:'versionsList'">
 							<td class="text-center col-xs-1 displayCol">
 								<div *ngIf="LoadingService.loading; else packageVer" class="displayCell">
 									Loading....
@@ -51,13 +51,13 @@
 								</ng-template>
 							</td>
 
-							<td *ngFor="let env of edtPackageData?.sshRequestsByEnvironment | versions:'packages'" class="text-center col-xs-1 displayCol">
+							<td *ngFor="let env of edtPackageData?.edt?.sshRequestsByEnvironment | versions:'packages'" class="text-center col-xs-1 displayCol">
 								<div *ngIf="LoadingService.loading; else packageDetail">
 									Loading....
 								</div>
 								<ng-template #packageDetail>
-									<div *ngFor="let packages of env | keys">
-										<div *ngFor="let package of packages | keys">
+									<div *ngFor="let packages of env">
+										<div *ngFor="let package of packages">
 											<div *ngIf="package.version == versionsList.version" class="displayCell">{{package.date | split:" ":0}}<br>{{package.date | split:" ":1}}</div>
 										</div>
 									</div>

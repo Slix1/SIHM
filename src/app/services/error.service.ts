@@ -7,7 +7,7 @@ export class ErrorService {
 
   public getErrorMessage(error: any): String {
     console.error(error)
-    return this.errorMessage = 'Une erreur s\'est produite: '+error.status +' '+ error.statusText;
+    return this.errorMessage = 'Une erreur s\'est produite: '+ error.status +' '+ error.statusText;
         
   }
 

@@ -1,29 +1,30 @@
 import { Component } from '@angular/core';
-import { OnDemandUsersService } from './ondemand-users.service';
-import { LoadingService } from './../../loading.service';
-import { SwitchGlyphiconsService } from './../../switchglyphicons.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
+import { ErrorService } from './../../services/error.service';
 
 @Component({
   selector: 'app-ondemand-users',
   templateUrl: './ondemand-users.component.html',
   styleUrls: ['./ondemand-users.component.css'],
-  providers: [OnDemandUsersService, LoadingService, SwitchGlyphiconsService, ErrorService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService]
 })
 export class OndemandUsersComponent {
 
-  constructor(private OnDemandUsersService: OnDemandUsersService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
+  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
   public ErrorService: ErrorService) {
 
   }
 
+  private onDemandUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTONDEMAND.json';
   public onDemandUsersData: object = {};
 
 
 
   public getOnDemandUserUsersData(): Object {
 
-    return this.OnDemandUsersService.getOnDemandUsers()
+    return this.ApiService.getData(this.onDemandUsersUrl)
       .then(onDemandUsers => this.onDemandUsersData = Object.assign({}, onDemandUsers))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.onDemandUsersData = {error: this.ErrorService.getErrorMessage(error)})

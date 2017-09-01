@@ -1,36 +1,37 @@
 import { Component, Input } from '@angular/core';
-import { WebEdiVersionsService } from './webedi-versions.service';
-import { LoadingService } from './../../loading.service';
-import { SwitchGlyphiconsService } from './../../switchglyphicons.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
+import { ErrorService } from './../../services/error.service';
 
 @Component({
   selector: 'app-webedi-versions',
   templateUrl: './webedi-versions.component.html',
   styleUrls: ['./webedi-versions.component.css'],
-  providers: [WebEdiVersionsService, LoadingService, SwitchGlyphiconsService, ErrorService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService]
 })
 export class WebediVersionsComponent {
 
   @Input() webediEnv: string;
 
-  constructor(private WebEdiVersionsService: WebEdiVersionsService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
+  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
   public ErrorService: ErrorService) {
 
   }
 
-  public WebEdiVersionData: Object = {};
+  private webEdiVersionsUrl: string = 'assets/json/mocConnection/url.json';
+  public webEdiVersionData: Object = {};
 
 
   public getWebEdiVersionsData(): Object {
 
-    this.WebEdiVersionsService.getWebEdiVersions()
-      .then(WebEdiVersionData => this.WebEdiVersionData = Object.assign({}, WebEdiVersionData))
+    this.ApiService.getData(this.webEdiVersionsUrl)
+      .then(webEdiVersionData => this.webEdiVersionData = Object.assign({}, webEdiVersionData))
       .then(() => this.LoadingService.loading = false)
-      .catch(error => this.WebEdiVersionData = {error: this.ErrorService.getErrorMessage(error)})
+      .catch(error => this.webEdiVersionData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 
-    return this.WebEdiVersionData;
+    return this.webEdiVersionData;
 
   }
 

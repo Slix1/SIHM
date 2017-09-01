@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  RouterModule,
-  Routes
-} from '@angular/router';
-import { CustomPipesModule }     from './../custom-pipes.module';
+import { RouterModule, Routes } from '@angular/router';
+import { CustomPipesModule }     from './../pipes/custom-pipes.module';
 
 
 import { EdtComponent } from './edt.component';
@@ -15,8 +12,7 @@ import { EdtPackageComponent } from './edt-package/edt-package.component';
 import { EdtSqlComponent } from './edt-sql/edt-sql.component';
 import { EdtSuiviComponent } from './edt-suivi/edt-suivi.component';
 import { EdtDaemonsComponent } from './edt-daemons/edt-daemons.component';
-import { BdocPipe } from './edt-bdoc/bdoc.pipe';
-import { SqlPipe } from './edt-sql/sql.pipe';
+
 
 
 const routes: Routes = [
@@ -32,8 +28,6 @@ const routes: Routes = [
     EdtdiskComponent,
     EdtPackageComponent,
     EdtSqlComponent,
-    BdocPipe,
-    SqlPipe,
     EdtDaemonsComponent,
     EdtSuiviComponent
   ],

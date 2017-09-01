@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { FofInfosService } from './fof-infos.service';
-import { LoadingService } from './../../loading.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { ErrorService } from './../../services/error.service';
 
 @Component({
   selector: 'app-fofinfos',
   templateUrl: './fof-infos.component.html',
   styleUrls: ['./fof-infos.component.css'],
-  providers: [FofInfosService, LoadingService, ErrorService]
+  providers: [ApiService, LoadingService, ErrorService]
 })
 export class FofinfosComponent implements OnInit {
 
-  constructor(private FofInfosService: FofInfosService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
+  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
 
   }
 
+  private fofInfosUrl: string = 'assets/json/mocks/jsonFileConnection/fof.json';
   public FofInfosData: Object = {};
 
 
   public getFofInfosData(): Object {
 
-    this.FofInfosService.getFofInfos()
+    this.ApiService.getData(this.fofInfosUrl)
       .then(FofInfosData => this.FofInfosData = Object.assign({}, FofInfosData))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.FofInfosData = {error: this.ErrorService.getErrorMessage(error)})

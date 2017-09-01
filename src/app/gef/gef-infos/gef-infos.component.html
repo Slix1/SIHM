@@ -7,15 +7,15 @@
 			<thead>
 				<tr>
 					<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-					<th *ngIf="GefInfosData?.error" class="text-center col-xs-1 displayCol">
+					<th *ngIf="gefInfosData?.error" class="text-center col-xs-1 displayCol">
 						<div *ngIf="LoadingService.loading; else infosError" class="displayCell">
 							Loading....
 						</div>
 						<ng-template #infosError>
-								<div class="displayCell">{{ GefInfosData?.error }}</div>
+								<div class="displayCell">{{ gefInfosData?.error }}</div>
 						</ng-template>
 					</th>
-					<th *ngFor="let env of GefInfosData?.environments" class="text-center col-xs-1 displayCol">
+					<th *ngFor="let env of gefInfosData?.gef?.environments" class="text-center col-xs-1 displayCol">
 						<div *ngIf="LoadingService.loading; else envHead" class="displayCell">
 							Loading....
 						</div>
@@ -28,15 +28,15 @@
 			<tbody>
 				<tr>
 					<td class="text-center col-xs-1 displayCol"><div class="displayCell">Host</div></td>
-					<td *ngIf="GefInfosData?.error" class="text-center col-xs-1 displayCol">
+					<td *ngIf="gefInfosData?.error" class="text-center col-xs-1 displayCol">
 						<div *ngIf="LoadingService.loading; else infosError" class="displayCell">
 							Loading....
 						</div>
 						<ng-template #infosError>
-								<div class="displayCell">{{ GefInfosData?.error }}</div>
+								<div class="displayCell">{{ gefInfosData?.error }}</div>
 						</ng-template>
 					</td>
-					<td *ngFor="let env of GefInfosData?.environments" class="text-center col-xs-1 displayCol">
+					<td *ngFor="let env of gefInfosData?.gef?.environments" class="text-center col-xs-1 displayCol">
 						<div *ngIf="LoadingService.loading; else envBody" class="displayCell">
 							Loading....
 						</div>

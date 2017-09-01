@@ -28,7 +28,7 @@
 										<div class="displayCell">{{ fofPackageData?.error }}</div>
 								</ng-template>
 							</th>
-							<th *ngFor="let servers of fofPackageData?.sshRequestsByEnvironment | versions:'servers'" class="text-center col-xs-1 displayCol">
+							<th *ngFor="let servers of fofPackageData?.fof?.sshRequestsByEnvironment | versions:'servers'" class="text-center col-xs-1 displayCol">
 								<div *ngIf="LoadingService.loading; else packageHead" class="displayCell">
 									Loading....
 								</div>
@@ -39,7 +39,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let versionsList of fofPackageData?.sshRequestsByEnvironment | versions:'versionsList'">
+						<tr *ngFor="let versionsList of fofPackageData?.fof?.sshRequestsByEnvironment | versions:'versionsList'">
 							<td class="text-center col-xs-1 displayCol">
 								<div *ngIf="LoadingService.loading; else packageVer" class="displayCell">
 									Loading....
@@ -51,7 +51,7 @@
 								</ng-template>
 							</td>
 
-							<td *ngFor="let env of fofPackageData?.sshRequestsByEnvironment | versions:'packages'" class="text-center col-xs-1 displayCol">
+							<td *ngFor="let env of fofPackageData?.fof?.sshRequestsByEnvironment | versions:'packages'" class="text-center col-xs-1 displayCol">
 								<div *ngIf="LoadingService.loading; else packageDetail" class="displayCell">
 									Loading....
 								</div>

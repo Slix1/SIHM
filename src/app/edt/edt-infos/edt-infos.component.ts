@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { EdtInfosService } from './edt-infos.service';
-import { LoadingService } from './../../loading.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { ErrorService } from './../../services/error.service';
 
 
 import 'rxjs/add/operator/finally';
@@ -10,23 +10,24 @@ import 'rxjs/add/operator/finally';
   selector: 'app-edtinfos',
   templateUrl: './edt-infos.component.html',
   styleUrls: ['./edt-infos.component.css'],
-  providers: [EdtInfosService, LoadingService, ErrorService]
+  providers: [ApiService, LoadingService, ErrorService]
 })
 
 
 
 export class EdtinfosComponent {
 
-  constructor(private EdtInfosService: EdtInfosService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
+  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
 
   }
 
+  private EdtInfosDataUrl: string = 'assets/json/mocks/jsonFileConnection/edt.json';
   public EdtInfosData: Object = {};
 
 
   public getEdtInfosData(): Object {
 
-    this.EdtInfosService.getEdtInfos()
+    this.ApiService.getData(this.EdtInfosDataUrl)
       .then(EdtInfosData => this.EdtInfosData = Object.assign({}, EdtInfosData))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.EdtInfosData = {error: this.ErrorService.getErrorMessage(error)})

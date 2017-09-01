@@ -7,15 +7,15 @@
 			<thead>
 				<tr>
 					<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-					<th *ngIf="WebEdiInfosData?.error" class="text-center col-xs-1 displayCol">
+					<th *ngIf="webEdiInfosData?.error" class="text-center col-xs-1 displayCol">
 						<div *ngIf="LoadingService.loading; else infosError" class="displayCell">
 							Loading....
 						</div>
 						<ng-template #infosError>
-							<div class="displayCell">{{ WebEdiInfosData?.error }}</div>
+							<div class="displayCell">{{ webEdiInfosData?.error }}</div>
 						</ng-template>
 					</th>
-					<th *ngFor="let env of WebEdiInfosData?.environments" class="text-center col-xs-1 displayCol">
+					<th *ngFor="let env of webEdiInfosData?.webedi?.environments" class="text-center col-xs-1 displayCol">
 						<p *ngIf="LoadingService.loading; else envHead" class="displayCell">
 							Loading...
 						</p>
@@ -28,15 +28,15 @@
 			<tbody>
 				<tr>
 					<td class="text-center col-xs-1 displayCol"><div class="displayCell">Host</div></td>
-					<td *ngIf="WebEdiInfosData?.error" class="text-center col-xs-1 displayCol">
+					<td *ngIf="webEdiInfosData?.error" class="text-center col-xs-1 displayCol">
 						<div *ngIf="LoadingService.loading; else infosError" class="displayCell">
 							Loading....
 						</div>
 						<ng-template #infosError>
-							<div class="displayCell">{{ WebEdiInfosData?.error }}</div>
+							<div class="displayCell">{{ webEdiInfosData?.error }}</div>
 						</ng-template>
 					</td>
-					<td *ngFor="let env of WebEdiInfosData?.environments" class="text-center col-xs-1 displayCol">
+					<td *ngFor="let env of webEdiInfosData?.webedi?.environments" class="text-center col-xs-1 displayCol">
 						<div *ngIf="LoadingService.loading; else envBody" class="displayCell">
 							Loading....
 						</div>

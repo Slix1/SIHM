@@ -1,34 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { WebEdiInfosService } from './webedi-infos.service';
-import { LoadingService } from './../../loading.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { ErrorService } from './../../services/error.service';
 
 
 @Component({
   selector: 'app-webedi-infos',
   templateUrl: './webedi-infos.component.html',
   styleUrls: ['./webedi-infos.component.css'],
-  providers: [WebEdiInfosService, LoadingService, ErrorService]
+  providers: [ApiService, LoadingService, ErrorService]
 })
 export class WebediInfosComponent implements OnInit {
 
-  constructor(private WebEdiInfosService: WebEdiInfosService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
+  constructor(private ApiService: ApiService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
 
   }
 
-  public WebEdiInfosData: object = {};
+  private webEdiInfosUrl: string = 'assets/json/mocks/jsonFileConnection/webedi.json';
+  public webEdiInfosData: object = {};
 
 
   public getWebEdiInfosData(): Object {
 
 
-    this.WebEdiInfosService.getWebEdiInfos()
-      .then(WebEdiInfosData => this.WebEdiInfosData = Object.assign({}, WebEdiInfosData))
+    this.ApiService.getData(this.webEdiInfosUrl)
+      .then(webEdiInfosData => this.webEdiInfosData = Object.assign({}, webEdiInfosData))
       .then(() => this.LoadingService.loading = false)
-      .catch(error => this.WebEdiInfosData = {error: this.ErrorService.getErrorMessage(error)})
+      .catch(error => this.webEdiInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 
-    return this.WebEdiInfosData;
+    return this.webEdiInfosData;
   }
 
 

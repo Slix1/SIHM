@@ -28,7 +28,7 @@
 										<div class="displayCell">{{ edtDiskData?.error }}</div>
 								</ng-template>
 							</th>
-							<th *ngFor="let env of edtDiskData?.sshRequestsByEnvironment" class="text-center col-xs-1">
+							<th *ngFor="let env of edtDiskData?.edt?.sshRequestsByEnvironment" class="text-center col-xs-1">
 								<div *ngIf="LoadingService.loading; else diskHead" class="displayCell">
 									Loading....
 								</div>
@@ -49,7 +49,7 @@
 										<div class="displayCell">{{ edtDiskData?.error }}</div>
 								</ng-template>
 							</td>
-							<td *ngFor="let env of edtDiskData?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
+							<td *ngFor="let env of edtDiskData?.edt?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
 								<div *ngFor="let request of env.environmentRequests">
 									<div *ngIf="request.name == 'getEspaceDisqueDataInfos'">
 										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">
@@ -76,7 +76,7 @@
 										<div class="displayCell">{{ edtDiskData?.error }}</div>
 								</ng-template>
 							</td>
-							<td *ngFor="let env of edtDiskData?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
+							<td *ngFor="let env of edtDiskData?.edt?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
 								<div *ngFor="let request of env.environmentRequests">
 									<div *ngIf="request.name == 'getEspaceDisqueHomeInfos'">
 										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">
@@ -102,7 +102,7 @@
 										<div class="displayCell">{{ edtDiskData?.error }}</div>
 								</ng-template>
 							</td>
-							<td *ngFor="let env of edtDiskData?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
+							<td *ngFor="let env of edtDiskData?.edt?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
 								<div *ngFor="let request of env.environmentRequests">
 									<div *ngIf="request.name == 'getEspaceDisqueSefasInfos'">
 										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">

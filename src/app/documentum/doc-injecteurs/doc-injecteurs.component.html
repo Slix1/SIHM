@@ -28,7 +28,7 @@
 										<div class="displayCell">{{ documentumInjecteursData?.error }}</div>
 								</ng-template>
 							</th>
-							<th *ngFor="let env of documentumInjecteursData?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
+							<th *ngFor="let env of documentumInjecteursData?.documentum?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
 								<div *ngIf="LoadingService.loading; else diskHead" class="displayCell">
 									Loading....
 								</div>
@@ -50,9 +50,9 @@
 								</ng-template>
 							</td>
 
-							<td *ngFor="let env of documentumInjecteursData?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
+							<td *ngFor="let env of documentumInjecteursData?.documentum?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
 
-								<div *ngFor="let request of env.environmentRequests | keys">
+								<div *ngFor="let request of env.environmentRequests">
 									<div *ngIf="request.name == 'getEspaceDisqueHomeInfos'">
 										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">
 											Loading....
@@ -79,7 +79,7 @@
 								</ng-template>
 							</td>
 
-							<td *ngFor="let env of documentumInjecteursData?.sshRequestsByEnvironment | injecteurs:'inject'" class="text-center col-xs-1 displayCol">
+							<td *ngFor="let env of documentumInjecteursData?.documentum?.sshRequestsByEnvironment | injecteurs:'inject'" class="text-center col-xs-1 displayCol">
 								<div *ngIf="LoadingService.loading; else dataReception" class="displayCell">
 									Loading....
 								</div>
@@ -104,7 +104,7 @@
 								</ng-template>
 							</td>
 
-							<td *ngFor="let env of documentumInjecteursData?.sshRequestsByEnvironment | injecteurs:'inject'" class="text-center col-xs-1 displayCol">
+							<td *ngFor="let env of documentumInjecteursData?.documentum?.sshRequestsByEnvironment | injecteurs:'inject'" class="text-center col-xs-1 displayCol">
 								<div *ngIf="LoadingService.loading; else dataErrors" class="displayCell">
 									Loading....
 								</div>
@@ -130,7 +130,7 @@
 								</ng-template>
 							</td>
 
-							<td *ngFor="let env of documentumInjecteursData?.sshRequestsByEnvironment | injecteurs:'inject'" class="text-center col-xs-1 displayCol">
+							<td *ngFor="let env of documentumInjecteursData?.documentum?.sshRequestsByEnvironment | injecteurs:'inject'" class="text-center col-xs-1 displayCol">
 								<div *ngIf="LoadingService.loading; else dataErrorsIntReq" class="displayCell">
 									Loading....
 								</div>

@@ -23,14 +23,14 @@
 							<th class="text-center col-xs-1 displayCol"><div class="displayCell">Utilisateurs</div></th>
 						</tr>
 					</thead>
-					<tbody *ngIf="WebediUsersData?.error">
+					<tbody *ngIf="webediUsersData.error">
 						<tr>
 							<td class="text-center col-xs-1 displayCol">
 								<div *ngIf="LoadingService.loading; else usersError" class="displayCell">
 									Loading....
 								</div>
 								<ng-template #usersError>
-									<div class="displayCell">{{ WebediUsersData?.error }}</div>
+									<div class="displayCell">{{ webediUsersData.error }}</div>
 								</ng-template>
 							</td>
 							<td class="text-center col-xs-1 displayCol">
@@ -38,12 +38,12 @@
 									Loading....
 								</div>
 								<ng-template #usersError>
-									<div class="displayCell">{{ WebediUsersData?.error }}</div>
+									<div class="displayCell">{{ webediUsersData.error }}</div>
 								</ng-template>
 							</td>
 						</tr>
 					</tbody>
-					<tbody *ngFor="let user of WebediUsersData?.listGroupAD">
+					<tbody *ngFor="let user of webediUsersData.TESTWEBEDI?.listGroupAD">
 						<tr>
 							<td *ngIf="LoadingService.loading; else usersGroup" class="text-center col-xs-1 displayCol">
 								<div class="displayCell">Loading....</div>

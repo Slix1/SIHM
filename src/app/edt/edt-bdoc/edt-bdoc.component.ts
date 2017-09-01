@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { EdtBdocService } from './edt-bdoc.service';
-import { LoadingService } from './../../loading.service';
-import { SwitchGlyphiconsService } from './../../switchglyphicons.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
+import { ErrorService } from './../../services/error.service';
 
 
 
@@ -11,21 +11,22 @@ import { ErrorService } from './../../error.service';
   selector: 'app-edtbdoc',
   templateUrl: './edt-bdoc.component.html',
   styleUrls: ['./edt-bdoc.component.css'],
-  providers: [EdtBdocService, LoadingService, SwitchGlyphiconsService, ErrorService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService]
 })
 export class EdtbdocComponent {
 
 
-  constructor(public EdtBdocService: EdtBdocService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
+  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
   public ErrorService: ErrorService) {
 
   }
 
-  edtBdocData: object = {};
+  private edtBdocUrl: string = 'assets/json/mocks/jsonFileConnection/edt.json';
+  public edtBdocData: object = {};
 
 
   public getEdtBdocData(): Object {
-    this.EdtBdocService.getEdtBdocInfos()
+    this.ApiService.getData(this.edtBdocUrl)
       .then(edtBdocData => this.edtBdocData = Object.assign({}, edtBdocData))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.edtBdocData = {error: this.ErrorService.getErrorMessage(error)})

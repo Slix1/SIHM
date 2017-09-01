@@ -1,26 +1,27 @@
 import { Component } from '@angular/core';
-import { FofPackageService } from './fof-package.service';
-import { LoadingService } from './../../loading.service';
-import { SwitchGlyphiconsService } from './../../switchglyphicons.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
+import { ErrorService } from './../../services/error.service';
 
 @Component({
   selector: 'app-fofpackage',
   templateUrl: './fof-package.component.html',
   styleUrls: ['./fof-package.component.css'],
-  providers: [FofPackageService, LoadingService, SwitchGlyphiconsService, ErrorService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService]
 })
 export class FofpackageComponent {
 
-  constructor(public FofPackageService: FofPackageService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
+  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
   public ErrorService: ErrorService) {
   }
 
-  fofPackageData: object = {};
+  private fofPackageUrl: string = 'assets/json/mocks/sshConnection/fof.json';
+  public fofPackageData: object = {};
 
 
   public getFofPackageData(): Object {
-    this.FofPackageService.getFofPackageInfos()
+    this.ApiService.getData(this.fofPackageUrl)
       .then(fofPackageData => this.fofPackageData = Object.assign({}, fofPackageData))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.fofPackageData = {error: this.ErrorService.getErrorMessage(error)})

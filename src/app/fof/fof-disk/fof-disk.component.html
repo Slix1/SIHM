@@ -28,7 +28,7 @@
 										<div class="displayCell">{{ fofDiskData?.error }}</div>
 								</ng-template>
 							</th>
-							<th *ngFor="let env of fofDiskData?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
+							<th *ngFor="let env of fofDiskData?.fof?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
 								<div *ngIf="LoadingService.loading; else diskHead" class="displayCell">
 									Loading....
 								</div>
@@ -50,7 +50,7 @@
 								</ng-template>
 							</td>
 
-							<td *ngFor="let env of fofDiskData?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
+							<td *ngFor="let env of fofDiskData?.fof?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
 								<div *ngFor="let request of env.environmentRequests">
 									<div *ngIf="request.name == 'getEspaceDisqueDataInfos'">
 										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">
@@ -78,7 +78,7 @@
 								</ng-template>
 							</td>
 
-							<td *ngFor="let env of fofDiskData?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
+							<td *ngFor="let env of fofDiskData?.fof?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
 								<div *ngFor="let request of env.environmentRequests">
 									<div *ngIf="request.name == 'getEspaceDisqueHomeInfos'">
 										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">
@@ -105,7 +105,7 @@
 								</ng-template>
 							</td>
 
-							<td *ngFor="let env of fofDiskData?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
+							<td *ngFor="let env of fofDiskData?.fof?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
 								<div *ngFor="let request of env.environmentRequests">
 									<div *ngIf="request.name == 'getEspaceDisqueSefasInfos'">
 										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">

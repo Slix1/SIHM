@@ -15,7 +15,7 @@
 							<div class="displayCell">{{ visualFluxInfosData?.error }}</div>
 						</ng-template>
 					</th>
-					<th *ngFor="let env of visualFluxInfosData?.environments" class="text-center col-xs-1 displayCol">
+					<th *ngFor="let env of visualFluxInfosData?.visualflux?.environments" class="text-center col-xs-1 displayCol">
 						<div *ngIf="LoadingService.loading; else envHead" class="displayCell">
 							Loading....
 						</div>
@@ -36,7 +36,7 @@
 							<div class="displayCell">{{ visualFluxInfosData?.error }}</div>
 						</ng-template>
 					</td>
-					<td *ngFor="let env of visualFluxInfosData?.environments" class="text-center col-xs-1 displayCol">
+					<td *ngFor="let env of visualFluxInfosData?.visualflux?.environments" class="text-center col-xs-1 displayCol">
 						<div *ngIf="LoadingService.loading; else envBody"class="displayCell">
 							Loading....
 						</div>

@@ -1,25 +1,26 @@
 import { Component } from '@angular/core';
-import { EdtPackageService } from './edt-package.service';
-import { LoadingService } from './../../loading.service';
-import { SwitchGlyphiconsService } from './../../switchglyphicons.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
+import { ErrorService } from './../../services/error.service';
 
 @Component({
   selector: 'app-edt-package',
   templateUrl: './edt-package.component.html',
   styleUrls: ['./edt-package.component.css'],
-  providers: [EdtPackageService, LoadingService, SwitchGlyphiconsService, ErrorService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService]
 })
 export class EdtPackageComponent {
 
-  constructor(public EdtPackageService: EdtPackageService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
+  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService, public ErrorService: ErrorService) {
   };
 
-  edtPackageData: object = {};
+  private edtPackageUrl: string = 'assets/json/mocks/sshConnection/edt.json';
+  public edtPackageData: object = {};
 
 
   public getEdtPackageData(): Object {
-    this.EdtPackageService.getEdtPackageInfos()
+    this.ApiService.getData(this.edtPackageUrl)
       .then(edtPackageData => this.edtPackageData = Object.assign({}, edtPackageData))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.edtPackageData = {error: this.ErrorService.getErrorMessage(error)})

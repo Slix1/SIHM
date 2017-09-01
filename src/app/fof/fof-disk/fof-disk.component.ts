@@ -1,27 +1,28 @@
 import { Component } from '@angular/core';
-import { FofDiskService } from './fof-disk.service';
-import { LoadingService } from './../../loading.service';
-import { SwitchGlyphiconsService } from './../../switchglyphicons.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
+import { ErrorService } from './../../services/error.service';
 
 @Component({
   selector: 'app-fofdisk',
   templateUrl: './fof-disk.component.html',
   styleUrls: ['./fof-disk.component.css'],
-  providers: [FofDiskService, LoadingService, SwitchGlyphiconsService, ErrorService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService]
 })
 export class FofdiskComponent {
 
-  constructor(public FofDiskService: FofDiskService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
+  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
   public ErrorService: ErrorService) {
 
   }
 
-  fofDiskData: object = {};
+  private fofDiskUrl: string = 'assets/json/mocks/sshConnection/fof.json';
+  public fofDiskData: object = {};
 
 
   public getFofDiskData(): Object {
-    this.FofDiskService.getFofDiskInfos()
+    this.ApiService.getData(this.fofDiskUrl)
       .then(fofDiskData => this.fofDiskData = Object.assign({}, fofDiskData))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.fofDiskData = {error: this.ErrorService.getErrorMessage(error)})

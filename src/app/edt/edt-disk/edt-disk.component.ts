@@ -1,28 +1,29 @@
 import { Component } from '@angular/core';
-import { EdtDiskService } from './edt-disk.service';
-import { LoadingService } from './../../loading.service';
-import { SwitchGlyphiconsService } from './../../switchglyphicons.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
+import { ErrorService } from './../../services/error.service';
 
 @Component({
   selector: 'app-edtdisk',
   templateUrl: './edt-disk.component.html',
   styleUrls: ['./edt-disk.component.css'],
-  providers: [EdtDiskService, LoadingService, SwitchGlyphiconsService, ErrorService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService]
 })
 export class EdtdiskComponent {
 
 
-  constructor(public EdtDiskService: EdtDiskService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
+  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
    public ErrorService: ErrorService) {
 
   }
 
-  edtDiskData: object = {};
+  private edtDiskUrl: string = 'assets/json/mocks/sshConnection/edt.json';
+  public edtDiskData: object = {};
 
 
   public getEdtDiskData(): Object {
-    this.EdtDiskService.getEdtDiskInfos()
+    this.ApiService.getData(this.edtDiskUrl)
       .then(edtDiskData => this.edtDiskData = Object.assign({}, edtDiskData))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.edtDiskData = {error: this.ErrorService.getErrorMessage(error)})

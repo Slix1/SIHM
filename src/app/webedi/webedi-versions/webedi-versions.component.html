@@ -19,15 +19,15 @@
 				<thead>
 					<tr>
 						<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-						<th *ngIf="WebEdiVersionData?.error" class="text-center col-xs-1 displayCol">
+						<th *ngIf="webEdiVersionData?.error" class="text-center col-xs-1 displayCol">
 							<div *ngIf="LoadingService.loading; else versionError" class="displayCell">
 								Loading....
 							</div>
 							<ng-template #versionError>
-								<div class="displayCell">{{ WebEdiVersionData?.error }}</div>
+								<div class="displayCell">{{ webEdiVersionData?.error }}</div>
 							</ng-template>
 						</th>
-						<th *ngFor="let env of WebEdiVersionData?.environments" class="text-center col-xs-1 displayCol">
+						<th *ngFor="let env of webEdiVersionData?.webedi?.environments" class="text-center col-xs-1 displayCol">
 							<div *ngIf="LoadingService.loading; else verHead" class="displayCell">
 								Loading...
 							</div>
@@ -39,15 +39,15 @@
 					</tr>
 					<tr>
 						<td class="text-center col-xs-1 displayCol"><div class="displayCell">Bdoc</div></td>
-						<td *ngIf="WebEdiVersionData?.error" class="text-center col-xs-1 displayCol">
+						<td *ngIf="webEdiVersionData?.error" class="text-center col-xs-1 displayCol">
 							<div *ngIf="LoadingService.loading; else versionError" class="displayCell">
 								Loading....
 							</div>
 							<ng-template #versionError>
-								<div class="displayCell">{{ WebEdiVersionData?.error }}</div>
+								<div class="displayCell">{{ webEdiVersionData?.error }}</div>
 							</ng-template>
 						</td>
-						<td *ngFor="let env of WebEdiVersionData?.environments" class="text-center col-xs-1 displayCol">
+						<td *ngFor="let env of webEdiVersionData?.webedi?.environments" class="text-center col-xs-1 displayCol">
 							<div *ngIf="LoadingService.loading; else verBody" class="displayCell">
 								Loading....
 							</div>

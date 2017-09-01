@@ -1,25 +1,27 @@
 import { Component } from '@angular/core';
-import { EdtDaemonsService } from './edt-daemons.service';
-import { LoadingService } from './../../loading.service';
-import { SwitchGlyphiconsService } from './../../switchglyphicons.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
+import { ErrorService } from './../../services/error.service';
 
 @Component({
   selector: 'app-edt-daemons',
   templateUrl: './edt-daemons.component.html',
   styleUrls: ['./edt-daemons.component.css'],
-  providers: [EdtDaemonsService, LoadingService, SwitchGlyphiconsService, ErrorService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService]
 })
 export class EdtDaemonsComponent {
 
-  constructor(public EdtDaemonsService: EdtDaemonsService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
+  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService,
    public LoadingService: LoadingService, public ErrorService: ErrorService) {};
 
-  edtDaemonsData: object = {};
+
+  private edtDaemonsUrl: string = 'assets/json/edt.json';
+  public edtDaemonsData: object = {};
 
 
   public getEdtDaemonsData(): Object {
-    this.EdtDaemonsService.getEdtDaemonsInfos()
+    this.ApiService.getData(this.edtDaemonsUrl)
       .then(edtDaemonsData => this.edtDaemonsData = Object.assign({}, edtDaemonsData))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.edtDaemonsData = {error: this.ErrorService.getErrorMessage(error)})

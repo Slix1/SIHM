@@ -1,30 +1,32 @@
 import { Component } from '@angular/core';
-import { DocumentumInjecteursService } from './doc-injecteurs.service';
-import { LoadingService } from './../../loading.service';
-import { SwitchGlyphiconsService } from './../../switchglyphicons.service';
-import { ErrorService } from './../../error.service';
+import { ApiService } from './../../services/api.service';
+import { LoadingService } from './../../services/loading.service';
+import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
+import { ErrorService } from './../../services/error.service';
 
 
 @Component({
   selector: 'app-docinjecteurs',
   templateUrl: './doc-injecteurs.component.html',
   styleUrls: ['./doc-injecteurs.component.css'],
-  providers: [DocumentumInjecteursService, LoadingService, SwitchGlyphiconsService, ErrorService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService]
 })
 export class DocinjecteursComponent {
 
 
-  constructor(public DocumentumInjecteursService: DocumentumInjecteursService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
+  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
   public ErrorService: ErrorService) {
 
   }
 
-  documentumInjecteursData: object = {};
+
+  private documentumInjecteursUrl: string = 'assets/json/mocks/sshConnection/documentum.json';
+  public documentumInjecteursData: object = {};
 
 
   public getEdtDiskData(): Object {
 
-    this.DocumentumInjecteursService.getDocumentumInjecteursInfos()
+    this.ApiService.getData(this.documentumInjecteursUrl)
       .then(documentumInjecteursData => this.documentumInjecteursData = Object.assign({}, documentumInjecteursData))
       .then(() => this.LoadingService.loading = false)
       .catch(error => this.documentumInjecteursData = {error: this.ErrorService.getErrorMessage(error)})
