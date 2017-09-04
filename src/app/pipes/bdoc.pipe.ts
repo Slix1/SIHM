@@ -29,8 +29,6 @@ export class BdocPipe implements PipeTransform {
 
       result = {bdoc: dataBdoc};
 
-      // console.log(result);
-
       return result[args];
     }
   }

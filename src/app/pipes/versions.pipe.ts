@@ -49,8 +49,6 @@ export class VersionsPipe implements PipeTransform {
 
             result = {servers: dataEnv, packages: dataPackage, versionsList: versionsList};
 
-            console.log(result);
-
             return result[args];
         }
     }

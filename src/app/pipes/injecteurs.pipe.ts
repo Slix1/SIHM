@@ -50,10 +50,9 @@ export class InjecteursPipe implements PipeTransform {
                     errors: errors[envIndex], errorsFiles: errorsFiles[envIndex], errorsIntReq: errorsIntReq[envIndex], errorsIntReqFiles: errorsIntReqFiles[envIndex]
                 };
             });
+                       
 
             result = { inject: dataEnv };
-
-            console.log(result);
 
             return result[args];
         }
