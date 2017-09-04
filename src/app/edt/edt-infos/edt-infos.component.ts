@@ -26,7 +26,7 @@ export class EdtinfosComponent {
   public getEdtInfosData(): Object {
 
     this.ApiService.getData(this.EdtInfosDataUrl)
-      .then(EdtInfosData => this.EdtInfosData = Object.assign({}, EdtInfosData))
+      .then(EdtInfosData => this.EdtInfosData = {...EdtInfosData})
       .catch(error => this.EdtInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
       

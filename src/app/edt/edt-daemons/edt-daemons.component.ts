@@ -22,7 +22,7 @@ export class EdtDaemonsComponent {
 
   public getEdtDaemonsData(): Object {
     this.ApiService.getData(this.edtDaemonsUrl)
-      .then(edtDaemonsData => this.edtDaemonsData = Object.assign({}, edtDaemonsData))
+      .then(edtDaemonsData => this.edtDaemonsData = {...edtDaemonsData})
       .catch(error => this.edtDaemonsData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

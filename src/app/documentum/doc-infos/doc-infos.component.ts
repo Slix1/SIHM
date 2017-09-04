@@ -21,7 +21,7 @@ export class DocinfosComponent implements OnInit {
   public getDocumentumInfosData(): Object {
 
     return this.ApiService.getData(this.DocumentumInfosUrl)
-      .then(DocumentumInfos => this.DocumentumInfosData = Object.assign({}, DocumentumInfos))
+      .then(DocumentumInfos => this.DocumentumInfosData = {...DocumentumInfos})
       .catch(error => this.DocumentumInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 
@@ -30,8 +30,7 @@ export class DocinfosComponent implements OnInit {
   ngOnInit(): void {
 
     this.LoadingService.loadingTrue();
-
-    this.getDocumentumInfosData()
+    this.getDocumentumInfosData();
   }
 
 }

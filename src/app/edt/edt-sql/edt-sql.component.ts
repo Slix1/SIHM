@@ -21,7 +21,7 @@ export class EdtSqlComponent {
 
   public getEdtSqlData(): Object {
     this.ApiService.getData(this.edtSqlUrl)
-      .then(edtSqlData => this.edtSqlData = Object.assign({}, edtSqlData))
+      .then(edtSqlData => this.edtSqlData = {...edtSqlData})
       .catch(error => this.edtSqlData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

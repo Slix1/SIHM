@@ -23,7 +23,7 @@ export class GespaUsersComponent {
   public getGespaUserUsersData(): Object {
 
     return this.ApiService.getData(this.gespaUsersUrl)
-      .then(gespaUsers => this.gespaUsersData = Object.assign({}, gespaUsers))
+      .then(gespaUsers => this.gespaUsersData = {...gespaUsers})
       .catch(error => this.gespaUsersData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
   }

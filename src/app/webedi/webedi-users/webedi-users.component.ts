@@ -23,7 +23,7 @@ export class WebediUsersComponent {
   public getWebEdiUsersData(): Object {
 
     return this.ApiService.getData(this.webediUsersUrl)
-      .then(webediUsers => this.webediUsersData = Object.assign({}, webediUsers))
+      .then(webediUsers => this.webediUsersData = {...webediUsers})
       .catch(error => this.webediUsersData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
   }

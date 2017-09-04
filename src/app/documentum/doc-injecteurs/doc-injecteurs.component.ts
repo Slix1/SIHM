@@ -25,7 +25,7 @@ export class DocinjecteursComponent {
   public getEdtDiskData(): Object {
 
     this.ApiService.getData(this.documentumInjecteursUrl)
-      .then(documentumInjecteursData => this.documentumInjecteursData = Object.assign({}, documentumInjecteursData))
+      .then(documentumInjecteursData => this.documentumInjecteursData = {...documentumInjecteursData})
       .catch(error => this.documentumInjecteursData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

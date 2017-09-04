@@ -20,7 +20,7 @@ export class GefInfosComponent implements OnInit {
   public getGefInfosData(): Object {
 
     this.ApiService.getData(this.gefInfosUrl)
-      .then(GefInfosData => this.gefInfosData = Object.assign({}, GefInfosData))
+      .then(GefInfosData => this.gefInfosData = {...GefInfosData})
       .catch(error => this.gefInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

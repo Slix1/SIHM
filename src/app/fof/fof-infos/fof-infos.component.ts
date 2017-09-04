@@ -20,7 +20,7 @@ export class FofinfosComponent implements OnInit {
   public getFofInfosData(): Object {
 
     this.ApiService.getData(this.fofInfosUrl)
-      .then(FofInfosData => this.FofInfosData = Object.assign({}, FofInfosData))
+      .then(FofInfosData => this.FofInfosData = {...FofInfosData})
       .catch(error => this.FofInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

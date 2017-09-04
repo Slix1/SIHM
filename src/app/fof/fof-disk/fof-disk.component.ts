@@ -21,7 +21,7 @@ export class FofdiskComponent {
 
   public getFofDiskData(): Object {
     this.ApiService.getData(this.fofDiskUrl)
-      .then(fofDiskData => this.fofDiskData = Object.assign({}, fofDiskData))
+      .then(fofDiskData => this.fofDiskData = {...fofDiskData})
       .catch(error => this.fofDiskData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

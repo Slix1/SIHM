@@ -21,7 +21,7 @@ export class FofpackageComponent {
 
   public getFofPackageData(): Object {
     this.ApiService.getData(this.fofPackageUrl)
-      .then(fofPackageData => this.fofPackageData = Object.assign({}, fofPackageData))
+      .then(fofPackageData => this.fofPackageData = {...fofPackageData})
       .catch(error => this.fofPackageData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

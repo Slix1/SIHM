@@ -20,7 +20,7 @@ export class OndemandInfosComponent implements OnInit {
   public getOnDemandInfosData(): Object {
 
     this.ApiService.getData(this.onDemandInfosUrl)
-      .then(onDemandInfosData => this.onDemandInfosData = Object.assign({}, onDemandInfosData))
+      .then(onDemandInfosData => this.onDemandInfosData = {...onDemandInfosData})
       .catch(error => this.onDemandInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

@@ -21,7 +21,7 @@ export class EdtSuiviComponent {
 
   public getEdtSuiviData(): Object {
     this.ApiService.getData(this.edtSuiviUrl)
-      .then(edtSuiviData => this.edtSuiviData = Object.assign({}, edtSuiviData))
+      .then(edtSuiviData => this.edtSuiviData = {...edtSuiviData})
       .catch(error => this.edtSuiviData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

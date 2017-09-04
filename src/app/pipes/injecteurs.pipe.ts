@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'injecteurs', pure: false })
+@Pipe({ name: 'injecteurs' })
 export class InjecteursPipe implements PipeTransform {
 
     transform(data: any[], args?): any[] {
@@ -51,8 +51,9 @@ export class InjecteursPipe implements PipeTransform {
                 };
             });
 
-            result['inject'] = dataEnv;
-            // console.log(result);
+            result = { inject: dataEnv };
+
+            console.log(result);
 
             return result[args];
         }

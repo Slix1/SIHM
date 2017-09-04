@@ -21,7 +21,7 @@ export class GesmagInfosComponent implements OnInit {
   public getGesmagInfosData(): Object {
 
     this.ApiService.getData(this.gesmagInfosUrl)
-      .then(gesmagInfosData => this.gesmagInfosData = Object.assign({}, gesmagInfosData))
+      .then(gesmagInfosData => this.gesmagInfosData = {...gesmagInfosData})
       .catch(error => this.gesmagInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

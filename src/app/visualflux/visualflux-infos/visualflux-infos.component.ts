@@ -20,7 +20,7 @@ export class VisualfluxInfosComponent implements OnInit {
   public getVisualFluxInfosData(): Object {
 
     this.ApiService.getData(this.visualFluxInfosUrl)
-      .then(visualFluxInfosData => this.visualFluxInfosData = Object.assign({}, visualFluxInfosData))
+      .then(visualFluxInfosData => this.visualFluxInfosData = {...visualFluxInfosData})
       .catch(error => this.visualFluxInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

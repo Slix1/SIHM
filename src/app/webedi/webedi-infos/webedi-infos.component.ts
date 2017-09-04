@@ -22,7 +22,7 @@ export class WebediInfosComponent implements OnInit {
 
 
     this.ApiService.getData(this.webEdiInfosUrl)
-      .then(webEdiInfosData => this.webEdiInfosData = Object.assign({}, webEdiInfosData))
+      .then(webEdiInfosData => this.webEdiInfosData = {...webEdiInfosData})
       .catch(error => this.webEdiInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

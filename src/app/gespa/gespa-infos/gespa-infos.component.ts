@@ -22,7 +22,7 @@ export class GespaInfosComponent {
   public getGespaInfosData(): Object {
 
     this.ApiService.getData(this.gespaInfosUrl)
-      .then(gespaInfosData => this.gespaInfosData = Object.assign({}, gespaInfosData))
+      .then(gespaInfosData => this.gespaInfosData = {...gespaInfosData})
       .catch(error => this.gespaInfosData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

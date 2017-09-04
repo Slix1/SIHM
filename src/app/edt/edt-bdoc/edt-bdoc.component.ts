@@ -25,7 +25,7 @@ export class EdtbdocComponent {
 
   public getEdtBdocData(): Object {
     this.ApiService.getData(this.edtBdocUrl)
-      .then(edtBdocData => this.edtBdocData = Object.assign({}, edtBdocData))
+      .then(edtBdocData => this.edtBdocData = {...edtBdocData})
       .catch(error => this.edtBdocData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

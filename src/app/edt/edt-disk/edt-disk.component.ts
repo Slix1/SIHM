@@ -22,7 +22,7 @@ export class EdtdiskComponent {
 
   public getEdtDiskData(): Object {
     this.ApiService.getData(this.edtDiskUrl)
-      .then(edtDiskData => this.edtDiskData = Object.assign({}, edtDiskData))
+      .then(edtDiskData => this.edtDiskData = {...edtDiskData})
       .catch(error => this.edtDiskData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

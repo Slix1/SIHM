@@ -23,7 +23,7 @@ export class VisualfluxUsersComponent {
   public getVisualFluxUserUsersData(): Object {
 
     return this.ApiService.getData(this.visualFluxUsersUrl)
-      .then(visualFluxUsers => this.VisualFluxUsersData = Object.assign({}, visualFluxUsers))
+      .then(visualFluxUsers => this.VisualFluxUsersData = {...visualFluxUsers})
       .catch(error => this.VisualFluxUsersData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
   }

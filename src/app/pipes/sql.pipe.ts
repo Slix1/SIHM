@@ -38,7 +38,7 @@ export class SqlPipe implements PipeTransform {
         }
       });
 
-      result['servers'] = dataEnv;
+      result = {servers: dataEnv};
 
       return result[args];
     }

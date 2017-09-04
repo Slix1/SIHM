@@ -27,7 +27,7 @@ export class BdocPipe implements PipeTransform {
 
       dataBdoc.sort((a, b) => a.environment.localeCompare(b.environment));
 
-      result['bdoc'] = dataBdoc;
+      result = {bdoc: dataBdoc};
 
       // console.log(result);
 

@@ -57,9 +57,7 @@
 								</div>
 								<ng-template #packageDetail>
 									<div *ngFor="let packages of env">
-										<div *ngFor="let package of packages">
-											<div *ngIf="package.version == versionsList.version" class="displayCell">{{package.date | split:" ":0}}<br>{{package.date | split:" ":1}}</div>
-										</div>
+										<div class="displayCell" *ngIf="packages.version == versionsList.version">{{packages.date | split:" ":0}}<br>{{packages.date | split:" ":1}}</div>
 									</div>
 								</ng-template>
 							</td>

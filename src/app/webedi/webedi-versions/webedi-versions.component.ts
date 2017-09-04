@@ -24,7 +24,7 @@ export class WebediVersionsComponent {
   public getWebEdiVersionsData(): Object {
 
     this.ApiService.getData(this.webEdiVersionsUrl)
-      .then(webEdiVersionData => this.webEdiVersionData = Object.assign({}, webEdiVersionData))
+      .then(webEdiVersionData => this.webEdiVersionData = {...webEdiVersionData})
       .catch(error => this.webEdiVersionData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

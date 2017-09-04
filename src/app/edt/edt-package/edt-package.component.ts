@@ -21,7 +21,7 @@ export class EdtPackageComponent {
 
   public getEdtPackageData(): Object {
     this.ApiService.getData(this.edtPackageUrl)
-      .then(edtPackageData => this.edtPackageData = Object.assign({}, edtPackageData))
+      .then(edtPackageData => this.edtPackageData = {...edtPackageData})
       .catch(error => this.edtPackageData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
 

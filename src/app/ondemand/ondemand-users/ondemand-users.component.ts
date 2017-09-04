@@ -23,7 +23,7 @@ export class OndemandUsersComponent {
   public getOnDemandUserUsersData(): Object {
 
     return this.ApiService.getData(this.onDemandUsersUrl)
-      .then(onDemandUsers => this.onDemandUsersData = Object.assign({}, onDemandUsers))
+      .then(onDemandUsers => this.onDemandUsersData = {...onDemandUsers})
       .catch(error => this.onDemandUsersData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
   }

@@ -23,7 +23,7 @@ export class GesmagUsersComponent {
   public getGesmagUserUsersData(): Object {
 
     return this.ApiService.getData(this.gesmagUsersUrl)
-      .then(gesmagUsers => this.gesmagUsersData = Object.assign({}, gesmagUsers))
+      .then(gesmagUsers => this.gesmagUsersData = {...gesmagUsers})
       .catch(error => this.gesmagUsersData = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading = false);
   }
