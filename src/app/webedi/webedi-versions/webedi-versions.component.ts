@@ -17,7 +17,7 @@ export class WebediVersionsComponent {
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-  private webEdiVersionsUrl: string = 'assets/json/mocConnection/url.json';
+  private webEdiVersionsUrl: string = 'assets/json/mocks/urlConnection/url.json';
   public webEdiVersionData: Object = {};
 
 

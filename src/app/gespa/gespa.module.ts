@@ -7,6 +7,7 @@ import { CustomPipesModule }     from './../pipes/custom-pipes.module';
 import { GespaComponent } from './gespa.component';
 import { GespaInfosComponent } from './gespa-infos/gespa-infos.component';
 import { GespaUsersComponent } from './gespa-users/gespa-users.component';
+import { GespaVersionsComponent } from './gespa-versions/gespa-versions.component';
 
 
 
@@ -18,7 +19,8 @@ const routes: Routes = [
   declarations: [
     GespaComponent,
     GespaInfosComponent,
-    GespaUsersComponent
+    GespaUsersComponent,
+    GespaVersionsComponent
   ],
   imports: [
     CommonModule,

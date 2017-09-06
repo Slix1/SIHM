@@ -7,8 +7,10 @@
 
   <div class="content">
     
-    <app-gespa-infos></app-gespa-infos>
+		<app-gespa-infos #env></app-gespa-infos>
+		<app-gespa-versions [gespaEnv]="env"></app-gespa-versions>
 		<app-gespa-users></app-gespa-users>
+		
 		
   </div>
 		

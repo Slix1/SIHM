@@ -7,6 +7,7 @@ import { CustomPipesModule }     from './../pipes/custom-pipes.module';
 import { OndemandComponent } from './ondemand.component';
 import { OndemandInfosComponent } from './ondemand-infos/ondemand-infos.component';
 import { OndemandUsersComponent } from './ondemand-users/ondemand-users.component';
+import { OndemandVersionsComponent } from './ondemand-versions/ondemand-versions.component';
 
 
 
@@ -19,7 +20,8 @@ const routes: Routes = [
   declarations: [
     OndemandComponent,
     OndemandInfosComponent,
-    OndemandUsersComponent
+    OndemandUsersComponent,
+    OndemandVersionsComponent
   ],
   imports: [
     CommonModule,

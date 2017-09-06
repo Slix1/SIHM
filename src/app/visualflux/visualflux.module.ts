@@ -6,6 +6,7 @@ import { CustomPipesModule }     from './../pipes/custom-pipes.module';
 import { VisualfluxComponent } from './visualflux.component';
 import { VisualfluxInfosComponent } from './visualflux-infos/visualflux-infos.component';
 import { VisualfluxUsersComponent } from './visualflux-users/visualflux-users.component';
+import { VisualfluxVersionsComponent } from './visualflux-versions/visualflux-versions.component';
 
 
 
@@ -19,7 +20,8 @@ const routes: Routes = [
   declarations: [
     VisualfluxComponent,
     VisualfluxInfosComponent,
-    VisualfluxUsersComponent
+    VisualfluxUsersComponent,
+    VisualfluxVersionsComponent
   ],
   imports: [
     CommonModule,

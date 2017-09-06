@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'versions' })
-export class VersionsPipe implements PipeTransform {
+export class PackageVersionsPipe implements PipeTransform {
 
     transform(data: any[], args?): any[] {
 
