@@ -33,7 +33,7 @@
 							</div>
 							<ng-template #verHead>
 								<div *ngFor="let url of visualfluxVersionData?.url?.urlContentsList | version:'visualflux'">
-									<div class="displayCell" *ngIf="env.server == url.server"><a href="{{ url.url }}">{{ env.environment }}</a></div>
+									<div class="displayCell" *ngIf="env.server == url.server"><a href="{{ url.url }}" target="_blank">{{ env.environment }}</a></div>
 								</div>
 							</ng-template>
 						</th>
@@ -54,7 +54,7 @@
 								Loading....
 							</div>
 							<ng-template #verBody>
-								<div class="displayCell">{{ url.content | split:'/noscript>':1 | split:'<\script':0 | split:' ':0 }}</div>
+								<div class="displayCell">{{ url.content | split:'<\/noscript>':1 | split:'<\script':0 | split:' ':0 }}</div>
 							</ng-template>
 						</td>
 					</tr>
