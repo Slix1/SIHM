@@ -13,7 +13,9 @@ export class GefInfosComponent implements OnInit {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  private gefInfosUrl: string = 'assets/json/mocks/jsonFileConnection/gef.json';
+  // private gefInfosUrl: string = 'assets/json/mocks/jsonFileConnection/gef.json';
+  private gefInfosUrl: string = 'api/gef/infos';
+  
   public gefInfosData: Object = {};
 
 

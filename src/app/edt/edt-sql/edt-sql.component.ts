@@ -15,7 +15,9 @@ export class EdtSqlComponent {
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-  private edtSqlUrl: string = 'assets/json/mocks/sshConnection/edt.json';
+  // private edtSqlUrl: string = 'assets/json/mocks/sshConnection/edt.json';
+  private edtSqlUrl: string = 'api/edt/sql_version';
+  
   public edtSqlData: object = {};
 
 

@@ -15,7 +15,9 @@ export class GesmagUsersComponent {
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-  private gesmagUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTGESMAG.json';
+  // private gesmagUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTGESMAG.json';
+  private gesmagUsersUrl: string = 'api/gesmag/users';
+  
   public gesmagUsersData: object = {};
 
 

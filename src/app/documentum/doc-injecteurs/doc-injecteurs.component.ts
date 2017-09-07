@@ -18,7 +18,9 @@ export class DocinjecteursComponent {
   private ErrorService: ErrorService) { }
 
 
-  private documentumInjecteursUrl: string = 'assets/json/mocks/sshConnection/documentum.json';
+  // private documentumInjecteursUrl: string = 'assets/json/mocks/sshConnection/documentum.json';
+  private documentumInjecteursUrl: string = 'api/documentum/injecteurs';
+  
   public documentumInjecteursData: object = {};
 
 

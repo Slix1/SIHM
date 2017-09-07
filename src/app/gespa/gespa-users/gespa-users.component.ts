@@ -15,7 +15,9 @@ export class GespaUsersComponent {
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-  private gespaUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTGESPA.json';
+  // private gespaUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTGESPA.json';
+  private gespaUsersUrl: string = 'api/gespa/users';
+  
   public gespaUsersData: object = {};
 
 

@@ -13,7 +13,9 @@ export class FofinfosComponent implements OnInit {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  private fofInfosUrl: string = 'assets/json/mocks/jsonFileConnection/fof.json';
+  // private fofInfosUrl: string = 'assets/json/mocks/jsonFileConnection/fof.json';
+  private fofInfosUrl: string = '/api/fof/infos';
+  
   public FofInfosData: Object = {};
 
 

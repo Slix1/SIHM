@@ -15,7 +15,9 @@ export class OndemandUsersComponent {
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-  private onDemandUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTONDEMAND.json';
+  // private onDemandUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTONDEMAND.json';
+  private onDemandUsersUrl: string = 'api/ondemand/users';
+  
   public onDemandUsersData: object = {};
 
 

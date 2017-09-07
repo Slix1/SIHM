@@ -13,7 +13,9 @@ export class VisualfluxInfosComponent implements OnInit {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  private visualFluxInfosUrl: string = 'assets/json/mocks/jsonFileConnection/visualflux.json';
+  // private visualFluxInfosUrl: string = 'assets/json/mocks/jsonFileConnection/visualflux.json';
+  private visualFluxInfosUrl: string = 'api/visualflux/infos';
+  
   public visualFluxInfosData: object = {};
 
 

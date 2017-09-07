@@ -16,7 +16,7 @@ export class EdtDaemonsComponent {
   private ErrorService: ErrorService) { }
 
 
-  private edtDaemonsUrl: string = 'assets/json/edt.json';
+  private edtDaemonsUrl: string = 'api/edt/daemons';
   public edtDaemonsData: object = {};
 
 

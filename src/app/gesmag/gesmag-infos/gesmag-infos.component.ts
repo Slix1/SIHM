@@ -14,7 +14,9 @@ export class GesmagInfosComponent implements OnInit {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  private gesmagInfosUrl = 'assets/json/mocks/jsonFileConnection/gesmag.json';
+  // private gesmagInfosUrl = 'assets/json/mocks/jsonFileConnection/gesmag.json';
+  private gesmagInfosUrl = 'api/gesmag/infos';
+  
   public gesmagInfosData: Object = {};
 
 

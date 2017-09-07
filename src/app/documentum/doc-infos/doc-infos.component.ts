@@ -14,7 +14,9 @@ export class DocinfosComponent implements OnInit {
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
 
-  private DocumentumInfosUrl: string = 'assets/json/mocks/jsonFileConnection/documentum.json';
+  // private DocumentumInfosUrl: string = 'assets/json/mocks/jsonFileConnection/documentum.json';
+  private DocumentumInfosUrl: string = '/api/documentum/infos';
+  
   public DocumentumInfosData: Object = {};
 
 

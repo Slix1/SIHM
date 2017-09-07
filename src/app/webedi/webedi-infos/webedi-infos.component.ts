@@ -14,7 +14,9 @@ export class WebediInfosComponent implements OnInit {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  private webEdiInfosUrl: string = 'assets/json/mocks/jsonFileConnection/webedi.json';
+  // private webEdiInfosUrl: string = 'assets/json/mocks/jsonFileConnection/webedi.json';
+  private webEdiInfosUrl: string = 'api/webedi/infos';
+  
   public webEdiInfosData: object = {};
 
 

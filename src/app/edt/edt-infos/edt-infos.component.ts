@@ -3,9 +3,6 @@ import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { ErrorService } from './../../services/error.service';
 
-
-import 'rxjs/add/operator/finally';
-
 @Component({
   selector: 'app-edtinfos',
   templateUrl: './edt-infos.component.html',
@@ -19,7 +16,8 @@ export class EdtinfosComponent {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  private EdtInfosDataUrl: string = 'assets/json/mocks/jsonFileConnection/edt.json';
+  // private EdtInfosDataUrl: string = 'assets/json/mocks/jsonFileConnection/edt.json';
+  private EdtInfosDataUrl: string = '/api/edt/infos';
   public EdtInfosData: Object = {};
 
 

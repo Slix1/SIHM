@@ -13,7 +13,9 @@ export class OndemandInfosComponent implements OnInit {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  private onDemandInfosUrl: string = 'assets/json/mocks/jsonFileConnection/ondemand.json';
+  // private onDemandInfosUrl: string = 'assets/json/mocks/jsonFileConnection/ondemand.json';
+  private onDemandInfosUrl: string = 'api/ondemand/infos';
+  
   public onDemandInfosData: object = {};
 
 

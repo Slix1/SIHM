@@ -51,13 +51,13 @@
 							<ng-template #usersGroup>
 								<td class="text-center col-xs-1 displayCol">{{ user.group }} ({{ user.members.length }} Utilisateurs)</td>
 							</ng-template>
-							<div *ngFor="let persons of user.members">
+							<div *ngFor="let member of user.members">
 								<td class="text-center col-xs-1 displayCol">
 									<div *ngIf="LoadingService.loading; else usersPersons" class="displayCell">
 										Loading....
 									</div>
 									<ng-template #usersPersons>
-										<div class="displayCell">{{ persons }}</div>
+										<div class="displayCell">{{ member }}</div>
 									</ng-template>
 								</td>
 							</div>

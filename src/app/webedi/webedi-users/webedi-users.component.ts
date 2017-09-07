@@ -15,7 +15,9 @@ export class WebediUsersComponent {
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-  private webediUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTWEBEDI.json';
+  // private webediUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTWEBEDI.json';
+  private webediUsersUrl: string = 'api/webedi/users';
+  
   public webediUsersData: object = {};
 
 

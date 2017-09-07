@@ -16,7 +16,9 @@ export class GespaInfosComponent {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  private gespaInfosUrl: string = 'assets/json/mocks/jsonFileConnection/gespa.json';
+  // private gespaInfosUrl: string = 'assets/json/mocks/jsonFileConnection/gespa.json';
+  private gespaInfosUrl: string = 'api/gespa/infos';
+  
   public gespaInfosData: object = {};
 
   public getGespaInfosData(): Object {

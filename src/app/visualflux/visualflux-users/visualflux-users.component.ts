@@ -15,7 +15,9 @@ export class VisualfluxUsersComponent {
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-  private visualFluxUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTVISUALFLUX.json';
+  // private visualFluxUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTVISUALFLUX.json';
+  private visualFluxUsersUrl: string = 'api/visualflux/users';
+  
   public VisualFluxUsersData: object = {};
 
 
