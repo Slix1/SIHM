@@ -9,6 +9,8 @@ export class DocumentumComponent implements OnInit {
 
   constructor() { }
 
+  public tab: string = 'documentum';
+
   ngOnInit() {
   }
 

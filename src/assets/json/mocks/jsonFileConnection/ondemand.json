@@ -1,5 +1,5 @@
 {	
-	"ondemand": {
+
 		"requests": [
 		],
 		"environments": [
@@ -14,4 +14,3 @@
 		],
 		"groupADNamePattern" : "TEST_ONDEMAND_*"
 	}
-}

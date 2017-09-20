@@ -1,0 +1,12 @@
+{
+    "environment": "PREPROD",
+    "server": "intranethm-ppd",
+    "diskSpaceInfosHome": null,
+    "diskSpaceInfosSefas": null,
+    "diskSpaceInfosData": null,
+    "listVersions": null,
+    "versionWebLogic": "8.0.5",
+    "versionApache": "8.0.4",
+    "groupsMembers": null,
+    "connected": false
+}

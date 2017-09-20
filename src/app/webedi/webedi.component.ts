@@ -9,6 +9,8 @@ export class WebediComponent implements OnInit {
 
   constructor() { }
 
+  public tab = 'webedi';
+
   ngOnInit() {
   }
 

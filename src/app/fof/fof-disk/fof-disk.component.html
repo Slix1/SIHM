@@ -6,120 +6,148 @@
 				<a (click)="refresh()">
 							<span class="glyphicon glyphicon-refresh black"></span>
 						</a>
-				<a (click)="load(); switch();" role="button" data-toggle="collapse" href="#edtDisk" aria-expanded="false" aria-controls="edtBdoc">
+				<a (click)="switch();" role="button" data-toggle="collapse" href="#fofDisk" aria-expanded="false" aria-controls="fofDisk">
 					<span [className]="SwitchGlyphiconsService.currentGlyphicon"></span>
 					
 				</a>
 			</div>
 		</h4>
 	</div>
-	<div id="edtDisk" class="panel-collapse collapse">
+	<div id="fofDisk" class="panel-collapse collapse">
 		<div>
 			<div class="panel-body">
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-							<th *ngIf="fofDiskData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else diskError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #diskError>
-										<div class="displayCell">{{ fofDiskData?.error }}</div>
-								</ng-template>
+							<th class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Serveur</div>
 							</th>
-							<th *ngFor="let env of fofDiskData?.fof?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else diskHead" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #diskHead>
-									<div class="displayCell">{{ env.nameEnvironment }}</div>
-								</ng-template>
+							<th *ngIf="fofEnv['fofInfosData']?.error; else verHead" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ fofEnv['fofInfosData']?.error }}</div>
 							</th>
+							<ng-template #verHead>
+								<th *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<div class="displayCell">{{ env.environment }}</div>
+								</th>
+							</ng-template>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Data Use</div></td>
-							<td *ngIf="fofDiskData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else diskError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #diskError>
-										<div class="displayCell">{{ fofDiskData?.error }}</div>
-								</ng-template>
+							<td class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Data Use</div>
 							</td>
-
-							<td *ngFor="let env of fofDiskData?.fof?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
-								<div *ngFor="let request of env.environmentRequests">
-									<div *ngIf="request.name == 'getEspaceDisqueDataInfos'">
-										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">
+							<td *ngIf="fofEnv['fofInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ fofEnv['fofInfosData']?.error }}</div>
+							</td>
+							<ng-template #disk>
+								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<ng-container *ngIf="fofDiskData[env.environment]?.error; else diskDataUseData">
+										<div *ngIf="LoadingService.loading[env.environment]; else diskDataUseError" class="displayCell">
 											Loading....
 										</div>
-										<ng-template #dataBody>
-											<div data-toggle="tooltip" data-placement="bottom" class="displayCell" [ngClass]="{'bg-danger' : (request.response | split:';':2) >= 80, 'bg-warning' : (request.response | split:';':2) >= 60 && (request.response | split:';':2) < 80}"
-											 title="Reste {{ request.response | split:';':1 }}/{{ request.response | split:';':0 }}">
-												{{ request.response | split:";":2 }}%
-											</div>
+										<ng-template #diskDataUseError>
+											<div *ngIf="env.environment == fofDiskData[env.environment]?.environment" class="displayCell">{{ fofDiskData[env.environment]?.error }}</div>
 										</ng-template>
-									</div>
-								</div>
-							</td>
+									</ng-container>
+									<ng-template #diskDataUseData>
+										<div *ngIf="LoadingService.loading[env.environment]; else diskDataUse" class="displayCell">
+											Loading....
+										</div>
+										<ng-template #diskDataUse>
+											<ng-container *ngIf="fofDiskData[env.environment]?.diskSpaceInfosData == null; else showData">
+												<div *ngIf="env.environment == fofDiskData[env.environment]?.environment" class="displayCell bg-danger">Pas de données</div>
+											</ng-container>
+											<ng-template #showData>
+												<div data-toggle="tooltip" data-placement="bottom" *ngIf="env.environment == fofDiskData[env.environment]?.environment" class="displayCell"
+												 title="Reste {{ fofDiskData[env.environment]?.diskSpaceInfosData.availableSize }}/{{ fofDiskData[env.environment]?.diskSpaceInfosData.globalSize }}"
+												 [ngClass]="{'bg-danger' : fofDiskData[env.environment]?.diskSpaceInfosData.percentageUse >= 80,
+															'bg-warning' : fofDiskData[env.environment]?.diskSpaceInfosData.percentageUse >= 60 && fofDiskData[env.environment]?.diskSpaceInfosData.percentageUse < 80}">
+													{{ fofDiskData[env.environment]?.diskSpaceInfosData.percentageUse }}%
+												</div>
+											</ng-template>
+										</ng-template>
+									</ng-template>
+								</td>
+							</ng-template>
 						</tr>
 
 						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Home Use</div></td>
-							<td *ngIf="fofDiskData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else diskError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #diskError>
-										<div class="displayCell">{{ fofDiskData?.error }}</div>
-								</ng-template>
+							<td class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Home Use</div>
 							</td>
-
-							<td *ngFor="let env of fofDiskData?.fof?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
-								<div *ngFor="let request of env.environmentRequests">
-									<div *ngIf="request.name == 'getEspaceDisqueHomeInfos'">
-										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">
+							<td *ngIf="fofEnv['fofInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ fofEnv['fofInfosData']?.error }}</div>
+							</td>
+							<ng-template #disk>
+								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<ng-container *ngIf="fofDiskData[env.environment]?.error; else diskDataUseData">
+										<div *ngIf="LoadingService.loading[env.environment]; else diskDataUseError" class="displayCell">
 											Loading....
 										</div>
-										<ng-template #dataBody>
-											<div data-toggle="tooltip" data-placement="bottom" class="displayCell" [ngClass]="{'bg-danger' : (request.response | split:';':2) >= 80, 'bg-warning' : (request.response | split:';':2) >= 60 && (request.response | split:';':2) < 80}"
-											 title="Reste {{ request.response | split:';':1 }}/{{ request.response | split:';':0 }}">
-												{{ request.response | split:";":2 }}%
-											</div>
+										<ng-template #diskDataUseError>
+											<div *ngIf="env.environment == fofDiskData[env.environment]?.environment" class="displayCell">{{ fofDiskData[env.environment]?.error }}</div>
 										</ng-template>
-									</div>
-								</div>
-							</td>
+									</ng-container>
+									<ng-template #diskDataUseData>
+										<div *ngIf="LoadingService.loading[env.environment]; else diskDataUse" class="displayCell">
+											Loading....
+										</div>
+										<ng-template #diskDataUse>
+											<ng-container *ngIf="fofDiskData[env.environment]?.diskSpaceInfosHome == null; else showData">
+												<div *ngIf="env.environment == fofDiskData[env.environment]?.environment" class="displayCell bg-danger">Pas de données</div>
+											</ng-container>
+											<ng-template #showData>
+												<div data-toggle="tooltip" data-placement="bottom" *ngIf="env.environment == fofDiskData[env.environment]?.environment" class="displayCell"
+												 title="Reste {{ fofDiskData[env.environment]?.diskSpaceInfosHome.availableSize }}/{{ fofDiskData[env.environment]?.diskSpaceInfosHome.globalSize }}"
+												 [ngClass]="{'bg-danger' : fofDiskData[env.environment]?.diskSpaceInfosHome.percentageUse >= 80,
+															'bg-warning' : fofDiskData[env.environment]?.diskSpaceInfosHome.percentageUse >= 60 && fofDiskData[env.environment]?.diskSpaceInfosHome.percentageUse < 80}">
+													{{ fofDiskData[env.environment]?.diskSpaceInfosHome.percentageUse }}%
+												</div>
+											</ng-template>
+										</ng-template>
+									</ng-template>
+								</td>
+							</ng-template>
 						</tr>
-						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Sefas Use</div></td>
-							<td *ngIf="fofDiskData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else diskError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #diskError>
-										<div class="displayCell">{{ fofDiskData?.error }}</div>
-								</ng-template>
-							</td>
 
-							<td *ngFor="let env of fofDiskData?.fof?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
-								<div *ngFor="let request of env.environmentRequests">
-									<div *ngIf="request.name == 'getEspaceDisqueSefasInfos'">
-										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">
+						<tr>
+							<td class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Sefas Use</div>
+							</td>
+							<td *ngIf="fofEnv['fofInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ fofEnv['fofInfosData']?.error }}</div>
+							</td>
+							<ng-template #disk>
+								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<ng-container *ngIf="fofDiskData[env.environment]?.error; else diskDataUseData">
+										<div *ngIf="LoadingService.loading[env.environment]; else diskDataUseError" class="displayCell">
 											Loading....
 										</div>
-										<ng-template #dataBody>
-											<div data-toggle="tooltip" data-placement="bottom" class="displayCell" [ngClass]="{'bg-danger' : (request.response | split:';':2) >= 80, 'bg-warning' : (request.response | split:';':2) >= 60 && (request.response | split:';':2) < 80}"
-											 title="Reste {{ request.response | split:';':1 }}/{{ request.response | split:';':0 }}">
-												{{ request.response | split:";":2 }}%
-											</div>
+										<ng-template #diskDataUseError>
+											<div *ngIf="env.environment == fofDiskData[env.environment]?.environment" class="displayCell">{{ fofDiskData[env.environment]?.error }}</div>
 										</ng-template>
-									</div>
-								</div>
-							</td>
+									</ng-container>
+									<ng-template #diskDataUseData>
+										<div *ngIf="LoadingService.loading[env.environment]; else diskDataUse" class="displayCell">
+											Loading....
+										</div>
+										<ng-template #diskDataUse>
+											<ng-container *ngIf="fofDiskData[env.environment]?.diskSpaceInfosSefas == null; else showData">
+												<div *ngIf="env.environment == fofDiskData[env.environment]?.environment" class="displayCell bg-danger">Pas de données</div>
+											</ng-container>
+											<ng-template #showData>
+												<div data-toggle="tooltip" data-placement="bottom" *ngIf="env.environment == fofDiskData[env.environment]?.environment" class="displayCell"
+												 title="Reste {{ fofDiskData[env.environment]?.diskSpaceInfosSefas.availableSize }}/{{ fofDiskData[env.environment]?.diskSpaceInfosSefas.globalSize }}"
+												 [ngClass]="{'bg-danger' : fofDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse >= 80,
+															'bg-warning' : fofDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse >= 60 && fofDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse < 80}">
+													{{ fofDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse }}%
+												</div>
+											</ng-template>
+										</ng-template>
+									</ng-template>
+								</td>
+							</ng-template>
 						</tr>
 					</tbody>
 				</table>

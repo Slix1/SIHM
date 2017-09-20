@@ -9,6 +9,8 @@ export class GesmagComponent implements OnInit {
 
   constructor() { }
 
+  public tab: string = 'gesmag';
+
   ngOnInit() {
   }
 

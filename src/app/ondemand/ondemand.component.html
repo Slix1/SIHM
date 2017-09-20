@@ -7,9 +7,9 @@
 
   <div class="content">
     
-		<app-ondemand-infos #env></app-ondemand-infos>
+		<app-ondemand-infos #env [tab]='tab'></app-ondemand-infos>
 		<app-ondemand-versions [ondemandEnv]="env"></app-ondemand-versions>
-		<app-ondemand-users></app-ondemand-users>
+		<app-ondemand-users [tab]='tab'></app-ondemand-users>
 
   </div>
 		

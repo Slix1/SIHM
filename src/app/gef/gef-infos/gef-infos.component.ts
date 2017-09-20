@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-gef-infos',
@@ -13,9 +14,8 @@ export class GefInfosComponent implements OnInit {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  // private gefInfosUrl: string = 'assets/json/mocks/jsonFileConnection/gef.json';
-  private gefInfosUrl: string = 'api/gef/infos';
-  
+  @Input() tab :string;
+  private gefInfosUrl: string;
   public gefInfosData: Object = {};
 
 
@@ -24,14 +24,16 @@ export class GefInfosComponent implements OnInit {
     this.ApiService.getData(this.gefInfosUrl)
       .then(GefInfosData => this.gefInfosData = {...GefInfosData})
       .catch(error => this.gefInfosData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+      .then(() => this.LoadingService.loading['gefInfos'] = false);
 
     return this.gefInfosData;
   }
 
   ngOnInit(): void {
 
-    this.LoadingService.loadingTrue();
+    this.gefInfosUrl = 'assets/json/mocks/jsonFileConnection/'+this.tab+'.json';
+    // this.gefInfosUrl = apiUrl + this.tab + '/infos';
+    this.LoadingService.loadingTrue('gefInfos');
 
     this.getGefInfosData()
   }

@@ -1,0 +1,189 @@
+{
+    "environment": "PROD",
+    "server": "edt37cti1",
+    "diskSpaceInfosHome": null,
+    "diskSpaceInfosSefas": null,
+    "diskSpaceInfosData": null,
+    "listVersions": null,
+    "serverBDoc": {
+        "name": "PROD",
+        "alias": "bdo37cti3"
+    },
+    "statusBDocError": "",
+    "errorBDoc": "",
+    "listeDaemons": [
+        {
+            "application": "a",
+            "couloir": "b",
+            "type": "c",
+            "partage": "d",
+            "perCPU": "10",
+            "perMEM": "20",
+            "startTime": {
+                "nbDays": 9,
+                "nbHours": 8,
+                "nbMinutes": 7,
+                "nbSeconds": 6
+              },
+            "fileNameVDA": "aegfuoafgueqfg.pid",
+            "alive": true,
+            "pidFilePresent": false
+        },
+        {
+            "application": "a",
+            "couloir": "b",
+            "type": "c",
+            "partage": "d",
+            "perCPU": "10",
+            "perMEM": "20",
+            "startTime": {
+                "nbDays": 9,
+                "nbHours": 8,
+                "nbMinutes": 7,
+                "nbSeconds": 6
+              },
+            "fileNameVDA": "aegfuoafgueqfg.pid",
+            "alive": true,
+            "pidFilePresent": false
+        },
+        {
+            "application": "a",
+            "couloir": "b",
+            "type": "c",
+            "partage": "d",
+            "perCPU": "10",
+            "perMEM": "20",
+            "startTime": {
+                "nbDays": 9,
+                "nbHours": 8,
+                "nbMinutes": 7,
+                "nbSeconds": 6
+              },
+            "fileNameVDA": "aegfuoafgueqfg.pid",
+            "alive": true,
+            "pidFilePresent": false
+        },
+        {
+            "application": "a",
+            "couloir": "b",
+            "type": "c",
+            "partage": "d",
+            "perCPU": "10",
+            "perMEM": "20",
+            "startTime": {
+                "nbDays": 9,
+                "nbHours": 8,
+                "nbMinutes": 7,
+                "nbSeconds": 6
+              },
+            "fileNameVDA": "aegfuoafgueqfg.pid",
+            "alive": true,
+            "pidFilePresent": false
+        },
+        {
+            "application": "a",
+            "couloir": "b",
+            "type": "c",
+            "partage": "d",
+            "perCPU": "10",
+            "perMEM": "20",
+            "startTime": {
+                "nbDays": 9,
+                "nbHours": 8,
+                "nbMinutes": 7,
+                "nbSeconds": 6
+              },
+            "fileNameVDA": "aegfuoafgueqfg.pid",
+            "alive": true,
+            "pidFilePresent": false
+        },
+        {
+            "application": "a",
+            "couloir": "b",
+            "type": "c",
+            "partage": "d",
+            "perCPU": "10",
+            "perMEM": "20",
+            "startTime": {
+                "nbDays": 9,
+                "nbHours": 8,
+                "nbMinutes": 7,
+                "nbSeconds": 6
+              },
+            "fileNameVDA": "aegfuoafgueqfg.pid",
+            "alive": true,
+            "pidFilePresent": false
+        },
+        {
+            "application": "a",
+            "couloir": "b",
+            "type": "c",
+            "partage": "d",
+            "perCPU": "10",
+            "perMEM": "20",
+            "startTime": {
+                "nbDays": 9,
+                "nbHours": 8,
+                "nbMinutes": 7,
+                "nbSeconds": 6
+              },
+            "fileNameVDA": "aegfuoafgueqfg.pid",
+            "alive": true,
+            "pidFilePresent": false
+        },
+        {
+            "application": "a",
+            "couloir": "b",
+            "type": "c",
+            "partage": "d",
+            "perCPU": "10",
+            "perMEM": "20",
+            "startTime": {
+                "nbDays": 9,
+                "nbHours": 8,
+                "nbMinutes": 7,
+                "nbSeconds": 6
+              },
+            "fileNameVDA": "aegfuoafgueqfg.pid",
+            "alive": true,
+            "pidFilePresent": false
+        },
+        {
+            "application": "a",
+            "couloir": "b",
+            "type": "c",
+            "partage": "d",
+            "perCPU": "10",
+            "perMEM": "20",
+            "startTime": {
+                "nbDays": 9,
+                "nbHours": 8,
+                "nbMinutes": 7,
+                "nbSeconds": 6
+              },
+            "fileNameVDA": "aegfuoafgueqfg.pid",
+            "alive": true,
+            "pidFilePresent": false
+        },
+        {
+            "application": "a",
+            "couloir": "b",
+            "type": "c",
+            "partage": "d",
+            "perCPU": "10",
+            "perMEM": "20",
+            "startTime": {
+                "nbDays": 9,
+                "nbHours": 8,
+                "nbMinutes": 7,
+                "nbSeconds": 6
+              },
+            "fileNameVDA": "aegfuoafgueqfg.pid",
+            "alive": true,
+            "pidFilePresent": false
+        }
+    ],
+    "statusBDocInitialized": false,
+    "statusBDocEnabled": false,
+    "connected": true
+}

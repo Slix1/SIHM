@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 export class SwitchGlyphiconsService {
 
  private plus: string = 'glyphicon glyphicon-plus black';
- private minus: string = 'glyphicon glyphicon-minus black';
+ public minus: string = 'glyphicon glyphicon-minus black';
 
  public currentGlyphicon: string = this.plus;
 

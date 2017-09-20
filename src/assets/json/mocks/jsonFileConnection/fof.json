@@ -1,5 +1,5 @@
 {	
-	"fof": {
+	
 		"requests": [
 			{
 				"name" : "getEspaceDisqueHomeInfos",
@@ -38,5 +38,5 @@
 				"path": "/path/test"
 			}
 		]
-	}
+	
 }

@@ -1,5 +1,5 @@
 {	
-	"gesmag": {
+	
 		"requests": [
 		],
 		"environments": [
@@ -13,5 +13,5 @@
 			}
 		],
 		"groupADNamePattern" : "TEST_GESMAG_*"
-	}
+	
 }

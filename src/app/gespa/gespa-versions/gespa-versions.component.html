@@ -6,7 +6,7 @@
 				<a (click)="refresh()">
 							<span class="glyphicon glyphicon-refresh black"></span>
 						</a>
-				<a (click)="load(); switch()" role="button" data-toggle="collapse" href="#gespaVersion" aria-expanded="false" aria-controls="gespaVersion">
+				<a (click)="switch()" role="button" data-toggle="collapse" href="#gespaVersion" aria-expanded="false" aria-controls="gespaVersion">
 					<span [className]="SwitchGlyphiconsService.currentGlyphicon"></span>
 					
 				</a>
@@ -16,49 +16,75 @@
 	<div id="gespaVersion" class="panel-collapse collapse">
 		<div class="panel-body table-responsive">
 			<table class="table table-condensed">
-				<thead>
-					<tr>
+				<thead >
+					<tr >
 						<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-						<th *ngIf="gespaVersionData?.error" class="text-center col-xs-1 displayCol">
-							<div *ngIf="LoadingService.loading; else versionError" class="displayCell">
-								Loading....
-							</div>
-							<ng-template #versionError>
-								<div class="displayCell">{{ gespaVersionData?.error }}</div>
-							</ng-template>
+						<th *ngIf="gespaEnv['gespaInfosData']?.error; else verHead" class="text-center col-xs-1 displayCol">
+							<div class="displayCell">{{ gespaEnv['gespaInfosData']?.error }}</div>
 						</th>
-						<th *ngFor="let env of gespaEnv?.gespaInfosData?.gespa?.environments" class="text-center col-xs-1 displayCol">
-							<div *ngIf="LoadingService.loading; else verHead" class="displayCell">
-								Loading...
-							</div>
-							<ng-template #verHead>
-								<div *ngFor="let url of gespaVersionData?.url?.urlContentsList | version:'gespa'">
-									<div class="displayCell" *ngIf="env.server == url.server"><a href="{{ url.url }}" target="_blank">{{ env.environment }}</a></div>
-								</div>
-							</ng-template>
-						</th>
-
-					</tr>
-					<tr>
-						<td class="text-center col-xs-1 displayCol"><div class="displayCell">???</div></td>
-						<td *ngIf="gespaVersionData?.error" class="text-center col-xs-1 displayCol">
-							<div *ngIf="LoadingService.loading; else versionError" class="displayCell">
-								Loading....
-							</div>
-							<ng-template #versionError>
-								<div class="displayCell">{{ gespaVersionData?.error }}</div>
-							</ng-template>
-						</td>
-						<td *ngFor="let url of gespaVersionData?.url?.urlContentsList | version:'gespa'" class="text-center col-xs-1 displayCol">
-							<div *ngIf="LoadingService.loading; else verBody" class="displayCell">
-								Loading....
-							</div>
-							<ng-template #verBody>
-								<div class="displayCell">{{ url.content | split:'<\/noscript>':1 | split:'<\script':0 | split:' ':0 }}</div>
-							</ng-template>
-						</td>
+						<ng-template #verHead>
+							<th *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+								<div class="displayCell"><a href="{{ gespaVersionData[env.environment]?.server }}/{{gespaEnv['tab']}}/" target="_blank">{{ env.environment }}</a></div>
+							</th>
+						</ng-template>
 					</tr>
 				</thead>
+				<tbody>
+					<tr>
+						<td class="text-center col-xs-1 displayCol"><div class="displayCell">Apache</div></td>
+						<td *ngIf="gespaEnv['gespaInfosData']?.error; else verApache" class="text-center col-xs-1 displayCol">
+							<div class="displayCell">{{ gespaEnv['gespaInfosData']?.error }}</div>
+						</td>
+						<ng-template #verApache>
+							<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+								<ng-container *ngIf="gespaVersionData[env.environment]?.error; else versionData">
+									<div *ngIf="LoadingService.loading[env.environment]; else versionError" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #versionError>
+										<div *ngIf="env.environment == gespaVersionData[env.environment]?.environment" class="displayCell">{{ gespaVersionData[env.environment]?.error }}</div>
+									</ng-template>
+								</ng-container>
+								<ng-template #versionData>
+									<div *ngIf="LoadingService.loading[env.environment]; else verBody" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #verBody>
+										<div *ngIf="env.environment == gespaVersionData[env.environment]?.environment" class="displayCell">{{ gespaVersionData[env.environment]?.versionApache }}</div>
+									</ng-template>
+								</ng-template>
+							</td>
+						</ng-template>
+					</tr>
+
+					<tr>
+						<td class="text-center col-xs-1 displayCol"><div class="displayCell">Weblogic</div></td>
+						<td *ngIf="gespaEnv['gespaInfosData']?.error; else verWeblogic" class="text-center col-xs-1 displayCol">
+							<div class="displayCell">{{ gespaEnv['gespaInfosData']?.error }}</div>
+						</td>
+						<ng-template #verWeblogic>
+							<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+								<ng-container *ngIf="gespaVersionData[env.environment]?.error; else versionData">
+									<div *ngIf="LoadingService.loading[env.environment]; else versionError" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #versionError>
+										<div *ngIf="env.environment == gespaVersionData[env.environment]?.environment" class="displayCell">{{ gespaVersionData[env.environment]?.error }}</div>
+									</ng-template>
+								</ng-container>
+								<ng-template #versionData>
+									<div *ngIf="LoadingService.loading[env.environment]; else verBody" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #verBody>
+										<div *ngIf="env.environment == gespaVersionData[env.environment]?.environment" class="displayCell">{{ gespaVersionData[env.environment]?.versionWebLogic }}</div>
+									</ng-template>
+								</ng-template>
+							</td>
+						</ng-template>
+					</tr>
+					
+				</tbody>
 			</table>
 		</div>
 	</div>

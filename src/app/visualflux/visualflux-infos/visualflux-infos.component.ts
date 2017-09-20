@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-visualflux-infos',
@@ -13,9 +14,8 @@ export class VisualfluxInfosComponent implements OnInit {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  // private visualFluxInfosUrl: string = 'assets/json/mocks/jsonFileConnection/visualflux.json';
-  private visualFluxInfosUrl: string = 'api/visualflux/infos';
-  
+  @Input() tab :string;
+  private visualFluxInfosUrl: string;
   public visualFluxInfosData: object = {};
 
 
@@ -24,14 +24,16 @@ export class VisualfluxInfosComponent implements OnInit {
     this.ApiService.getData(this.visualFluxInfosUrl)
       .then(visualFluxInfosData => this.visualFluxInfosData = {...visualFluxInfosData})
       .catch(error => this.visualFluxInfosData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+      .then(() => this.LoadingService.loading['visualFluxInfos'] = false);
 
     return this.visualFluxInfosData;
   }
 
   ngOnInit(): void {
 
-    this.LoadingService.loadingTrue();
+    this.visualFluxInfosUrl = 'assets/json/mocks/jsonFileConnection/'+this.tab+'.json';
+    // this.visualFluxInfosUrl = apiUrl + this.tab + '/infos';
+    this.LoadingService.loadingTrue('visualFluxInfos');
 
     this.getVisualFluxInfosData()
   }

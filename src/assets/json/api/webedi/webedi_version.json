@@ -1,0 +1,88 @@
+{
+    "environments": [
+        {
+            "environment": "INT",
+            "server": "wlsintegration1",
+            "diskSpaceInfosHome": null,
+            "diskSpaceInfosSefas": null,
+            "diskSpaceInfosData": null,
+            "listVersions": null,
+            "versionWebLogic": "8.0.3-SNAPSHOT",
+            "versionApache": "8.0.5-SNAPSHOT",
+            "groupsMembers": null,
+            "connected": false
+        },
+        {
+            "environment": "REC (VSI)",
+            "server": "intranethm-rec1",
+            "diskSpaceInfosHome": null,
+            "diskSpaceInfosSefas": null,
+            "diskSpaceInfosData": null,
+            "listVersions": null,
+            "versionWebLogic": "8.0.5",
+            "versionApache": "8.0.4",
+            "groupsMembers": null,
+            "connected": false
+        },
+        {
+            "environment": "REC (CUR)",
+            "server": "intranethm-rec4",
+            "diskSpaceInfosHome": null,
+            "diskSpaceInfosSefas": null,
+            "diskSpaceInfosData": null,
+            "listVersions": null,
+            "versionWebLogic": "8.0.5",
+            "versionApache": "8.0.2",
+            "groupsMembers": null,
+            "connected": false
+        },
+        {
+            "environment": "HOM (VSI)",
+            "server": "intranethm-rec3",
+            "diskSpaceInfosHome": null,
+            "diskSpaceInfosSefas": null,
+            "diskSpaceInfosData": null,
+            "listVersions": null,
+            "versionWebLogic": "8.0.5",
+            "versionApache": "8.0.2",
+            "groupsMembers": null,
+            "connected": false
+        },
+        {
+            "environment": "HOM (MIG)",
+            "server": "intranethm-rec2",
+            "diskSpaceInfosHome": null,
+            "diskSpaceInfosSefas": null,
+            "diskSpaceInfosData": null,
+            "listVersions": null,
+            "versionWebLogic": "8.0.5",
+            "versionApache": "8.0.0",
+            "groupsMembers": null,
+            "connected": false
+        },
+        {
+            "environment": "PREPROD",
+            "server": "intranethm-ppd",
+            "diskSpaceInfosHome": null,
+            "diskSpaceInfosSefas": null,
+            "diskSpaceInfosData": null,
+            "listVersions": null,
+            "versionWebLogic": "8.0.5",
+            "versionApache": "8.0.4",
+            "groupsMembers": null,
+            "connected": false
+        },
+        {
+            "environment": "PROD",
+            "server": "intranethm",
+            "diskSpaceInfosHome": null,
+            "diskSpaceInfosSefas": null,
+            "diskSpaceInfosData": null,
+            "listVersions": null,
+            "versionWebLogic": "8.0.5",
+            "versionApache": "8.0.4",
+            "groupsMembers": null,
+            "connected": false
+        }
+    ]
+}

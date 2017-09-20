@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 
 @Component({
@@ -17,29 +18,38 @@ export class DocinjecteursComponent {
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-
-  // private documentumInjecteursUrl: string = 'assets/json/mocks/sshConnection/documentum.json';
-  private documentumInjecteursUrl: string = 'api/documentum/injecteurs';
-  
+  @Input() documentumEnv: object;
+  private documentumInjecteursUrl: Array<any> = [];
   public documentumInjecteursData: object = {};
+  public environments: Array<any> = [];
 
 
-  public getEdtDiskData(): Object {
+  public getDocInjecteursData(request): Object {
 
-    this.ApiService.getData(this.documentumInjecteursUrl)
-      .then(documentumInjecteursData => this.documentumInjecteursData = {...documentumInjecteursData})
-      .catch(error => this.documentumInjecteursData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+    this.ApiService.getData(request.url)
+      .then(documentumInjecteursData => this.documentumInjecteursData[request.env] = {...documentumInjecteursData, environment: request.env})
+      .catch(error => this.documentumInjecteursData[request.env] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
+      .then(() => this.LoadingService.loading[request.env] = false);
 
     return this.documentumInjecteursData;
   }
 
 
   load(): void {
-
-    this.LoadingService.loadingTrue();
-
-    this.getEdtDiskData();
+    
+    if (this.documentumEnv['documentumInfosData'].error == undefined) {
+            
+      this.environments = this.documentumEnv['documentumInfosData'].environments;
+                
+      this.environments.forEach((env: any, envIndex) => {
+        this.documentumInjecteursUrl[envIndex] = {url: apiUrl + this.documentumEnv['tab'] + '/' + env.environment + '/injecteurs', env: env.environment};
+      });
+        
+      this.documentumInjecteursUrl.forEach((env: any) => {
+        this.LoadingService.loadingTrue(env.env);
+        this.getDocInjecteursData(env);
+      });
+    }
   }
 
   refresh(): void {
@@ -47,6 +57,9 @@ export class DocinjecteursComponent {
   }
 
   switch(): void {
+    if (this.SwitchGlyphiconsService.currentGlyphicon !== this.SwitchGlyphiconsService.minus) {
+      this.load();
+    }
     this.SwitchGlyphiconsService.switchGlyphicon();
   }
 }

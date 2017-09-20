@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-edt-daemons',
@@ -15,32 +16,54 @@ export class EdtDaemonsComponent {
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-
-  private edtDaemonsUrl: string = 'api/edt/daemons';
+  @Input() edtEnv: object;
+  private edtDaemonsUrl: Array<any> = [];
   public edtDaemonsData: object = {};
+  public environments: Array<any> = [];
+  // public edtDaemonsList: Array<any> = [];
 
 
-  public getEdtDaemonsData(): Object {
-    this.ApiService.getData(this.edtDaemonsUrl)
-      .then(edtDaemonsData => this.edtDaemonsData = {...edtDaemonsData})
-      .catch(error => this.edtDaemonsData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+  public getEdtDaemonsData(request): Object {
+    this.ApiService.getData(request.url)
+      .then(edtDaemonsData => this.edtDaemonsData[request.env] = {...edtDaemonsData, environment: request.env})
+      // .then(edtDaemonsData => this.edtDaemonsList.length < edtDaemonsData.listeDaemons.length ? this.edtDaemonsList = new Array(edtDaemonsData.listeDaemons.length) : this.edtDaemonsList)
+      .catch(error => this.edtDaemonsData[request.env] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
+      .then(() => this.LoadingService.loading[request.env] = false);
 
     return this.edtDaemonsData
   }
 
   load(): void {
-
-    this.LoadingService.loadingTrue();
-
-    this.getEdtDaemonsData();
+    
+    if (this.edtEnv['EdtInfosData'].error == undefined) {
+      this.edtDaemonsData['versionList'] = [];
+      
+      this.environments = this.edtEnv['EdtInfosData'].environments;
+                
+      this.environments.forEach((env: any, envIndex) => {
+        // this.edtDaemonsUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/daemons', env: env.environment};
+        // this.edtDaemonsUrl[envIndex] = {url: `${apiUrl}${this.edtEnv['tab']}/daemons`, env: env.environment};
+        this.edtDaemonsUrl[envIndex] = {url: `assets/json/api/edt/${env.environment}_daemon.json`, env: env.environment};
+        
+        
+      });
+        
+      this.edtDaemonsUrl.forEach((env: any) => {
+        this.LoadingService.loadingTrue(env.env);
+        this.getEdtDaemonsData(env);
+      });
+    }
   }
+
 
   refresh(): void {
     this.load();
   }
 
   switch(): void {
+    if (this.SwitchGlyphiconsService.currentGlyphicon !== this.SwitchGlyphiconsService.minus) {
+      this.load();
+    }
     this.SwitchGlyphiconsService.switchGlyphicon();
   }
 

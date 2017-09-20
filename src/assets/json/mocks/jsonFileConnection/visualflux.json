@@ -1,5 +1,5 @@
 {	
-	"visualflux": {
+
 		"requests": [
 		],
 		"environments": [
@@ -13,5 +13,5 @@
 			}
 		],
 		"groupADNamePattern" : "TEST_VISUALFLUX_*"
-	}
+	
 }

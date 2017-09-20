@@ -3,9 +3,7 @@ import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
 import { ErrorService } from './../../services/error.service';
-
-
-
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-edtbdoc',
@@ -15,36 +13,50 @@ import { ErrorService } from './../../services/error.service';
 })
 export class EdtbdocComponent {
 
-
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-  private edtBdocUrl: string = 'assets/json/mocks/jsonFileConnection/edt.json';
+  @Input() edtEnv: object;
+  private edtBdocUrl: Array<any> = [];
   public edtBdocData: object = {};
+  public environments: Array<any> = [];
 
 
-  public getEdtBdocData(): Object {
-    this.ApiService.getData(this.edtBdocUrl)
-      .then(edtBdocData => this.edtBdocData = {...edtBdocData})
-      .catch(error => this.edtBdocData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+  public getEdtBdocData(request): Object {
+    this.ApiService.getData(request.url)
+      .then(edtBdocData => this.edtBdocData[request.env] = {...edtBdocData, environment: request.env})
+      .catch(error => this.edtBdocData[request.env] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
+      .then(() => this.LoadingService.loading[request.env] = false);
 
     return this.edtBdocData
   }
 
-
   load(): void {
-
-    this.LoadingService.loadingTrue();
-
-    this.getEdtBdocData();
-  }
+   if (this.edtEnv['EdtInfosData'].error == undefined) {
+        this.environments = this.edtEnv['EdtInfosData'].environments;
+            
+        this.environments.forEach((env: any, envIndex) => {
+          
+          this.edtBdocUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/' + env.environment + '/bdoc', env: env.environment};
+        });
+    
+        this.edtBdocUrl.forEach((env: any) => {
+    
+          this.LoadingService.loadingTrue(env.env);
+          this.getEdtBdocData(env);
+        });
+    
+      }
+    }
 
   refresh(): void {
     this.load();
   }
 
   switch(): void {
+    if (this.SwitchGlyphiconsService.currentGlyphicon !== this.SwitchGlyphiconsService.minus) {
+      this.load();
+    }
     this.SwitchGlyphiconsService.switchGlyphicon();
   }
 

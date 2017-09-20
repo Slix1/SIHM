@@ -6,7 +6,7 @@
 				<a (click)="refresh()">
 							<span class="glyphicon glyphicon-refresh black"></span>
 						</a>
-				<a (click)="load(); switch()" role="button" data-toggle="collapse" href="#visualfluxVersion" aria-expanded="false" aria-controls="visualfluxVersion">
+				<a (click)="switch()" role="button" data-toggle="collapse" href="#visualfluxVersion" aria-expanded="false" aria-controls="visualfluxVersion">
 					<span [className]="SwitchGlyphiconsService.currentGlyphicon"></span>
 					
 				</a>
@@ -16,49 +16,75 @@
 	<div id="visualfluxVersion" class="panel-collapse collapse">
 		<div class="panel-body table-responsive">
 			<table class="table table-condensed">
-				<thead>
-					<tr>
+				<thead >
+					<tr >
 						<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-						<th *ngIf="visualfluxVersionData?.error" class="text-center col-xs-1 displayCol">
-							<div *ngIf="LoadingService.loading; else versionError" class="displayCell">
-								Loading....
-							</div>
-							<ng-template #versionError>
-								<div class="displayCell">{{ visualfluxVersionData?.error }}</div>
-							</ng-template>
+						<th *ngIf="visualfluxEnv['visualFluxInfosData']?.error; else verHead" class="text-center col-xs-1 displayCol">
+							<div class="displayCell">{{ visualfluxEnv['visualFluxInfosData']?.error }}</div>
 						</th>
-						<th *ngFor="let env of visualfluxEnv?.visualFluxInfosData?.visualflux?.environments" class="text-center col-xs-1 displayCol">
-							<div *ngIf="LoadingService.loading; else verHead" class="displayCell">
-								Loading...
-							</div>
-							<ng-template #verHead>
-								<div *ngFor="let url of visualfluxVersionData?.url?.urlContentsList | version:'visualflux'">
-									<div class="displayCell" *ngIf="env.server == url.server"><a href="{{ url.url }}" target="_blank">{{ env.environment }}</a></div>
-								</div>
-							</ng-template>
-						</th>
-
-					</tr>
-					<tr>
-						<td class="text-center col-xs-1 displayCol"><div class="displayCell">???</div></td>
-						<td *ngIf="visualfluxVersionData?.error" class="text-center col-xs-1 displayCol">
-							<div *ngIf="LoadingService.loading; else versionError" class="displayCell">
-								Loading....
-							</div>
-							<ng-template #versionError>
-								<div class="displayCell">{{ visualfluxVersionData?.error }}</div>
-							</ng-template>
-						</td>
-						<td *ngFor="let url of visualfluxVersionData?.url?.urlContentsList | version:'visualflux'" class="text-center col-xs-1 displayCol">
-							<div *ngIf="LoadingService.loading; else verBody" class="displayCell">
-								Loading....
-							</div>
-							<ng-template #verBody>
-								<div class="displayCell">{{ url.content | split:'<\/noscript>':1 | split:'<\script':0 | split:' ':0 }}</div>
-							</ng-template>
-						</td>
+						<ng-template #verHead>
+							<th *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+								<div class="displayCell"><a href="{{ visualfluxVersionData[env.environment]?.server }}/{{visualfluxEnv['tab']}}/" target="_blank">{{ env.environment }}</a></div>
+							</th>
+						</ng-template>
 					</tr>
 				</thead>
+				<tbody>
+					<tr>
+						<td class="text-center col-xs-1 displayCol"><div class="displayCell">Apache</div></td>
+						<td *ngIf="visualfluxEnv['visualFluxInfosData']?.error; else verApache" class="text-center col-xs-1 displayCol">
+							<div class="displayCell">{{ visualfluxEnv['visualFluxInfosData']?.error }}</div>
+						</td>
+						<ng-template #verApache>
+							<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+								<ng-container *ngIf="visualfluxVersionData[env.environment]?.error; else versionData">
+									<div *ngIf="LoadingService.loading[env.environment]; else versionError" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #versionError>
+										<div *ngIf="env.environment == visualfluxVersionData[env.environment]?.environment" class="displayCell">{{ visualfluxVersionData[env.environment]?.error }}</div>
+									</ng-template>
+								</ng-container>
+								<ng-template #versionData>
+									<div *ngIf="LoadingService.loading[env.environment]; else verBody" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #verBody>
+										<div *ngIf="env.environment == visualfluxVersionData[env.environment]?.environment" class="displayCell">{{ visualfluxVersionData[env.environment]?.versionApache }}</div>
+									</ng-template>
+								</ng-template>
+							</td>
+						</ng-template>
+					</tr>
+
+					<tr>
+						<td class="text-center col-xs-1 displayCol"><div class="displayCell">Weblogic</div></td>
+						<td *ngIf="visualfluxEnv['visualFluxInfosData']?.error; else verWeblogic" class="text-center col-xs-1 displayCol">
+							<div class="displayCell">{{ visualfluxEnv['visualFluxInfosData']?.error }}</div>
+						</td>
+						<ng-template #verWeblogic>
+							<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+								<ng-container *ngIf="visualfluxVersionData[env.environment]?.error; else versionData">
+									<div *ngIf="LoadingService.loading[env.environment]; else versionError" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #versionError>
+										<div *ngIf="env.environment == visualfluxVersionData[env.environment]?.environment" class="displayCell">{{ visualfluxVersionData[env.environment]?.error }}</div>
+									</ng-template>
+								</ng-container>
+								<ng-template #versionData>
+									<div *ngIf="LoadingService.loading[env.environment]; else verBody" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #verBody>
+										<div *ngIf="env.environment == visualfluxVersionData[env.environment]?.environment" class="displayCell">{{ visualfluxVersionData[env.environment]?.versionWebLogic }}</div>
+									</ng-template>
+								</ng-template>
+							</td>
+						</ng-template>
+					</tr>
+					
+				</tbody>
 			</table>
 		</div>
 	</div>

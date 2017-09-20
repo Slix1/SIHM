@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-gespa-infos',
@@ -16,9 +17,8 @@ export class GespaInfosComponent {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  // private gespaInfosUrl: string = 'assets/json/mocks/jsonFileConnection/gespa.json';
-  private gespaInfosUrl: string = 'api/gespa/infos';
-  
+  @Input() tab :string;
+  private gespaInfosUrl: string;
   public gespaInfosData: object = {};
 
   public getGespaInfosData(): Object {
@@ -26,14 +26,16 @@ export class GespaInfosComponent {
     this.ApiService.getData(this.gespaInfosUrl)
       .then(gespaInfosData => this.gespaInfosData = {...gespaInfosData})
       .catch(error => this.gespaInfosData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+      .then(() => this.LoadingService.loading['gespaInfos'] = false);
 
     return this.gespaInfosData;
   }
 
   ngOnInit(): void {
 
-    this.LoadingService.loadingTrue();
+    this.gespaInfosUrl = 'assets/json/mocks/jsonFileConnection/'+this.tab+'.json';
+    // this.gespaInfosUrl = apiUrl + this.tab + '/infos';
+    this.LoadingService.loadingTrue('gespaInfos');
 
     this.getGespaInfosData()
   }

@@ -6,7 +6,7 @@
 				<a (click)="refresh()">
 					<span class="glyphicon glyphicon-refresh black"></span>
 				</a>
-				<a (click)="load(); switch();" role="button" data-toggle="collapse" href="#edtDaemons" aria-expanded="false" aria-controls="edtSql">
+				<a (click)="switch();" role="button" data-toggle="collapse" href="#edtDaemons" aria-expanded="false" aria-controls="edtDaemons">
 					<span [className]="SwitchGlyphiconsService.currentGlyphicon"></span>
 				</a>
 			</div>
@@ -16,46 +16,42 @@
 		<div>
 			<div class="panel-body table-responsive">
 				<table class="table table-condensed">
-					<thead >
-						<tr >
-							<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-							<th *ngIf="edtDaemonsData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else daemonsError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #daemonsError>
-									<div class="displayCell">{{ edtDaemonsData?.error }}</div>
-								</ng-template>
+					<thead>
+						<tr>
+							<th *ngIf="edtEnv['EdtInfosData']?.error; else packageHead" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ edtEnv['EdtInfosData']?.error }}</div>
 							</th>
-							<!--<th *ngFor="let servers of edtDaemonsData?.edt?.sshRequestsByEnvironment | sql:'servers'" class="text-center col-xs-1">
-								<div *ngIf="LoadingService.loading; else sqlHead" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #sqlHead>
-										<div class="displayCell">{{ servers.name }}</div>
-								</ng-template>
-							</th>-->
+							<ng-template #packageHead>
+								<th *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<div class="displayCell">{{ env.environment }}</div>
+								</th>
+							</ng-template>
 						</tr>
 					</thead>
 					<tbody >
 						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Démons</div></td>
-							<td *ngIf="edtDaemonsData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else daemonsError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #daemonsError>
-										<div class="displayCell">{{ edtDaemonsData?.error }}</div>
+							<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+								<ng-container *ngIf="edtDaemonsData[env.environment]?.error; else daemonData">
+									<div *ngIf="LoadingService.loading[env.environment]; else daemonError" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #daemonError>
+										<div class="displayCell">{{ edtDaemonsData[env.environment]?.error }}</div>
+									</ng-template>
+								</ng-container>
+								<ng-template #daemonData>
+									<div *ngIf="LoadingService.loading[env.environment]; else daemonBody" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #daemonBody>
+										<ng-container *ngFor="let daemon of edtDaemonsData[env.environment]?.listeDaemons">
+											<div data-toggle="tooltip" data-placement="bottom"
+											[ngClass]="{'text-danger' : daemon.alive == false, 'text-success' : daemon.alive == true && daemon.pidFilePresent == true, 'warning' : daemon.alive == true && daemon.pidFilePresent == false}"
+											title="{{ daemon.pidFilePresent ? '' : 'Aucun fichier PID présent&#10;'}}{{daemon.couloir}}&#10;{{daemon.type}}&#10;{{daemon.partage}}&#10;CPU: {{daemon.perCPU}}%&#10;MEM: {{daemon.perMEM}}%&#10;Démarré depuis {{daemon.startTime.nbDays}}j {{daemon.startTime.nbHours}}h {{daemon.startTime.nbMinutes}}min {{daemon.startTime.nbSeconds}}s" class="displayCell"><b>{{ daemon.application }}</b></div>
+										</ng-container>
+									</ng-template>
 								</ng-template>
-							</td>						
-							<!--<td *ngFor="let servers of edtSqlData?.edt?.sshRequestsByEnvironment | sql:'servers'" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else sqlHost" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #sqlHost>
-										<div class="displayCell">{{ servers.name }}</div>
-								</ng-template>
-							</td>-->
+							</td>
 						</tr>
 					</tbody>
 				</table>

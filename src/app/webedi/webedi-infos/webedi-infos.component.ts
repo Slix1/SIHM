@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 
 @Component({
@@ -14,9 +15,9 @@ export class WebediInfosComponent implements OnInit {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  // private webEdiInfosUrl: string = 'assets/json/mocks/jsonFileConnection/webedi.json';
-  private webEdiInfosUrl: string = 'api/webedi/infos';
-  
+  @Input() tab: string;
+
+  private webEdiInfosUrl: string;
   public webEdiInfosData: object = {};
 
 
@@ -26,7 +27,7 @@ export class WebediInfosComponent implements OnInit {
     this.ApiService.getData(this.webEdiInfosUrl)
       .then(webEdiInfosData => this.webEdiInfosData = {...webEdiInfosData})
       .catch(error => this.webEdiInfosData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+      .then(() => this.LoadingService.loading['webEdiInfos'] = false);
 
     return this.webEdiInfosData;
   }
@@ -34,7 +35,9 @@ export class WebediInfosComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.LoadingService.loadingTrue();
+    this.webEdiInfosUrl = 'assets/json/mocks/jsonFileConnection/'+this.tab+'.json';
+    // this.webEdiInfosUrl = apiUrl + this.tab + '/infos';
+    this.LoadingService.loadingTrue('webEdiInfos');
     this.getWebEdiInfosData();
   }
 

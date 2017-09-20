@@ -6,7 +6,7 @@
 				<a (click)="refresh()">
 							<span class="glyphicon glyphicon-refresh black"></span>
 						</a>
-				<a (click)="load(); switch()" role="button" data-toggle="collapse" href="#GespaUsersAD" aria-expanded="false" aria-controls="edtBdoc">
+				<a (click)="switch()" role="button" data-toggle="collapse" href="#GespaUsersAD" aria-expanded="false" aria-controls="edtBdoc">
 					<span [className]="SwitchGlyphiconsService.currentGlyphicon"></span>
 					
 				</a>
@@ -23,45 +23,53 @@
 							<th class="text-center col-xs-1 displayCol"><div class="displayCell">Utilisateurs</div></th>
 						</tr>
 					</thead>
-					<tbody *ngIf="gespaUsersData?.error">
-						<tr>
+					<tbody>
+						<tr *ngIf="LoadingService.loading['gespaUsers']; else users">
 							<td class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else usersError" class="displayCell">
+								<div *ngIf="LoadingService.loading['gespaUsers']" class="displayCell">
 									Loading....
 								</div>
-								<ng-template #usersError>
-										<div class="displayCell">{{ gespaUsersData?.error }}</div>
-								</ng-template>
 							</td>
 							<td class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else usersError" class="displayCell">
+								<div *ngIf="LoadingService.loading['gespaUsers']" class="displayCell">
 									Loading....
 								</div>
-								<ng-template #usersError>
-										<div class="displayCell">{{ gespaUsersData?.error }}</div>
-								</ng-template>
 							</td>
 						</tr>
-					</tbody>
-					<tbody *ngFor="let user of gespaUsersData?.TESTGESPA?.listGroupAD">
-						<tr>
-							<td *ngIf="LoadingService.loading; else usersGroup" class="text-center col-xs-1 displayCol">
-								<div class="displayCell">Loading....</div>
-							</td>
-							<ng-template #usersGroup>
-								<td class="text-center col-xs-1 displayCol">{{ user.group }} ({{ user.members.length }} Utilisateurs)</td>
-							</ng-template>
-							<div *ngFor="let member of user.members">
+						<ng-template #users>
+							<tr *ngIf="gespaUsersData.error">
 								<td class="text-center col-xs-1 displayCol">
-									<div *ngIf="LoadingService.loading; else usersPersons" class="displayCell">
-										Loading....
-									</div>
-									<ng-template #usersPersons>
-										<div class="displayCell">{{ member }}</div>
-									</ng-template>
+									<div class="displayCell">{{ gespaUsersData.error }}</div>
 								</td>
-							</div>
-						</tr>
+								<td class="text-center col-xs-1 displayCol">
+									<div class="displayCell">{{ gespaUsersData.error }}</div>
+								</td>
+							</tr>
+							<tr *ngFor="let user of gespaUsersData?.groupsMembers">
+								<td class="text-center col-xs-1 displayCol">
+									<b>{{ user.group }} ({{ user.members.length }} Utilisateurs)</b>
+								</td>
+								<ng-container *ngIf="user.members.length < 10; else usersPanel">
+									<div *ngFor="let member of user.members">
+										<td class="text-center col-xs-1 displayCol">
+											<div class="users">{{ member }}</div>
+										</td>
+									</div>
+								</ng-container>
+								<ng-template #usersPanel>
+									<td class="text-center col-xs-1 displayCol">
+										<a class="displayCell" type="button" data-toggle="collapse" [attr.href]= "'#' + user.group"  aria-expanded="false" aria-controls="collapseExample">
+											<span class="glyphicon glyphicon-menu-down black"></span>
+										</a>
+										<div class="collapse" attr.id= {{user.group}} >
+											<div *ngFor="let member of user.members">
+												<div class="users">{{ member }}</div>
+											</div>
+										</div>
+									</td>
+								</ng-template>
+							</tr>
+						</ng-template>
 					</tbody>
 				</table>
 			</div>

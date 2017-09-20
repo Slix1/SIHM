@@ -1,5 +1,5 @@
 {	
-	"gespa": {
+	
 		"requests": [
 		],
 		"environments": [
@@ -13,5 +13,5 @@
 			}
 		],
 		"groupADNamePattern" : "TEST_GESPA_*"
-	}
+	
 }

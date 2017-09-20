@@ -9,6 +9,8 @@ export class GefComponent implements OnInit {
 
   constructor() { }
 
+  public tab: string = 'gef';
+
   ngOnInit() {
   }
 

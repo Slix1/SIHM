@@ -1,5 +1,5 @@
 {	
-	"documentum": {
+	
 		"requests": [
 			{
 				"name" : "getNbErreur",
@@ -53,5 +53,5 @@
 				"path": "/path/test"
 			}
 		]
-	}
+	
 }

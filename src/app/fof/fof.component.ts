@@ -9,6 +9,8 @@ export class FofComponent implements OnInit {
 
   constructor() { }
 
+  tab: string = 'fof';
+
   ngOnInit() {
   }
 

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 
 @Component({
@@ -14,9 +15,8 @@ export class GesmagInfosComponent implements OnInit {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  // private gesmagInfosUrl = 'assets/json/mocks/jsonFileConnection/gesmag.json';
-  private gesmagInfosUrl = 'api/gesmag/infos';
-  
+  @Input() tab :string;
+  private gesmagInfosUrl: string;
   public gesmagInfosData: Object = {};
 
 
@@ -25,14 +25,16 @@ export class GesmagInfosComponent implements OnInit {
     this.ApiService.getData(this.gesmagInfosUrl)
       .then(gesmagInfosData => this.gesmagInfosData = {...gesmagInfosData})
       .catch(error => this.gesmagInfosData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+      .then(() => this.LoadingService.loading['gesmagInfos'] = false);
 
     return this.gesmagInfosData;
   }
 
   ngOnInit(): void {
 
-    this.LoadingService.loadingTrue();
+    this.gesmagInfosUrl = 'assets/json/mocks/jsonFileConnection/'+this.tab+'.json';
+    // this.gesmagInfosUrl = apiUrl + this.tab + '/infos';
+    this.LoadingService.loadingTrue('gesmagInfos');
 
     this.getGesmagInfosData()
   }

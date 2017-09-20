@@ -1,0 +1,12 @@
+{
+    "environment": "INT",
+    "server": "wlsintegration1",
+    "diskSpaceInfosHome": null,
+    "diskSpaceInfosSefas": null,
+    "diskSpaceInfosData": null,
+    "listVersions": null,
+    "versionWebLogic": "8.0.3-SNAPSHOT",
+    "versionApache": "8.0.5-SNAPSHOT",
+    "groupsMembers": null,
+    "connected": false
+}

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-edtdisk',
@@ -16,25 +17,36 @@ export class EdtdiskComponent {
  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-  private edtDiskUrl: string = 'assets/json/mocks/sshConnection/edt.json';
+  @Input() edtEnv: object;
+  private edtDiskUrl: Array<any> = [];
   public edtDiskData: object = {};
+  public environments: Array<any> = [];
 
 
-  public getEdtDiskData(): Object {
-    this.ApiService.getData(this.edtDiskUrl)
-      .then(edtDiskData => this.edtDiskData = {...edtDiskData})
-      .catch(error => this.edtDiskData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+  public getEdtDiskData(request): Object {
+    this.ApiService.getData(request.url)
+      .then(edtDiskData => this.edtDiskData[request.env] = {...edtDiskData, environment: request.env})
+      .catch(error => this.edtDiskData[request.env] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
+      .then(() => this.LoadingService.loading[request.env] = false);
 
     return this.edtDiskData
   }
 
 
   load(): void {
-
-    this.LoadingService.loadingTrue();
-
-    this.getEdtDiskData();
+    
+    if (this.edtEnv['EdtInfosData'].error == undefined) {   
+      this.environments = this.edtEnv['EdtInfosData'].environments;
+                
+      this.environments.forEach((env: any, envIndex) => {
+        this.edtDiskUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/' + env.environment + '/disk', env: env.environment};
+      });
+        
+      this.edtDiskUrl.forEach((env: any) => {
+        this.LoadingService.loadingTrue(env.env);
+        this.getEdtDiskData(env);
+      });
+    }
   }
 
   refresh(): void {
@@ -42,6 +54,9 @@ export class EdtdiskComponent {
   }
 
   switch(): void {
+    if (this.SwitchGlyphiconsService.currentGlyphicon !== this.SwitchGlyphiconsService.minus) {
+      this.load();
+    }
     this.SwitchGlyphiconsService.switchGlyphicon();
   }
 

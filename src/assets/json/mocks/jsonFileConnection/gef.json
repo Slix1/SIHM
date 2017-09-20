@@ -1,5 +1,5 @@
 {	
-	"gef": {
+	
 		"requests": [
 		],
 		"environments": [
@@ -18,5 +18,5 @@
 				"path": "/path/test"
 			}
 		]
-	}
+	
 }

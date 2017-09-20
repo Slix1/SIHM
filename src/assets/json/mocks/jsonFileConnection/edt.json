@@ -1,5 +1,5 @@
 {	
-	"edt": {
+	
 		"requests": [
 			{
 				"name" : "getBDocInfo",
@@ -92,7 +92,7 @@
 				"url": "serveurBdoc3"
 			}
 		],
-		"environmentsEDT": [
+		"environments": [
 			{
 				"environment": "DEV", 
 				"server": "testserver1",
@@ -116,6 +116,46 @@
 				"password": "pwd3",
 				"path": "/path/test",
 				"serverBDoc": "id2"
+			},
+			{
+				"environment": "DEV MCO1",
+				"server": "testserver3",
+				"user": "user3",
+				"password": "pwd3",
+				"path": "/path/test",
+				"serverBDoc": "id2"
+			},
+			{
+				"environment": "DEV MCO2",
+				"server": "testserver3",
+				"user": "user3",
+				"password": "pwd3",
+				"path": "/path/test",
+				"serverBDoc": "id2"
+			},
+			{
+				"environment": "DEV MCO3",
+				"server": "testserver3",
+				"user": "user3",
+				"password": "pwd3",
+				"path": "/path/test",
+				"serverBDoc": "id2"
+			},
+			{
+				"environment": "DEV MCO4",
+				"server": "testserver3",
+				"user": "user3",
+				"password": "pwd3",
+				"path": "/path/test",
+				"serverBDoc": "id2"
+			},
+			{
+				"environment": "DEV MCO5",
+				"server": "testserver3",
+				"user": "user3",
+				"password": "pwd3",
+				"path": "/path/test",
+				"serverBDoc": "id2"
 			}
 		],
 		"environmentsBdEDI": [
@@ -134,5 +174,5 @@
 				"sid": "SID2"
 			}
 		]
-	}
+	
 }

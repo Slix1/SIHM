@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-fofdisk',
@@ -15,25 +16,36 @@ export class FofdiskComponent {
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-  private fofDiskUrl: string = 'assets/json/mocks/sshConnection/fof.json';
+  @Input() fofEnv: object;
+  private fofDiskUrl: Array<any> = [];
   public fofDiskData: object = {};
+  public environments: Array<any> = [];
 
 
-  public getFofDiskData(): Object {
-    this.ApiService.getData(this.fofDiskUrl)
-      .then(fofDiskData => this.fofDiskData = {...fofDiskData})
-      .catch(error => this.fofDiskData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+  public getFofDiskData(request): Object {
+    this.ApiService.getData(request.url)
+      .then(fofDiskData => this.fofDiskData[request.env] = {...fofDiskData, environment: request.env})
+      .catch(error => this.fofDiskData[request.env] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
+      .then(() => this.LoadingService.loading[request.env] = false);
 
     return this.fofDiskData
   }
 
 
   load(): void {
-
-    this.LoadingService.loadingTrue();
-
-    this.getFofDiskData();
+    if (this.fofEnv['fofInfosData'].error == undefined) {   
+      
+      this.environments = this.fofEnv['fofInfosData'].environments;
+                
+      this.environments.forEach((env: any, envIndex) => {
+        this.fofDiskUrl[envIndex] = {url: apiUrl + this.fofEnv['tab'] + '/' + env.environment + '/disk', env: env.environment};
+      });
+        
+      this.fofDiskUrl.forEach((env: any) => {
+        this.LoadingService.loadingTrue(env.env);
+        this.getFofDiskData(env);
+      });
+    }
   }
 
   refresh(): void {
@@ -41,6 +53,9 @@ export class FofdiskComponent {
   }
 
   switch(): void {
+    if (this.SwitchGlyphiconsService.currentGlyphicon !== this.SwitchGlyphiconsService.minus) {
+      this.load();
+    }
     this.SwitchGlyphiconsService.switchGlyphicon();
   }
 }

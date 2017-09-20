@@ -4,11 +4,10 @@
 			Espace disque
 			<div class="pull-right">
 				<a (click)="refresh()">
-							<span class="glyphicon glyphicon-refresh black"></span>
-						</a>
-				<a (click)="load(); switch();" role="button" data-toggle="collapse" href="#edtDisk" aria-expanded="false" aria-controls="edtBdoc">
+					<span class="glyphicon glyphicon-refresh black"></span>
+				</a>
+				<a (click)="switch();" role="button" data-toggle="collapse" href="#edtDisk" aria-expanded="false" aria-controls="edtBdoc">
 					<span [className]="SwitchGlyphiconsService.currentGlyphicon"></span>
-					
 				</a>
 			</div>
 		</h4>
@@ -19,104 +18,135 @@
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-							<th *ngIf="edtDiskData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else diskError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #diskError>
-										<div class="displayCell">{{ edtDiskData?.error }}</div>
-								</ng-template>
+							<th class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Serveur</div>
 							</th>
-							<th *ngFor="let env of edtDiskData?.edt?.sshRequestsByEnvironment" class="text-center col-xs-1">
-								<div *ngIf="LoadingService.loading; else diskHead" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #diskHead>
-									<div>{{ env.nameEnvironment }}</div>
-								</ng-template>
+							<th *ngIf="edtEnv['EdtInfosData']?.error; else verHead" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ edtEnv['EdtInfosData']?.error }}</div>
 							</th>
+							<ng-template #verHead>
+								<th *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<div class="displayCell">{{ env.environment }}</div>
+								</th>
+							</ng-template>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Data Use</div></td>
-							<td *ngIf="edtDiskData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else diskError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #diskError>
-										<div class="displayCell">{{ edtDiskData?.error }}</div>
-								</ng-template>
+							<td class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Data Use</div>
 							</td>
-							<td *ngFor="let env of edtDiskData?.edt?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
-								<div *ngFor="let request of env.environmentRequests">
-									<div *ngIf="request.name == 'getEspaceDisqueDataInfos'">
-										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">
+							<td *ngIf="edtEnv['EdtInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ edtEnv['EdtInfosData']?.error }}</div>
+							</td>
+							<ng-template #disk>
+								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<ng-container *ngIf="edtDiskData[env.environment]?.error; else diskDataUseData">
+										<div *ngIf="LoadingService.loading[env.environment]; else diskDataUseError" class="displayCell">
 											Loading....
 										</div>
-										<ng-template #dataBody>
-											<div data-toggle="tooltip" data-placement="bottom" class="displayCell" [ngClass]="{'bg-danger' : (request.response | split:';':2) >= 80, 'bg-warning' : (request.response | split:';':2) >= 60 && (request.response | split:';':2) < 80}"
-											 title="Reste {{ request.response | split:';':1 }}/{{ request.response | split:';':0 }}">
-												{{ request.response | split:";":2 }}%
-											</div>
+										<ng-template #diskDataUseError>
+											<div *ngIf="env.environment == edtDiskData[env.environment]?.environment" class="displayCell">{{ edtDiskData[env.environment]?.error }}</div>
 										</ng-template>
-									</div>
-								</div>
-							</td>
+									</ng-container>
+									<ng-template #diskDataUseData>
+										<div *ngIf="LoadingService.loading[env.environment]; else diskDataUse" class="displayCell">
+											Loading....
+										</div>
+										<ng-template #diskDataUse>
+											<ng-container *ngIf="edtDiskData[env.environment]?.diskSpaceInfosData == null; else showData">
+												<div *ngIf="env.environment == edtDiskData[env.environment]?.environment" class="displayCell bg-danger">Pas de données</div>
+											</ng-container>
+											<ng-template #showData>
+												<div data-toggle="tooltip" data-placement="bottom" *ngIf="env.environment == edtDiskData[env.environment]?.environment" class="displayCell"
+												 title="Reste {{ edtDiskData[env.environment]?.diskSpaceInfosData.availableSize }}/{{ edtDiskData[env.environment]?.diskSpaceInfosData.globalSize }}"
+												 [ngClass]="{'bg-danger' : edtDiskData[env.environment]?.diskSpaceInfosData.percentageUse >= 80,
+													'bg-warning' : edtDiskData[env.environment]?.diskSpaceInfosData.percentageUse >= 60 && edtDiskData[env.environment]?.diskSpaceInfosData.percentageUse < 80}">
+													{{ edtDiskData[env.environment]?.diskSpaceInfosData.percentageUse }}%
+												</div>
+											</ng-template>
+										</ng-template>
+									</ng-template>
+								</td>
+							</ng-template>
 						</tr>
 
 						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Home Use</div></td>
-							<td *ngIf="edtDiskData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else diskError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #diskError>
-										<div class="displayCell">{{ edtDiskData?.error }}</div>
-								</ng-template>
+							<td class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Home Use</div>
 							</td>
-							<td *ngFor="let env of edtDiskData?.edt?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
-								<div *ngFor="let request of env.environmentRequests">
-									<div *ngIf="request.name == 'getEspaceDisqueHomeInfos'">
-										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">
+							<td *ngIf="edtEnv['EdtInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ edtEnv['EdtInfosData']?.error }}</div>
+							</td>
+							<ng-template #disk>
+								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<ng-container *ngIf="edtDiskData[env.environment]?.error; else diskHomeUseData">
+										<div *ngIf="LoadingService.loading[env.environment]; else diskHomeUseError" class="displayCell">
 											Loading....
 										</div>
-										<ng-template #dataBody>
-											<div data-toggle="tooltip" data-placement="bottom" class="displayCell" [ngClass]="{'bg-danger' : (request.response | split:';':2) >= 80, 'bg-warning' : (request.response | split:';':2) >= 60 && (request.response | split:';':2) < 80}"
-											 title="Reste {{ request.response | split:';':1 }}/{{ request.response | split:';':0 }}">
-												{{ request.response | split:";":2 }}%
-											</div>
+										<ng-template #diskHomeUseError>
+											<div *ngIf="env.environment == edtDiskData[env.environment]?.environment" class="displayCell">{{ edtDiskData[env.environment]?.error }}</div>
 										</ng-template>
-									</div>
-								</div>
-							</td>
+									</ng-container>
+									<ng-template #diskHomeUseData>
+										<div *ngIf="LoadingService.loading[env.environment]; else diskHomeUse" class="displayCell">
+											Loading....
+										</div>
+										<ng-template #diskHomeUse>
+											<ng-container *ngIf="edtDiskData[env.environment]?.diskSpaceInfosHome == null; else showData">
+												<div *ngIf="env.environment == edtDiskData[env.environment]?.environment" class="displayCell bg-danger">Pas de données</div>
+											</ng-container>
+											<ng-template #showData>
+												<div data-toggle="tooltip" data-placement="bottom" *ngIf="env.environment == edtDiskData[env.environment]?.environment" class="displayCell"
+												 title="Reste {{ edtDiskData[env.environment]?.diskSpaceInfosHome.availableSize }}/{{ edtDiskData[env.environment]?.diskSpaceInfosHome.globalSize }}"
+												 [ngClass]="{'bg-danger' : edtDiskData[env.environment]?.diskSpaceInfosHome.percentageUse >= 80,
+													'bg-warning' : edtDiskData[env.environment]?.diskSpaceInfosHome.percentageUse >= 60 && edtDiskData[env.environment]?.diskSpaceInfosHome.percentageUse < 80}">
+													{{ edtDiskData[env.environment]?.diskSpaceInfosHome.percentageUse }}%
+												</div>
+											</ng-template>
+										</ng-template>
+									</ng-template>
+								</td>
+							</ng-template>
 						</tr>
+
 						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Sefas Use</div></td>
-							<td *ngIf="edtDiskData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else diskError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #diskError>
-										<div class="displayCell">{{ edtDiskData?.error }}</div>
-								</ng-template>
+							<td class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Sefas Use</div>
 							</td>
-							<td *ngFor="let env of edtDiskData?.edt?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
-								<div *ngFor="let request of env.environmentRequests">
-									<div *ngIf="request.name == 'getEspaceDisqueSefasInfos'">
-										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">
+							<td *ngIf="edtEnv['EdtInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ edtEnv['EdtInfosData']?.error }}</div>
+							</td>
+							<ng-template #disk>
+								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<ng-container *ngIf="edtDiskData[env.environment]?.error; else diskSefasUseData">
+										<div *ngIf="LoadingService.loading[env.environment]; else diskSefasUseError" class="displayCell">
 											Loading....
 										</div>
-										<ng-template #dataBody>
-											<div data-toggle="tooltip" data-placement="bottom" class="displayCell" [ngClass]="{'bg-danger' : (request.response | split:';':2) >= 80, 'bg-warning' : (request.response | split:';':2) >= 60 && (request.response | split:';':2) < 80}"
-											 title="Reste {{ request.response | split:';':1 }}/{{ request.response | split:';':0 }}">
-												{{ request.response | split:";":2 }}%
-											</div>
+										<ng-template #diskSefasUseError>
+											<div *ngIf="env.environment == edtDiskData[env.environment]?.environment" class="displayCell">{{ edtDiskData[env.environment]?.error }}</div>
 										</ng-template>
-									</div>
-								</div>
-							</td>
+									</ng-container>
+									<ng-template #diskSefasUseData>
+										<div *ngIf="LoadingService.loading[env.environment]; else diskSefasUse" class="displayCell">
+											Loading....
+										</div>
+										<ng-template #diskSefasUse>
+											<ng-container *ngIf="edtDiskData[env.environment]?.diskSpaceInfosSefas == null; else showData">
+												<div *ngIf="env.environment == edtDiskData[env.environment]?.environment" class="displayCell bg-danger">Pas de données</div>
+											</ng-container>
+											<ng-template #showData>
+												<div data-toggle="tooltip" data-placement="bottom" *ngIf="env.environment == edtDiskData[env.environment]?.environment" class="displayCell"
+												 title="Reste {{ edtDiskData[env.environment]?.diskSpaceInfosSefas.availableSize }}/{{ edtDiskData[env.environment]?.diskSpaceInfosSefas.globalSize }}"
+												 [ngClass]="{'bg-danger' : edtDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse >= 80,
+													'bg-warning' : edtDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse >= 60 && edtDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse < 80}">
+													{{ edtDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse }}%
+												</div>
+											</ng-template>
+										</ng-template>
+									</ng-template>
+								</td>
+							</ng-template>
 						</tr>
 					</tbody>
 				</table>
