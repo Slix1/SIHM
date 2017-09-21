@@ -6,7 +6,7 @@
 				<a (click)="refresh()">
 					<span class="glyphicon glyphicon-refresh black"></span>
 				</a>
-				<a (click)="load(); switch();" role="button" data-toggle="collapse" href="#edtSql" aria-expanded="false" aria-controls="edtSql">
+				<a (click)="switch();" role="button" data-toggle="collapse" href="#edtSql" aria-expanded="false" aria-controls="edtSql">
 					<span [className]="SwitchGlyphiconsService.currentGlyphicon"></span>
 				</a>
 			</div>
@@ -16,69 +16,82 @@
 		<div>
 			<div class="panel-body table-responsive">
 				<table class="table table-condensed">
-					<thead >
-						<tr >
+					<thead>
+						<tr>
 							<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-							<th *ngIf="edtSqlData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else sqlError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #sqlError>
-									<div class="displayCell">{{ edtSqlData?.error }}</div>
-								</ng-template>
+							<th *ngIf="edtEnv['EdtInfosData']?.error; else packageHead" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ edtEnv['EdtInfosData']?.error }}</div>
 							</th>
-							<th *ngFor="let servers of edtSqlData?.edt?.sshRequestsByEnvironment | sql:'servers'" class="text-center col-xs-1">
-								<div *ngIf="LoadingService.loading; else sqlHead" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #sqlHead>
-										<div class="displayCell">{{ servers.name }}</div>
-								</ng-template>
-							</th>
+							<ng-template #packageHead>
+								<th *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<div class="displayCell">{{ env.environment }}</div>
+								</th>
+							</ng-template>
 						</tr>
 					</thead>
 					<tbody >
 						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Host</div></td>
-							<td *ngIf="edtSqlData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else sqlError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #sqlError>
-										<div class="displayCell">{{ edtSqlData?.error }}</div>
-								</ng-template>
-							</td>						
-							<td *ngFor="let servers of edtSqlData?.edt?.sshRequestsByEnvironment | sql:'servers'" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else sqlHost" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #sqlHost>
-										<div class="displayCell">{{ servers.name }}</div>
-								</ng-template>
+							<td class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Host</div>
 							</td>
+							<td *ngIf="edtEnv['EdtInfosData']?.error; else host" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ edtEnv['EdtInfosData']?.error }}</div>
+							</td>
+							<ng-template #host>
+								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<ng-container *ngIf="edtSqlData[env.environment]?.error; else hostData">
+										<div *ngIf="LoadingService.loading[env.environment]; else hostError" class="displayCell">
+											Loading....
+										</div>
+										<ng-template #hostError>
+											<div *ngIf="env.environment == edtSqlData[env.environment]?.environment" class="displayCell">{{ edtSqlData[env.environment]?.error }}</div>
+										</ng-template>
+									</ng-container>
+									<ng-template #hostData>
+										<div *ngIf="LoadingService.loading[env.environment]; else showHost" class="displayCell">
+											Loading....
+										</div>
+										<ng-template #showHost>
+											<div *ngIf="env.environment == edtSqlData[env.environment]?.environment" class="displayCell">
+												{{edtSqlData[env.environment]?.server}}
+											</div>
+										</ng-template>
+									</ng-template>
+								</td>
+							</ng-template>
 						</tr>
 
 						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Script</div></td>
-							<td *ngIf="edtSqlData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else sqlError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #sqlError>
-										<div class="displayCell">{{ edtSqlData?.error }}</div>
-								</ng-template>
+							<td class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Script</div>
 							</td>
-							<td *ngFor="let servers of edtSqlData?.edt?.sshRequestsByEnvironment | sql:'servers'" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else sqlData" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #sqlData>
-										<div *ngFor="let dataSql of servers.dataSql">
-											<div class="displayCell" data-toggle="tooltip" data-placement="bottom" data-html="true" title="{{ dataSql.files }}
-																		Lancé le {{ dataSql.scriptStart }} terminé le {{ dataSql.scriptEnd }}">{{ dataSql.name }}</div>
+							<td *ngIf="edtEnv['EdtInfosData']?.error; else sql" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ edtEnv['EdtInfosData']?.error }}</div>
+							</td>
+							<ng-template #sql>
+								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<ng-container *ngIf="edtSqlData[env.environment]?.error; else scriptData">
+										<div *ngIf="LoadingService.loading[env.environment]; else scriptError" class="displayCell">
+											Loading....
 										</div>
-								</ng-template>
-							</td>
+										<ng-template #scriptError>
+											<div *ngIf="env.environment == edtSqlData[env.environment]?.environment" class="displayCell">{{ edtSqlData[env.environment]?.error }}</div>
+										</ng-template>
+									</ng-container>
+									<ng-template #scriptData>
+										<div *ngIf="LoadingService.loading[env.environment]; else script" class="displayCell">
+											Loading....
+										</div>
+										<ng-template #script>
+											<ng-container *ngFor="let script of edtSqlData[env.environment]?.listeScriptsSQL">
+												<div data-toggle="tooltip" data-placement="bottom" title="{{script.nom}}&#10;Lancé le {{script.debut}} terminé le {{script.fin}}" class="displayCell">
+													{{script.nom}}
+												</div>
+											</ng-container>
+										</ng-template>
+									</ng-template>
+								</td>
+							</ng-template>
 						</tr>
 					</tbody>
 				</table>

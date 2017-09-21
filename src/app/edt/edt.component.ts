@@ -9,6 +9,8 @@ export class EdtComponent implements OnInit {
 
   constructor() { }
 
+  tab: string = 'edt';
+
   ngOnInit() {
   }
 

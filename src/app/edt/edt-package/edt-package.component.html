@@ -6,7 +6,7 @@
 				<a (click)="refresh()">
 							<span class="glyphicon glyphicon-refresh black"></span>
 						</a>
-				<a (click)="load(); switch();" role="button" data-toggle="collapse" href="#edtPackage" aria-expanded="false" aria-controls="edtBdoc">
+				<a (click)="switch();" role="button" data-toggle="collapse" href="#edtPackage" aria-expanded="false" aria-controls="edtBdoc">
 					<span [className]="SwitchGlyphiconsService.currentGlyphicon"></span>
 					
 				</a>
@@ -20,48 +20,66 @@
 					<thead>
 						<tr>
 							<th class="text-center col-xs-1 displayCol"><div class="displayCell">Version</div></th>
-							<th *ngIf="edtPackageData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else packageError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #packageError>
-										<div class="displayCell">{{ edtPackageData?.error }}</div>
-								</ng-template>
+							<th *ngIf="edtEnv['EdtInfosData']?.error; else packageHead" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ edtEnv['EdtInfosData']?.error }}</div>
 							</th>
-							<th *ngFor="let servers of edtPackageData?.edt?.sshRequestsByEnvironment | versions:'servers'" class="text-center col-xs-1">
-								<div *ngIf="LoadingService.loading; else packageHead">
-									Loading....
-								</div>
-								<ng-template #packageHead>
-									<div>{{ servers.name }}</div>
-								</ng-template>
-							</th>
+							<ng-template #packageHead>
+								<th *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<div class="displayCell">{{ env.environment }}</div>
+								</th>
+							</ng-template>
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let versionsList of edtPackageData?.edt?.sshRequestsByEnvironment | versions:'versionsList'">
-							<td class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else packageVer" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #packageVer>
-									<div data-toggle="tooltip" data-placement="bottom" title="{{versionsList.detail}}" class="displayCell">
-										{{ versionsList.version }}
+						<ng-container *ngIf="edtPackageData?.versionList?.list == undefined; else versionList">
+							<tr>
+								<td class="text-center col-xs-1 displayCol">
+									<div class="displayCell">-</div>
+								</td>
+								<td *ngIf="edtEnv['EdtInfosData']?.error" class="text-center col-xs-1 displayCol">
+									<div class="displayCell">{{ edtEnv['EdtInfosData']?.error }}</div>
+								</td>
+								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<div *ngIf="LoadingService.loading[env.environment]; else reqError" class="displayCell">
+										Loading....
 									</div>
-								</ng-template>
+									<ng-template #reqError>
+										<div class="displayCell">{{ edtPackageData[env.environment]?.error }}</div>
+									</ng-template>
+								</td>
+							</tr>
+						</ng-container>
+						<ng-template #versionList>
+						<tr *ngFor="let packageVersion of edtPackageData?.versionList?.list">
+							<td  class="text-center col-xs-1 displayCol">
+								<ng-container *ngIf="edtPackageData?.versionList?.detail[packageVersion].version == packageVersion">
+									<div data-toggle="tooltip" data-placement="bottom" title="{{edtPackageData?.versionList?.detail[packageVersion].detail}}" class="displayCell">
+										{{ packageVersion }}
+									</div>
+								</ng-container>
 							</td>
-
-							<td *ngFor="let env of edtPackageData?.edt?.sshRequestsByEnvironment | versions:'packages'" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else packageDetail">
-									Loading....
-								</div>
-								<ng-template #packageDetail>
-									<div *ngFor="let packages of env">
-										<div class="displayCell" *ngIf="packages.version == versionsList.version">{{packages.date | split:" ":0}}<br>{{packages.date | split:" ":1}}</div>
+							<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+								<ng-container *ngIf="edtPackageData[env.environment]?.error; else packageData">
+									<div *ngIf="LoadingService.loading[env.environment]; else packageError" class="displayCell">
+										Loading....
 									</div>
+									<ng-template #packageError>
+										<div class="displayCell">{{ edtPackageData[env.environment]?.error }}</div>
+									</ng-template>
+								</ng-container>
+								<ng-template #packageData>
+									<div *ngIf="LoadingService.loading[env.environment]; else packageBody" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #packageBody>
+										<ng-container *ngFor="let package of edtPackageData[env.environment]?.listVersions">
+											<div *ngIf="packageVersion == package.num" class="displayCell">{{package.installDate | split:" ":0}}<br>{{package.installDate | split:" ":1}}</div>
+										</ng-container>
+									</ng-template>
 								</ng-template>
 							</td>
 						</tr>
+					</ng-template>
 					</tbody>
 				</table>
 			</div>

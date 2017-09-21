@@ -6,17 +6,14 @@
 	<h4 style="margin-bottom : 40px">Sur cette page sont visibles les informations des différents serveurs éditique, les couloirs Infinite et les versions des packages installés</h4>
 
   <div class="content">
-    
-    <!--<app-edtinfos #edtEnvironment></app-edtinfos>
-    <app-edtbdoc [edtEnv]="edtEnvironment"></app-edtbdoc>-->
-    
-    <app-edtinfos></app-edtinfos>
-    <app-edtbdoc></app-edtbdoc>
-    <app-edtdisk></app-edtdisk>
-    <app-edt-package></app-edt-package>
-    <app-edt-sql></app-edt-sql>
+
+    <app-edtinfos [tab]='tab' #env></app-edtinfos>
+    <app-edtbdoc [edtEnv]='env'></app-edtbdoc>
+    <app-edtdisk [edtEnv]='env'></app-edtdisk>
+    <app-edt-package [edtEnv]='env'></app-edt-package>
+    <app-edt-sql [edtEnv]='env'></app-edt-sql>
     <app-edt-suivi></app-edt-suivi>
-    <app-edt-daemons></app-edt-daemons>
+    <app-edt-daemons [edtEnv]='env'></app-edt-daemons>
 		
   </div>
 		

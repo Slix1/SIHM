@@ -4,11 +4,11 @@ import {Injectable} from '@angular/core';
 export class LoadingService {
 
   
-  public loading: boolean;
+  public loading: object = {};
 
-  public loadingTrue(): void {
+  public loadingTrue(env): void {
 
-    this.loading = true;
+    this.loading[env] = true;
   }
 
 }

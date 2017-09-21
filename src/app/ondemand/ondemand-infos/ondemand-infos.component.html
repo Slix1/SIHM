@@ -7,43 +7,33 @@
 			<thead>
 				<tr>
 					<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-					<th *ngIf="onDemandInfosData?.error" class="text-center col-xs-1 displayCol">
-						<div *ngIf="LoadingService.loading; else infosError" class="displayCell">
-							Loading....
-						</div>
-						<ng-template #infosError>
-							<div class="displayCell">{{ onDemandInfosData?.error }}</div>
-						</ng-template>
+					<th *ngIf="LoadingService.loading['onDemandInfos']; else servHead" class="text-center col-xs-1 displayCol">
+						<div class="displayCell">Loading....</div>
 					</th>
-					<th *ngFor="let env of onDemandInfosData?.ondemand?.environments" class="text-center col-xs-1 displayCol">
-						<div *ngIf="LoadingService.loading; else envHead" class="displayCell">
-							Loading....
-						</div>
-						<ng-template #envHead>
-							<div class="displayCell">{{ env.environment }}</div>
+					<ng-template #servHead>
+						<th *ngIf="onDemandInfosData?.error; else onDemandServ" class="text-center col-xs-1 displayCol"><div class="displayCell">{{ onDemandInfosData?.error }}</div></th>
+						<ng-template #onDemandServ>
+							<th *ngFor="let env of onDemandInfosData?.environments" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ env.environment }}</div>
+							</th>	
 						</ng-template>
-					</th>
+					</ng-template>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td class="text-center col-xs-1 displayCol"><div class="displayCell">Host</div></td>
-					<td *ngIf="onDemandInfosData?.error" class="text-center col-xs-1 displayCol">
-						<div *ngIf="LoadingService.loading; else infosError" class="displayCell">
-							Loading....
-						</div>
-						<ng-template #infosError>
-							<div class="displayCell">{{ onDemandInfosData?.error }}</div>
-						</ng-template>
+					<td *ngIf="LoadingService.loading['onDemandInfos']; else hostHead" class="text-center col-xs-1 displayCol">
+						<div class="displayCell">Loading....</div>
 					</td>
-					<td *ngFor="let env of onDemandInfosData?.ondemand?.environments" class="text-center col-xs-1 displayCol">
-						<div *ngIf="LoadingService.loading; else envBody" class="displayCell">
-							Loading....
-						</div>
-						<ng-template #envBody>
-							<div class="displayCell">{{ env.server }}</div>
+					<ng-template #hostHead>
+						<td *ngIf="onDemandInfosData?.error; else onDemandHost" class="text-center col-xs-1 displayCol"><div class="displayCell">{{ onDemandInfosData?.error }}</div></td>
+						<ng-template #onDemandHost>
+							<td *ngFor="let env of onDemandInfosData?.environments" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ env.server }}</div>
+							</td>	
 						</ng-template>
-					</td>
+					</ng-template>
 				</tr>
 			</tbody>
 		</table>

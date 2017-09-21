@@ -7,9 +7,9 @@
 
   <div class="content">
     
-		<app-gesmag-infos #env></app-gesmag-infos>
+		<app-gesmag-infos #env [tab]='tab'></app-gesmag-infos>
 		<app-gesmag-versions [gesmagEnv]="env"></app-gesmag-versions>
-		<app-gesmag-users></app-gesmag-users>
+		<app-gesmag-users [tab]='tab'></app-gesmag-users>
 
   </div>
 		

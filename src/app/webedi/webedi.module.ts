@@ -7,7 +7,6 @@ import { WebediComponent } from './webedi.component';
 import { WebediInfosComponent } from './webedi-infos/webedi-infos.component';
 import { WebediVersionsComponent } from './webedi-versions/webedi-versions.component';
 import { WebediUsersComponent } from './webedi-users/webedi-users.component';
-import { WebediBaseComponent } from './webedi-base/webedi-base.component';
 
 
 const routes: Routes = [
@@ -19,8 +18,7 @@ const routes: Routes = [
     WebediComponent,
     WebediInfosComponent,
     WebediVersionsComponent,
-    WebediUsersComponent,
-    WebediBaseComponent
+    WebediUsersComponent
   ],
   imports: [
     CommonModule,

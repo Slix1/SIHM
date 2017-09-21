@@ -4,11 +4,10 @@
 			Version
 			<div class="pull-right">
 				<a (click)="refresh()">
-							<span class="glyphicon glyphicon-refresh black"></span>
-						</a>
-				<a (click)="load(); switch()" role="button" data-toggle="collapse" href="#webediVersion" aria-expanded="false" aria-controls="webediVersion">
+					<span class="glyphicon glyphicon-refresh black"></span>
+				</a>
+				<a (click)="switch()" role="button" data-toggle="collapse" href="#webediVersion" aria-expanded="false" aria-controls="webediVersion">
 					<span [className]="SwitchGlyphiconsService.currentGlyphicon"></span>
-					
 				</a>
 			</div>
 		</h4>
@@ -16,49 +15,75 @@
 	<div id="webediVersion" class="panel-collapse collapse">
 		<div class="panel-body table-responsive">
 			<table class="table table-condensed">
-				<thead>
-					<tr>
+				<thead >
+					<tr >
 						<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-						<th *ngIf="webEdiVersionData?.error" class="text-center col-xs-1 displayCol">
-							<div *ngIf="LoadingService.loading; else versionError" class="displayCell">
-								Loading....
-							</div>
-							<ng-template #versionError>
-								<div class="displayCell">{{ webEdiVersionData?.error }}</div>
-							</ng-template>
+						<th *ngIf="webediEnv['webEdiInfosData']?.error; else verHead" class="text-center col-xs-1 displayCol">
+							<div class="displayCell">{{ webediEnv['webEdiInfosData']?.error }}</div>
 						</th>
-						<th *ngFor="let env of webediEnv?.webEdiInfosData?.webedi?.environments" class="text-center col-xs-1 displayCol">
-							<div *ngIf="LoadingService.loading; else verHead" class="displayCell">
-								Loading...
-							</div>
-							<ng-template #verHead>
-								<div *ngFor="let url of webEdiVersionData?.url?.urlContentsList | version:'webedi'">
-									<div class="displayCell" *ngIf="env.server == url.server"><a href="{{ url.url }}" target="_blank">{{ env.environment }}</a></div>
-								</div>
-							</ng-template>
-						</th>
-
-					</tr>
-					<tr>
-						<td class="text-center col-xs-1 displayCol"><div class="displayCell">???</div></td>
-						<td *ngIf="webEdiVersionData?.error" class="text-center col-xs-1 displayCol">
-							<div *ngIf="LoadingService.loading; else versionError" class="displayCell">
-								Loading....
-							</div>
-							<ng-template #versionError>
-								<div class="displayCell">{{ webEdiVersionData?.error }}</div>
-							</ng-template>
-						</td>
-						<td *ngFor="let url of webEdiVersionData?.url?.urlContentsList | version:'webedi'" class="text-center col-xs-1 displayCol">
-							<div *ngIf="LoadingService.loading; else verBody" class="displayCell">
-								Loading....
-							</div>
-							<ng-template #verBody>
-								<div class="displayCell">{{ url.content | split:'<\/noscript>':1 | split:'<\script':0 | split:' ':0 }}</div>
-							</ng-template>
-						</td>
+						<ng-template #verHead>
+							<th *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+								<div class="displayCell"><a href="{{ webEdiVersionData[env.environment]?.server }}/{{webediEnv['tab']}}/" target="_blank">{{ env.environment }}</a></div>
+							</th>
+						</ng-template>
 					</tr>
 				</thead>
+				<tbody>
+					<tr>
+						<td class="text-center col-xs-1 displayCol"><div class="displayCell">Apache</div></td>
+						<td *ngIf="webediEnv['webEdiInfosData']?.error; else verApache" class="text-center col-xs-1 displayCol">
+							<div class="displayCell">{{ webediEnv['webEdiInfosData']?.error }}</div>
+						</td>
+						<ng-template #verApache>
+							<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+								<ng-container *ngIf="webEdiVersionData[env.environment]?.error; else versionData">
+									<div *ngIf="LoadingService.loading[env.environment]; else versionError" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #versionError>
+										<div *ngIf="env.environment == webEdiVersionData[env.environment]?.environment" class="displayCell">{{ webEdiVersionData[env.environment]?.error }}</div>
+									</ng-template>
+								</ng-container>
+								<ng-template #versionData>
+									<div *ngIf="LoadingService.loading[env.environment]; else verBody" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #verBody>
+										<div *ngIf="env.environment == webEdiVersionData[env.environment]?.environment" class="displayCell">{{ webEdiVersionData[env.environment]?.versionApache }}</div>
+									</ng-template>
+								</ng-template>
+							</td>
+						</ng-template>
+					</tr>
+
+					<tr>
+						<td class="text-center col-xs-1 displayCol"><div class="displayCell">Weblogic</div></td>
+						<td *ngIf="webediEnv['webEdiInfosData']?.error; else verWeblogic" class="text-center col-xs-1 displayCol">
+							<div class="displayCell">{{ webediEnv['webEdiInfosData']?.error }}</div>
+						</td>
+						<ng-template #verWeblogic>
+							<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+								<ng-container *ngIf="webEdiVersionData[env.environment]?.error; else versionData">
+									<div *ngIf="LoadingService.loading[env.environment]; else versionError" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #versionError>
+										<div *ngIf="env.environment == webEdiVersionData[env.environment]?.environment" class="displayCell">{{ webEdiVersionData[env.environment]?.error }}</div>
+									</ng-template>
+								</ng-container>
+								<ng-template #versionData>
+									<div *ngIf="LoadingService.loading[env.environment]; else verBody" class="displayCell">
+										Loading....
+									</div>
+									<ng-template #verBody>
+										<div *ngIf="env.environment == webEdiVersionData[env.environment]?.environment" class="displayCell">{{ webEdiVersionData[env.environment]?.versionWebLogic }}</div>
+									</ng-template>
+								</ng-template>
+							</td>
+						</ng-template>
+					</tr>
+					
+				</tbody>
 			</table>
 		</div>
 	</div>

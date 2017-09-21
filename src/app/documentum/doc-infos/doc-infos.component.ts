@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-docinfos',
@@ -13,25 +14,24 @@ export class DocinfosComponent implements OnInit {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-
-  // private DocumentumInfosUrl: string = 'assets/json/mocks/jsonFileConnection/documentum.json';
-  private DocumentumInfosUrl: string = '/api/documentum/infos';
-  
-  public DocumentumInfosData: Object = {};
+  @Input() tab :string;
+  private documentumInfosUrl: string;
+  public documentumInfosData: Object = {};
 
 
   public getDocumentumInfosData(): Object {
 
-    return this.ApiService.getData(this.DocumentumInfosUrl)
-      .then(DocumentumInfos => this.DocumentumInfosData = {...DocumentumInfos})
-      .catch(error => this.DocumentumInfosData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+    return this.ApiService.getData(this.documentumInfosUrl)
+      .then(documentumInfos => this.documentumInfosData = {...documentumInfos})
+      .catch(error => this.documentumInfosData = {error: this.ErrorService.getErrorMessage(error)})
+      .then(() => this.LoadingService.loading['documentumInfos'] = false);
 
   }
 
   ngOnInit(): void {
 
-    this.LoadingService.loadingTrue();
+    this.documentumInfosUrl = apiUrl + this.tab + '/infos';
+    this.LoadingService.loadingTrue('documentumInfos');
     this.getDocumentumInfosData();
   }
 

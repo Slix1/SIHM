@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-ondemand-infos',
@@ -13,9 +14,8 @@ export class OndemandInfosComponent implements OnInit {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  // private onDemandInfosUrl: string = 'assets/json/mocks/jsonFileConnection/ondemand.json';
-  private onDemandInfosUrl: string = 'api/ondemand/infos';
-  
+  @Input() tab :string;
+  private onDemandInfosUrl: string;
   public onDemandInfosData: object = {};
 
 
@@ -24,14 +24,15 @@ export class OndemandInfosComponent implements OnInit {
     this.ApiService.getData(this.onDemandInfosUrl)
       .then(onDemandInfosData => this.onDemandInfosData = {...onDemandInfosData})
       .catch(error => this.onDemandInfosData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+      .then(() => this.LoadingService.loading['onDemandInfos'] = false);
 
     return this.onDemandInfosData;
   }
 
   ngOnInit(): void {
 
-    this.LoadingService.loadingTrue();
+    this.onDemandInfosUrl = apiUrl + this.tab + '/infos';
+    this.LoadingService.loadingTrue('onDemandInfos');
 
     this.getOnDemandInfosData()
   }

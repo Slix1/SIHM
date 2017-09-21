@@ -9,6 +9,8 @@ export class GespaComponent implements OnInit {
 
   constructor() { }
 
+  public tab: string = 'gespa';
+
   ngOnInit() {
   }
 

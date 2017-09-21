@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-edtinfos',
@@ -16,9 +17,10 @@ export class EdtinfosComponent {
 
   constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
-  // private EdtInfosDataUrl: string = 'assets/json/mocks/jsonFileConnection/edt.json';
-  private EdtInfosDataUrl: string = '/api/edt/infos';
+  @Input() tab: object;
+  private EdtInfosDataUrl: string;
   public EdtInfosData: Object = {};
+
 
 
   public getEdtInfosData(): Object {
@@ -26,14 +28,15 @@ export class EdtinfosComponent {
     this.ApiService.getData(this.EdtInfosDataUrl)
       .then(EdtInfosData => this.EdtInfosData = {...EdtInfosData})
       .catch(error => this.EdtInfosData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+      .then(() => this.LoadingService.loading['EdtInfos'] = false);
       
     return this.EdtInfosData;
   }
 
   ngOnInit(): void {
 
-    this.LoadingService.loadingTrue();
+    this.EdtInfosDataUrl= apiUrl + this.tab + '/infos';
+    this.LoadingService.loadingTrue('EdtInfos');
 
     this.getEdtInfosData()
   }

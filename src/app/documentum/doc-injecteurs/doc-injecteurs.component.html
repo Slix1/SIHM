@@ -1,149 +1,180 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<h4 class="panel-title">
-			Entrée des injecteurs!
+			Entrée des injecteurs
 			<div class="pull-right">
 				<a (click)="refresh()">
 							<span class="glyphicon glyphicon-refresh black"></span>
 						</a>
-				<a (click)="load(); switch();" role="button" data-toggle="collapse" href="#edtDisk" aria-expanded="false" aria-controls="edtBdoc">
+				<a (click)="switch();" role="button" data-toggle="collapse" href="#docInjecteurs" aria-expanded="false" aria-controls="docInjecteurs">
 					<span [className]="SwitchGlyphiconsService.currentGlyphicon"></span>
 					
 				</a>
 			</div>
 		</h4>
 	</div>
-	<div id="edtDisk" class="panel-collapse collapse">
+	<div id="docInjecteurs" class="panel-collapse collapse">
 		<div>
 			<div class="panel-body table-responsive">
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-							<th *ngIf="documentumInjecteursData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else injecteursError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #injecteursError>
-										<div class="displayCell">{{ documentumInjecteursData?.error }}</div>
-								</ng-template>
+							<th class="text-center col-xs-1 displayCol"><div class="displayCell">Version</div></th>
+							<th *ngIf="documentumEnv['documentumInfosData']?.error; else packageHead" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ documentumEnv['documentumInfosData']?.error }}</div>
 							</th>
-							<th *ngFor="let env of documentumInjecteursData?.documentum?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else diskHead" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #diskHead>
-									<div class="displayCell">{{ env.nameEnvironment }}</div>
-								</ng-template>
-							</th>
+							<ng-template #packageHead>
+								<th *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<div class="displayCell">{{ env.environment }}</div>
+								</th>
+							</ng-template>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Home Use</div></td>
-							<td *ngIf="documentumInjecteursData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else injecteursError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #injecteursError>
-										<div class="displayCell">{{ documentumInjecteursData?.error }}</div>
-								</ng-template>
+							<td class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Home Use</div>
 							</td>
-
-							<td *ngFor="let env of documentumInjecteursData?.documentum?.sshRequestsByEnvironment" class="text-center col-xs-1 displayCol">
-
-								<div *ngFor="let request of env.environmentRequests">
-									<div *ngIf="request.name == 'getEspaceDisqueHomeInfos'">
-										<div *ngIf="LoadingService.loading; else dataBody" class="displayCell">
+							<td *ngIf="documentumEnv['documentumInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ documentumEnv['documentumInfosData']?.error }}</div>
+							</td>
+							<ng-template #disk>
+								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<ng-container *ngIf="documentumInjecteursData[env.environment]?.error; else diskHomeUseData">
+										<div *ngIf="LoadingService.loading[env.environment]; else diskHomeUseError" class="displayCell">
 											Loading....
 										</div>
-										<ng-template #dataBody>
-											<div data-toggle="tooltip" data-placement="bottom" class="displayCell" [ngClass]="{'bg-danger' : (request.response | split:';':2) >= 80, 'bg-warning' : (request.response | split:';':2) >= 60 && (request.response | split:';':2) < 80}"
-											 title="Reste {{ request.response | split:';':1 }}/{{ request.response | split:';':0 }}">
-												{{ request.response | split:";":2 }}%
-											</div>
+										<ng-template #diskHomeUseError>
+											<div *ngIf="env.environment == documentumInjecteursData[env.environment]?.environment" class="displayCell">{{ documentumInjecteursData[env.environment]?.error }}</div>
 										</ng-template>
-									</div>
-								</div>
-							</td>
+									</ng-container>
+									<ng-template #diskHomeUseData>
+										<div *ngIf="LoadingService.loading[env.environment]; else diskHomeUse" class="displayCell">
+											Loading....
+										</div>
+										<ng-template #diskHomeUse>
+											<ng-container *ngIf="documentumInjecteursData[env.environment]?.diskSpaceInfosHome == null; else showData">
+												<div *ngIf="env.environment == documentumInjecteursData[env.environment]?.environment" class="displayCell bg-danger">Pas de données</div>
+											</ng-container>
+											<ng-template #showData>
+												<div data-toggle="tooltip" data-placement="bottom" *ngIf="env.environment == documentumInjecteursData[env.environment]?.environment" class="displayCell"
+												 title="Reste {{ documentumInjecteursData[env.environment]?.diskSpaceInfosHome.availableSize }}/{{ documentumInjecteursData[env.environment]?.diskSpaceInfosHome.globalSize }}"
+												 [ngClass]="{'bg-danger' : documentumInjecteursData[env.environment]?.diskSpaceInfosHome.percentageUse >= 80,
+													'bg-warning' : documentumInjecteursData[env.environment]?.diskSpaceInfosHome.percentageUse >= 60 && documentumInjecteursData[env.environment]?.diskSpaceInfosHome.percentageUse < 80}">
+													{{ documentumInjecteursData[env.environment]?.diskSpaceInfosHome.percentageUse }}%
+												</div>
+											</ng-template>
+										</ng-template>
+									</ng-template>
+								</td>
+							</ng-template>
 						</tr>
 
 						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Reception</div></td>
-							<td *ngIf="documentumInjecteursData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else injecteursError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #injecteursError>
-										<div class="displayCell">{{ documentumInjecteursData?.error }}</div>
-								</ng-template>
+							<td class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Reception</div>
 							</td>
-
-							<td *ngFor="let env of documentumInjecteursData?.documentum?.sshRequestsByEnvironment | injecteurs:'inject'" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else dataReception" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #dataReception>
-									<div *ngIf="env.reception == 0; else showReception">-</div>
-									<ng-template #showReception>
-										<div data-toggle="tooltip" data-placement="bottom" title="{{env.receptionFiles}}" class="displayCell">
-											{{env.reception}} items
+							<td *ngIf="documentumEnv['documentumInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ documentumEnv['documentumInfosData']?.error }}</div>
+							</td>
+							<ng-template #disk>
+								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<ng-container *ngIf="documentumInjecteursData[env.environment]?.error; else receptionData">
+										<div *ngIf="LoadingService.loading[env.environment]; else receptionError" class="displayCell">
+											Loading....
 										</div>
+										<ng-template #receptionError>
+											<div *ngIf="env.environment == documentumInjecteursData[env.environment]?.environment" class="displayCell">{{ documentumInjecteursData[env.environment]?.error }}</div>
+										</ng-template>
+									</ng-container>
+									<ng-template #receptionData>
+										<div *ngIf="LoadingService.loading[env.environment]; else reception" class="displayCell">
+											Loading....
+										</div>
+										<ng-template #reception>
+											<ng-container *ngIf="documentumInjecteursData[env.environment]?.nbReception == 0; else showData">
+												<div class="displayCell">-</div>
+											</ng-container>
+											<ng-template #showData>
+												<div data-toggle="tooltip" data-placement="bottom" title="{{documentumInjecteursData[env.environment]?.listeFichiersReception}}" class="displayCell">
+													{{documentumInjecteursData[env.environment]?.nbReception}} items
+												</div>
+											</ng-template>
+										</ng-template>
 									</ng-template>
-								</ng-template>
+								</td>
+							</ng-template>
+						</tr>
+						
+						<tr>
+							<td class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Erreur</div>
 							</td>
+							<td *ngIf="documentumEnv['documentumInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ documentumEnv['documentumInfosData']?.error }}</div>
+							</td>
+							<ng-template #disk>
+								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<ng-container *ngIf="documentumInjecteursData[env.environment]?.error; else erreurData">
+										<div *ngIf="LoadingService.loading[env.environment]; else erreurError" class="displayCell">
+											Loading....
+										</div>
+										<ng-template #erreurError>
+											<div *ngIf="env.environment == documentumInjecteursData[env.environment]?.environment" class="displayCell">{{ documentumInjecteursData[env.environment]?.error }}</div>
+										</ng-template>
+									</ng-container>
+									<ng-template #erreurData>
+										<div *ngIf="LoadingService.loading[env.environment]; else erreur" class="displayCell">
+											Loading....
+										</div>
+										<ng-template #erreur>
+											<ng-container *ngIf="documentumInjecteursData[env.environment]?.nbErreur == 0; else showData">
+												<div class="displayCell">-</div>
+											</ng-container>
+											<ng-template #showData>
+												<div data-toggle="tooltip" data-placement="bottom" title="{{documentumInjecteursData[env.environment]?.listeFichiersErreur}}" class="displayCell">
+													{{documentumInjecteursData[env.environment]?.nbErreur}} items
+												</div>
+											</ng-template>
+										</ng-template>
+									</ng-template>
+								</td>
+							</ng-template>
 						</tr>
 						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Erreur</div></td>
-							<td *ngIf="documentumInjecteursData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else injecteursError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #injecteursError>
-										<div class="displayCell">{{ documentumInjecteursData?.error }}</div>
-								</ng-template>
+							<td class="text-center col-xs-1 displayCol">
+								<div class="displayCell">Erreur Intervention Requise</div>
 							</td>
-
-							<td *ngFor="let env of documentumInjecteursData?.documentum?.sshRequestsByEnvironment | injecteurs:'inject'" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else dataErrors" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #dataErrors>
-									<div *ngIf="env.errors == 0; else showErrors">-</div>
-									<ng-template #showErrors>
-										<div data-toggle="tooltip" data-placement="bottom" title="{{env.errorsFiles}}" [ngClass]="{'bg-danger' : env.errors >= 10, 'bg-warning' : env.errors < 9}"
-										 class="displayCell">
-											{{env.errors}} items
+							<td *ngIf="documentumEnv['documentumInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ documentumEnv['documentumInfosData']?.error }}</div>
+							</td>
+							<ng-template #disk>
+								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
+									<ng-container *ngIf="documentumInjecteursData[env.environment]?.error; else erreurInterReqData">
+										<div *ngIf="LoadingService.loading[env.environment]; else erreurInterReqError" class="displayCell">
+											Loading....
 										</div>
-									</ng-template>
-								</ng-template>
-							</td>
-						</tr>
-						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Erreur Intervention Requise</div></td>
-							<td *ngIf="documentumInjecteursData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else injecteursError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #injecteursError>
-										<div class="displayCell">{{ documentumInjecteursData?.error }}</div>
-								</ng-template>
-							</td>
-
-							<td *ngFor="let env of documentumInjecteursData?.documentum?.sshRequestsByEnvironment | injecteurs:'inject'" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else dataErrorsIntReq" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #dataErrorsIntReq>
-									<div *ngIf="env.errorsIntReq == 0; else showErrorsIntReq">-</div>
-									<ng-template #showErrorsIntReq>
-										<div data-toggle="tooltip" data-placement="bottom" title="{{env.errorsIntReqFiles}}" [ngClass]="{'bg-danger' : env.errorsIntReq >= 10, 'bg-warning' : env.errorsIntReq < 9}"
-										 class="displayCell">
-											{{env.errorsIntReq}} items
+										<ng-template #erreurInterReqError>
+											<div *ngIf="env.environment == documentumInjecteursData[env.environment]?.environment" class="displayCell">{{ documentumInjecteursData[env.environment]?.error }}</div>
+										</ng-template>
+									</ng-container>
+									<ng-template #erreurInterReqData>
+										<div *ngIf="LoadingService.loading[env.environment]; else erreurInterReq" class="displayCell">
+											Loading....
 										</div>
+										<ng-template #erreurInterReq>
+											<ng-container *ngIf="documentumInjecteursData[env.environment]?.nbErreurInterReq == 0; else showData">
+												<div class="displayCell">-</div>
+											</ng-container>
+											<ng-template #showData>
+												<div data-toggle="tooltip" data-placement="bottom" title="{{documentumInjecteursData[env.environment]?.listeFichiersErreurInterReq}}" class="displayCell">
+													{{documentumInjecteursData[env.environment]?.nbErreurInterReq}} items
+												</div>
+											</ng-template>
+										</ng-template>
 									</ng-template>
-								</ng-template>
-							</td>
+								</td>
+							</ng-template>
 						</tr>
 					</tbody>
 				</table>

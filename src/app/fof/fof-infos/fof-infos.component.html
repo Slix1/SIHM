@@ -7,43 +7,33 @@
 			<thead>
 				<tr>
 					<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-					<th *ngIf="FofInfosData?.error" class="text-center col-xs-1 displayCol">
-						<div *ngIf="LoadingService.loading; else infosError" class="displayCell">
-							Loading....
-						</div>
-						<ng-template #infosError>
-								<div class="displayCell">{{ FofInfosData?.error }}</div>
-						</ng-template>
+					<th *ngIf="LoadingService.loading['fofInfos']; else servHead" class="text-center col-xs-1 displayCol">
+						<div class="displayCell">Loading....</div>
 					</th>
-					<th *ngFor="let env of FofInfosData?.fof?.environments" class="text-center col-xs-1 displayCol">
-						<div *ngIf="LoadingService.loading; else envHead" class="displayCell">
-							Loading....
-						</div>
-						<ng-template #envHead>
-							<div class="displayCell">{{ env.environment }}</div>
+					<ng-template #servHead>
+						<th *ngIf="fofInfosData?.error; else fofServ" class="text-center col-xs-1 displayCol"><div class="displayCell">{{ fofInfosData?.error }}</div></th>
+						<ng-template #fofServ>
+							<th *ngFor="let env of fofInfosData?.environments" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ env.environment }}</div>
+							</th>	
 						</ng-template>
-					</th>
+					</ng-template>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></td>
-					<td *ngIf="FofInfosData?.error" class="text-center col-xs-1 displayCol">
-						<div *ngIf="LoadingService.loading; else infosError" class="displayCell">
-							Loading....
-						</div>
-						<ng-template #infosError>
-								<div class="displayCell">{{ FofInfosData?.error }}</div>
-						</ng-template>
+					<td class="text-center col-xs-1 displayCol"><div class="displayCell">Host</div></td>
+					<td *ngIf="LoadingService.loading['fofInfos']; else hostHead" class="text-center col-xs-1 displayCol">
+						<div class="displayCell">Loading....</div>
 					</td>
-					<td *ngFor="let env of FofInfosData?.fof?.environments" class="text-center col-xs-1 displayCol">
-						<div *ngIf="LoadingService.loading; else envBody" class="displayCell">
-							Loading....
-						</div>
-						<ng-template #envBody>
-							<div class="displayCell">{{ env.server }}</div>
+					<ng-template #hostHead>
+						<td *ngIf="fofInfosData?.error; else fofHost" class="text-center col-xs-1 displayCol"><div class="displayCell">{{ fofInfosData?.error }}</div></td>
+						<ng-template #fofHost>
+							<td *ngFor="let env of fofInfosData?.environments" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ env.server }}</div>
+							</td>	
 						</ng-template>
-					</td>
+					</ng-template>
 				</tr>
 			</tbody>
 		</table>

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-edt-sql',
@@ -15,26 +16,36 @@ export class EdtSqlComponent {
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-  // private edtSqlUrl: string = 'assets/json/mocks/sshConnection/edt.json';
-  private edtSqlUrl: string = 'api/edt/sql_version';
-  
+  @Input() edtEnv: object;
+  private edtSqlUrl: Array<any> = [];
   public edtSqlData: object = {};
+  public environments: Array<any> = [];
 
 
-  public getEdtSqlData(): Object {
-    this.ApiService.getData(this.edtSqlUrl)
-      .then(edtSqlData => this.edtSqlData = {...edtSqlData})
-      .catch(error => this.edtSqlData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+  public getEdtSqlData(request): Object {
+    this.ApiService.getData(request.url)
+      .then(edtSqlData => this.edtSqlData[request.env] = {...edtSqlData, environment: request.env})
+      .catch(error => this.edtSqlData[request.env] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
+      .then(() => this.LoadingService.loading[request.env] = false);
 
     return this.edtSqlData
   }
 
   load(): void {
-
-    this.LoadingService.loadingTrue();
-
-    this.getEdtSqlData();
+    
+    if (this.edtEnv['EdtInfosData'].error == undefined) {
+      
+      this.environments = this.edtEnv['EdtInfosData'].environments;
+                
+      this.environments.forEach((env: any, envIndex) => {
+        this.edtSqlUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/sql_version', env: env.environment};
+      });
+        
+      this.edtSqlUrl.forEach((env: any) => {
+        this.LoadingService.loadingTrue(env.env);
+        this.getEdtSqlData(env);
+      });
+    }
   }
 
   refresh(): void {
@@ -42,6 +53,9 @@ export class EdtSqlComponent {
   }
 
   switch(): void {
+    if (this.SwitchGlyphiconsService.currentGlyphicon !== this.SwitchGlyphiconsService.minus) {
+      this.load();
+    }
     this.SwitchGlyphiconsService.switchGlyphicon();
   }
 

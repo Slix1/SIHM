@@ -3,6 +3,7 @@ import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-ondemand-versions',
@@ -12,21 +13,22 @@ import { ErrorService } from './../../services/error.service';
 })
 export class OndemandVersionsComponent {
 
-    @Input() ondemandEnv: string;
+    @Input() ondemandEnv: object;
   
     constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
     private ErrorService: ErrorService) { }
   
-    private ondemandVersionsUrl: string = 'assets/json/mocks/urlConnection/url.json';
+    private ondemandVersionsUrl: Array<any> = [];
     public ondemandVersionData: Object = {};
+    public environments: Array<any> = [];
   
   
-    public getWebEdiVersionsData(): Object {
+    public getOnDemandVersionsData(request): Object {
   
-      this.ApiService.getData(this.ondemandVersionsUrl)
-        .then(ondemandVersionData => this.ondemandVersionData = {...ondemandVersionData})
-        .catch(error => this.ondemandVersionData = {error: this.ErrorService.getErrorMessage(error)})
-        .then(() => this.LoadingService.loading = false);
+      this.ApiService.getData(request.url)
+        .then(ondemandVersionData => this.ondemandVersionData[request.env] = {...ondemandVersionData, environment: request.env})
+        .catch(error => this.ondemandVersionData[request.env] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
+        .then(() => this.LoadingService.loading[request.env] = false);
   
       return this.ondemandVersionData;
   
@@ -34,19 +36,32 @@ export class OndemandVersionsComponent {
   
   
     load(): void {
-  
-      this.LoadingService.loadingTrue();
-      console.log(this.ondemandEnv);
       
-      this.getWebEdiVersionsData();
-  
-    }
+      if (this.ondemandEnv['onDemandInfosData'].error == undefined) {
+          this.environments = this.ondemandEnv['onDemandInfosData'].environments;
+      
+          this.environments.forEach((env: any, envIndex) => {
+            
+            this.ondemandVersionsUrl[envIndex] = {url: apiUrl + this.ondemandEnv['tab'] + '/' + env.environment + '/version', env: env.environment};
+          });
+      
+          this.ondemandVersionsUrl.forEach((env: any) => {
+      
+            this.LoadingService.loadingTrue(env.env);
+            this.getOnDemandVersionsData(env);
+          });
+      
+        }
+      }
   
     refresh(): void {
       this.load();
     }
   
     switch(): void {
+      if (this.SwitchGlyphiconsService.currentGlyphicon !== this.SwitchGlyphiconsService.minus) {
+        this.load();
+      }
       this.SwitchGlyphiconsService.switchGlyphicon();
     }
   

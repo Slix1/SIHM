@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-gespa-users',
@@ -15,9 +16,8 @@ export class GespaUsersComponent {
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-  // private gespaUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTGESPA.json';
-  private gespaUsersUrl: string = 'api/gespa/users';
-  
+  @Input() tab: string;
+  private gespaUsersUrl: string;
   public gespaUsersData: object = {};
 
 
@@ -27,14 +27,15 @@ export class GespaUsersComponent {
     return this.ApiService.getData(this.gespaUsersUrl)
       .then(gespaUsers => this.gespaUsersData = {...gespaUsers})
       .catch(error => this.gespaUsersData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+      .then(() => this.LoadingService.loading['gespaUsers'] = false);
   }
 
 
   load(): void {
 
+    this.gespaUsersUrl = apiUrl + this.tab + '/users';
 
-    this.LoadingService.loadingTrue();
+    this.LoadingService.loadingTrue('gespaUsers');
 
     this.getGespaUserUsersData();
   }
@@ -44,6 +45,9 @@ export class GespaUsersComponent {
   }
 
   switch(): void {
+    if (this.SwitchGlyphiconsService.currentGlyphicon !== this.SwitchGlyphiconsService.minus) {
+      this.load();
+    }
     this.SwitchGlyphiconsService.switchGlyphicon();
   }
 

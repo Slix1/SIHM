@@ -9,6 +9,8 @@ export class OndemandComponent implements OnInit {
 
   constructor() { }
 
+  public tab: string = 'ondemand';
+
   ngOnInit() {
   }
 

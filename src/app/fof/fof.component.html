@@ -7,9 +7,9 @@
 
   <div class="content">
     
-    <app-fofinfos></app-fofinfos>
-    <app-fofdisk></app-fofdisk>
-    <app-fofpackage></app-fofpackage>
+    <app-fofinfos [tab]='tab' #env></app-fofinfos>
+    <app-fofdisk [fofEnv]='env'></app-fofdisk>
+    <app-fofpackage [fofEnv]='env'></app-fofpackage>
 		
   </div>
 		

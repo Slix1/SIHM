@@ -3,6 +3,7 @@ import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 
 @Component({
@@ -13,21 +14,22 @@ import { ErrorService } from './../../services/error.service';
 })
 export class GespaVersionsComponent {
 
-    @Input() gespaEnv: string;
+    @Input() gespaEnv: object;
   
     constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
     private ErrorService: ErrorService) { }
   
-    private gespaVersionsUrl: string = 'assets/json/mocks/urlConnection/url.json';
+    private gespaVersionsUrl: Array<any> = [];
     public gespaVersionData: Object = {};
+    public environments: Array<any> = [];
   
   
-    public getWebEdiVersionsData(): Object {
+    public getGespaVersionsData(request): Object {
   
-      this.ApiService.getData(this.gespaVersionsUrl)
-        .then(gespaVersionData => this.gespaVersionData = {...gespaVersionData})
-        .catch(error => this.gespaVersionData = {error: this.ErrorService.getErrorMessage(error)})
-        .then(() => this.LoadingService.loading = false);
+      this.ApiService.getData(request.url)
+        .then(gespaVersionData => this.gespaVersionData[request.env] = {...gespaVersionData, environment: request.env})
+        .catch(error => this.gespaVersionData[request.env] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
+        .then(() => this.LoadingService.loading[request.env] = false);
   
       return this.gespaVersionData;
   
@@ -35,18 +37,33 @@ export class GespaVersionsComponent {
   
   
     load(): void {
-  
-      this.LoadingService.loadingTrue();
       
-      this.getWebEdiVersionsData();
-  
-    }
+      if (this.gespaEnv['gespaInfosData'].error == undefined) {
+        
+          this.environments = this.gespaEnv['gespaInfosData'].environments;
+      
+          this.environments.forEach((env: any, envIndex) => {
+            
+            this.gespaVersionsUrl[envIndex] = {url: apiUrl + this.gespaEnv['tab'] + '/' + env.environment + '/version', env: env.environment};
+          });
+      
+          this.gespaVersionsUrl.forEach((env: any) => {
+      
+            this.LoadingService.loadingTrue(env.env);
+            this.getGespaVersionsData(env);
+          });
+      
+        }
+      }
   
     refresh(): void {
       this.load();
     }
   
     switch(): void {
+      if (this.SwitchGlyphiconsService.currentGlyphicon !== this.SwitchGlyphiconsService.minus) {
+        this.load();
+      }
       this.SwitchGlyphiconsService.switchGlyphicon();
     }
 

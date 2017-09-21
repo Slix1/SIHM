@@ -3,6 +3,7 @@ import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-webedi-users',
@@ -15,11 +16,9 @@ export class WebediUsersComponent {
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
-  // private webediUsersUrl: string = 'assets/json/mocks/ldapConnection/TESTWEBEDI.json';
-  private webediUsersUrl: string = 'api/webedi/users';
-  
+  @Input() tab: string;
+  private webediUsersUrl: string;
   public webediUsersData: object = {};
-
 
 
   public getWebEdiUsersData(): Object {
@@ -27,15 +26,13 @@ export class WebediUsersComponent {
     return this.ApiService.getData(this.webediUsersUrl)
       .then(webediUsers => this.webediUsersData = {...webediUsers})
       .catch(error => this.webediUsersData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+      .then(() => this.LoadingService.loading['webediUser'] = false);
   }
 
 
   load(): void {
-
-
-    this.LoadingService.loadingTrue();
-
+    this.webediUsersUrl = apiUrl + this.tab + '/users';
+    this.LoadingService.loadingTrue('webediUser');
     this.getWebEdiUsersData();
   }
 
@@ -44,6 +41,9 @@ export class WebediUsersComponent {
   }
 
   switch(): void {
+    if (this.SwitchGlyphiconsService.currentGlyphicon !== this.SwitchGlyphiconsService.minus) {
+      this.load();
+    }
     this.SwitchGlyphiconsService.switchGlyphicon();
   }
 

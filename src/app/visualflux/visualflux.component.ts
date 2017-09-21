@@ -9,6 +9,8 @@ export class VisualfluxComponent implements OnInit {
 
   constructor() { }
 
+  public tab: string = 'visualflux';
+
   ngOnInit() {
   }
 

@@ -6,8 +6,8 @@
 	<h4 style="margin-bottom : 40px">Sur cette page sont visibles les informations des différents serveurs Documentum</h4>
 
   <div class="content">
-      <app-docinfos></app-docinfos>
-      <app-docinjecteurs></app-docinjecteurs>
+      <app-docinfos [tab]='tab' #env></app-docinfos>
+      <app-docinjecteurs [documentumEnv]='env'></app-docinjecteurs>
   </div>
 		
 

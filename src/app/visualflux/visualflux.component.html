@@ -7,9 +7,9 @@
 
   <div class="content">
     
-    <app-visualflux-infos #env></app-visualflux-infos>
+    <app-visualflux-infos #env [tab]='tab'></app-visualflux-infos>
 		<app-visualflux-versions [visualfluxEnv]="env"></app-visualflux-versions>
-		<app-visualflux-users></app-visualflux-users>
+		<app-visualflux-users [tab]='tab'></app-visualflux-users>
 		
   </div>
 		

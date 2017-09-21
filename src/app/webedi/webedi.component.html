@@ -7,10 +7,9 @@
 
   <div class="content">
     
-    <app-webedi-infos #env></app-webedi-infos>
+    <app-webedi-infos [tab]="tab" #env></app-webedi-infos>
     <app-webedi-versions [webediEnv]="env"></app-webedi-versions>
-    <app-webedi-users></app-webedi-users>
-    <app-webedi-base></app-webedi-base>
+    <app-webedi-users [tab]="tab"></app-webedi-users>
 		
   </div>
 		

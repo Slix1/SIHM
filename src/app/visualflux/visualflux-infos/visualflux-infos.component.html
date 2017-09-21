@@ -7,43 +7,33 @@
 			<thead>
 				<tr>
 					<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-					<th *ngIf="visualFluxInfosData?.error" class="text-center col-xs-1 displayCol">
-						<div *ngIf="LoadingService.loading; else infosError" class="displayCell">
-							Loading....
-						</div>
-						<ng-template #infosError>
-							<div class="displayCell">{{ visualFluxInfosData?.error }}</div>
-						</ng-template>
+					<th *ngIf="LoadingService.loading['visualFluxInfos']; else servHead" class="text-center col-xs-1 displayCol">
+						<div class="displayCell">Loading....</div>
 					</th>
-					<th *ngFor="let env of visualFluxInfosData?.visualflux?.environments" class="text-center col-xs-1 displayCol">
-						<div *ngIf="LoadingService.loading; else envHead" class="displayCell">
-							Loading....
-						</div>
-						<ng-template #envHead>
-							<div class="displayCell">{{ env.environment }}</div>
+					<ng-template #servHead>
+						<th *ngIf="visualFluxInfosData?.error; else visualFluxServ" class="text-center col-xs-1 displayCol"><div class="displayCell">{{ visualFluxInfosData?.error }}</div></th>
+						<ng-template #visualFluxServ>
+							<th *ngFor="let env of visualFluxInfosData?.environments" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ env.environment }}</div>
+							</th>	
 						</ng-template>
-					</th>
+					</ng-template>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td class="text-center col-xs-1 displayCol"><div class="displayCell">Host</div></td>
-					<td *ngIf="visualFluxInfosData?.error" class="text-center col-xs-1 displayCol">
-						<div *ngIf="LoadingService.loading; else infosError" class="displayCell">
-							Loading....
-						</div>
-						<ng-template #infosError>
-							<div class="displayCell">{{ visualFluxInfosData?.error }}</div>
-						</ng-template>
+					<td *ngIf="LoadingService.loading['visualFluxInfos']; else hostHead" class="text-center col-xs-1 displayCol">
+						<div class="displayCell">Loading....</div>
 					</td>
-					<td *ngFor="let env of visualFluxInfosData?.visualflux?.environments" class="text-center col-xs-1 displayCol">
-						<div *ngIf="LoadingService.loading; else envBody"class="displayCell">
-							Loading....
-						</div>
-						<ng-template #envBody>
-							<div class="displayCell">{{ env.server }}</div>
+					<ng-template #hostHead>
+						<td *ngIf="visualFluxInfosData?.error; else visualFluxHost" class="text-center col-xs-1 displayCol"><div class="displayCell">{{ visualFluxInfosData?.error }}</div></td>
+						<ng-template #visualFluxHost>
+							<td *ngFor="let env of visualFluxInfosData?.environments" class="text-center col-xs-1 displayCol">
+								<div class="displayCell">{{ env.server }}</div>
+							</td>	
 						</ng-template>
-					</td>
+					</ng-template>
 				</tr>
 			</tbody>
 		</table>

@@ -3,6 +3,7 @@ import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
 import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
 import { ErrorService } from './../../services/error.service';
+import { apiUrl } from './../../constants/api-url.constant';
 
 @Component({
   selector: 'app-webedi-versions',
@@ -12,21 +13,22 @@ import { ErrorService } from './../../services/error.service';
 })
 export class WebediVersionsComponent {
 
-  @Input() webediEnv: string;
+  @Input() webediEnv: object;
 
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
-  private ErrorService: ErrorService) { }
+    private ErrorService: ErrorService) { }
 
-  private webEdiVersionsUrl: string = 'assets/json/mocks/urlConnection/url.json';
-  public webEdiVersionData: Object = {};
+  private webEdiVersionsUrl: Array<any> = [];
+  public webEdiVersionData: object = {};
+  public environments: Array<any> = [];
 
+  public getWebEdiVersionsData(request): Object {
 
-  public getWebEdiVersionsData(): Object {
-
-    this.ApiService.getData(this.webEdiVersionsUrl)
-      .then(webEdiVersionData => this.webEdiVersionData = {...webEdiVersionData})
-      .catch(error => this.webEdiVersionData = {error: this.ErrorService.getErrorMessage(error)})
-      .then(() => this.LoadingService.loading = false);
+    this.ApiService.getData(request.url)
+      .then(webEdiVersionData => this.webEdiVersionData[request.env] = { ...webEdiVersionData, environment: request.env })
+      .then(()=> console.log(this.webEdiVersionData))
+      .catch(error => this.webEdiVersionData[request.env] = { error: this.ErrorService.getErrorMessage(error), environment: request.env })
+      .then(() => this.LoadingService.loading[request.env] = false);
 
     return this.webEdiVersionData;
 
@@ -34,11 +36,20 @@ export class WebediVersionsComponent {
 
 
   load(): void {
-
-    this.LoadingService.loadingTrue();
-
-    this.getWebEdiVersionsData();
-
+    
+      if (this.webediEnv['webEdiInfosData'].error == undefined) {
+        this.environments = this.webediEnv['webEdiInfosData'].environments;
+        
+        this.environments.forEach((env: any, envIndex) => {
+          this.webEdiVersionsUrl[envIndex] = {url: apiUrl + this.webediEnv['tab'] + '/' + env.environment + '/version', env: env.environment};
+        });
+        
+        this.webEdiVersionsUrl.forEach((env: any) => {
+          this.LoadingService.loadingTrue(env.env);
+          this.getWebEdiVersionsData(env);
+        });
+      }
+          
   }
 
   refresh(): void {
@@ -46,6 +57,9 @@ export class WebediVersionsComponent {
   }
 
   switch(): void {
+    if (this.SwitchGlyphiconsService.currentGlyphicon !== this.SwitchGlyphiconsService.minus) {
+      this.load();
+    }
     this.SwitchGlyphiconsService.switchGlyphicon();
   }
 

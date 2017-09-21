@@ -6,7 +6,7 @@
 				<a (click)="refresh()">
 					<span class="glyphicon glyphicon-refresh black"></span>
 				</a>
-				<a (click)="load(); switch();" role="button" data-toggle="collapse" href="#edtSuivi" aria-expanded="false" aria-controls="edtSql">
+				<a (click)="switch();" role="button" data-toggle="collapse" href="#edtSuivi" aria-expanded="false" aria-controls="edtSql">
 					<span [className]="SwitchGlyphiconsService.currentGlyphicon"></span>
 				</a>
 			</div>
@@ -14,89 +14,8 @@
 	</div>
 	<div id="edtSuivi" class="panel-collapse collapse">
 		<div>
-			<div class="panel-body table-responsive">
-				<table class="table table-condensed">
-					<thead >
-						<tr >
-							<th class="text-center col-xs-1 displayCol"><div class="displayCell">Serveur</div></th>
-							<th *ngIf="edtSuiviData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else suiviError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #suiviError>
-									<div class="displayCell">{{ edtSuiviData?.error }}</div>
-								</ng-template>
-							</th>
-							<!--<th *ngFor="let servers of edtDaemonsData?.edt?.sshRequestsByEnvironment | sql:'servers'" class="text-center col-xs-1">
-								<div *ngIf="LoadingService.loading; else sqlHead" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #sqlHead>
-										<div class="displayCell">{{ servers.name }}</div>
-								</ng-template>
-							</th>-->
-						</tr>
-					</thead>
-					<tbody >
-						<tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Entrée</div></td>
-							<td *ngIf="edtSuiviData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else suiviError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #suiviError>
-										<div class="displayCell">{{ edtSuiviData?.error }}</div>
-								</ng-template>
-							</td>						
-							<!--<td *ngFor="let servers of edtSqlData?.edt?.sshRequestsByEnvironment | sql:'servers'" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else sqlHost" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #sqlHost>
-										<div class="displayCell">{{ servers.name }}</div>
-								</ng-template>
-							</td>-->
-						</tr>
-            <tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Travail</div></td>
-							<td *ngIf="edtSuiviData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else suiviError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #suiviError>
-										<div class="displayCell">{{ edtSuiviData?.error }}</div>
-								</ng-template>
-							</td>						
-							<!--<td *ngFor="let servers of edtSqlData?.edt?.sshRequestsByEnvironment | sql:'servers'" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else sqlHost" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #sqlHost>
-										<div class="displayCell">{{ servers.name }}</div>
-								</ng-template>
-							</td>-->
-						</tr>
-            <tr>
-							<td class="text-center col-xs-1 displayCol"><div class="displayCell">Erreur</div></td>
-							<td *ngIf="edtSuiviData?.error" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else suiviError" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #suiviError>
-										<div class="displayCell">{{ edtSuiviData?.error }}</div>
-								</ng-template>
-							</td>						
-							<!--<td *ngFor="let servers of edtSqlData?.edt?.sshRequestsByEnvironment | sql:'servers'" class="text-center col-xs-1 displayCol">
-								<div *ngIf="LoadingService.loading; else sqlHost" class="displayCell">
-									Loading....
-								</div>
-								<ng-template #sqlHost>
-										<div class="displayCell">{{ servers.name }}</div>
-								</ng-template>
-							</td>-->
-						</tr>
-					</tbody>
-				</table>
+			<div class="panel-body">
+				<img src="assets/images/nothing.gif">
 			</div>
 		</div>
 	</div>
