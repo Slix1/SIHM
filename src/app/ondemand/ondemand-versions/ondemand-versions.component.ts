@@ -41,7 +41,7 @@ export class OndemandVersionsComponent {
           this.environments = this.ondemandEnv['onDemandInfosData'].environments;
       
           this.environments.forEach((env: any, envIndex) => {
-            
+            env.environment = env.environment.toLowerCase().replace(" ","");
             this.ondemandVersionsUrl[envIndex] = {url: apiUrl + this.ondemandEnv['tab'] + '/' + env.environment + '/version', env: env.environment};
           });
       
