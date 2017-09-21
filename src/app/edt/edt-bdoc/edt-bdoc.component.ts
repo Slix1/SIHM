@@ -36,7 +36,7 @@ export class EdtbdocComponent {
         this.environments = this.edtEnv['EdtInfosData'].environments;
             
         this.environments.forEach((env: any, envIndex) => {
-          
+          env.environment = env.environment.toLowerCase().replace(" ","");
           this.edtBdocUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/' + env.environment + '/bdoc', env: env.environment};
         });
     

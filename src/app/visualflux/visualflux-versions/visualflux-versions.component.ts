@@ -41,7 +41,7 @@ export class VisualfluxVersionsComponent {
           this.environments = this.visualfluxEnv['visualFluxInfosData'].environments;
       
           this.environments.forEach((env: any, envIndex) => {
-            
+            env.environment = env.environment.toLowerCase().replace(" ","");
             this.visualfluxVersionsUrl[envIndex] = {url: apiUrl + this.visualfluxEnv['tab'] + '/' + env.environment + '/version', env: env.environment};
           });
       
