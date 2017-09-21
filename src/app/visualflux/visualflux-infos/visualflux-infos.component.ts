@@ -31,8 +31,7 @@ export class VisualfluxInfosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.visualFluxInfosUrl = 'assets/json/mocks/jsonFileConnection/'+this.tab+'.json';
-    // this.visualFluxInfosUrl = apiUrl + this.tab + '/infos';
+    this.visualFluxInfosUrl = apiUrl + this.tab + '/infos';
     this.LoadingService.loadingTrue('visualFluxInfos');
 
     this.getVisualFluxInfosData()

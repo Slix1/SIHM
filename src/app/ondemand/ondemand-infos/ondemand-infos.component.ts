@@ -31,8 +31,7 @@ export class OndemandInfosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.onDemandInfosUrl = 'assets/json/mocks/jsonFileConnection/'+this.tab+'.json';
-    // this.onDemandInfosUrl = apiUrl + this.tab + '/infos';
+    this.onDemandInfosUrl = apiUrl + this.tab + '/infos';
     this.LoadingService.loadingTrue('onDemandInfos');
 
     this.getOnDemandInfosData()

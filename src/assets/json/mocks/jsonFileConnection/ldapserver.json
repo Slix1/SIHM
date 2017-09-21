@@ -1,8 +1,0 @@
-{
-	"ldapserver": {
-		"user": "user_ldap",
-		"password": "pwd_ldap",
-		"host": "host_ldap",
-		"basedn": "dc=base_ldap"
-	}
-}

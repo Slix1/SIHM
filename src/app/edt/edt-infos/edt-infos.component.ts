@@ -35,9 +35,7 @@ export class EdtinfosComponent {
 
   ngOnInit(): void {
 
-    // this.EdtInfosDataUrl= apiUrl + this.tab + '/infos';
-    this.EdtInfosDataUrl = 'assets/json/mocks/jsonFileConnection/'+this.tab+'.json';
-
+    this.EdtInfosDataUrl= apiUrl + this.tab + '/infos';
     this.LoadingService.loadingTrue('EdtInfos');
 
     this.getEdtInfosData()

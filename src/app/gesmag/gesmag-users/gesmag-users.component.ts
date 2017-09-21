@@ -32,9 +32,7 @@ export class GesmagUsersComponent {
 
   load(): void {
 
-    this.gesmagUsersUrl = "assets/json/mocks/ldapConnection/TESTGESMAG.json";
-    
-    // this.gesmagUsersUrl = apiUrl + this.tab + '/users';
+    this.gesmagUsersUrl = apiUrl + this.tab + '/users';
     
     this.LoadingService.loadingTrue('gesmagUsers');
 

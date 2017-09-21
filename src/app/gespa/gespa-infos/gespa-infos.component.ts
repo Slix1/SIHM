@@ -33,8 +33,7 @@ export class GespaInfosComponent {
 
   ngOnInit(): void {
 
-    this.gespaInfosUrl = 'assets/json/mocks/jsonFileConnection/'+this.tab+'.json';
-    // this.gespaInfosUrl = apiUrl + this.tab + '/infos';
+    this.gespaInfosUrl = apiUrl + this.tab + '/infos';
     this.LoadingService.loadingTrue('gespaInfos');
 
     this.getGespaInfosData()

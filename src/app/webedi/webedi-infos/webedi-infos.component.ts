@@ -35,8 +35,7 @@ export class WebediInfosComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.webEdiInfosUrl = 'assets/json/mocks/jsonFileConnection/'+this.tab+'.json';
-    // this.webEdiInfosUrl = apiUrl + this.tab + '/infos';
+    this.webEdiInfosUrl = apiUrl + this.tab + '/infos';
     this.LoadingService.loadingTrue('webEdiInfos');
     this.getWebEdiInfosData();
   }

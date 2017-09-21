@@ -31,9 +31,7 @@ export class FofinfosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.fofInfosUrl = 'assets/json/mocks/jsonFileConnection/'+this.tab+'.json';
-
-    // this.fofInfosUrl = apiUrl + this.tab + '/infos';
+    this.fofInfosUrl = apiUrl + this.tab + '/infos';
     this.LoadingService.loadingTrue('fofInfos');
 
     this.getFofInfosData()

@@ -30,10 +30,8 @@ export class VisualfluxUsersComponent {
 
   load(): void {
 
-    // this.visualFluxUsersUrl = apiUrl + this.tab + '/users';
-    this.visualFluxUsersUrl = "assets/json/mocks/ldapConnection/TESTVISUALFLUX.json";
+    this.visualFluxUsersUrl = apiUrl + this.tab + '/users';
     
-
     this.LoadingService.loadingTrue('visualFluxUsers');
 
     this.getVisualFluxUserUsersData();

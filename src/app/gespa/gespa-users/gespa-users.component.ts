@@ -33,9 +33,7 @@ export class GespaUsersComponent {
 
   load(): void {
 
-    this.gespaUsersUrl = "assets/json/mocks/ldapConnection/TESTGESPA.json";
-    
-    // this.gespaUsersUrl = apiUrl + this.tab + '/users';
+    this.gespaUsersUrl = apiUrl + this.tab + '/users';
 
     this.LoadingService.loadingTrue('gespaUsers');
 

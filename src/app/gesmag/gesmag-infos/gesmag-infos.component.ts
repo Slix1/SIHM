@@ -32,8 +32,7 @@ export class GesmagInfosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.gesmagInfosUrl = 'assets/json/mocks/jsonFileConnection/'+this.tab+'.json';
-    // this.gesmagInfosUrl = apiUrl + this.tab + '/infos';
+    this.gesmagInfosUrl = apiUrl + this.tab + '/infos';
     this.LoadingService.loadingTrue('gesmagInfos');
 
     this.getGesmagInfosData()

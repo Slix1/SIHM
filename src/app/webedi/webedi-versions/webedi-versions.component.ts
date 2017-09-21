@@ -41,8 +41,7 @@ export class WebediVersionsComponent {
         this.environments = this.webediEnv['webEdiInfosData'].environments;
         
         this.environments.forEach((env: any, envIndex) => {
-          // this.webEdiVersionsUrl[envIndex] = {url: apiUrl + this.webediEnv['tab'] + '/' + env.environment + '/version', env: env.environment};
-          this.webEdiVersionsUrl[envIndex] = {url: 'assets/json/api/'+this.webediEnv['tab']+'/'+this.webediEnv['tab']+'_'+env.environment+'_version.json', env: env.environment};
+          this.webEdiVersionsUrl[envIndex] = {url: apiUrl + this.webediEnv['tab'] + '/' + env.environment + '/version', env: env.environment};
         });
         
         this.webEdiVersionsUrl.forEach((env: any) => {

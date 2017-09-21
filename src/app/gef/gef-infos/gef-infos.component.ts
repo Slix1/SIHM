@@ -31,8 +31,7 @@ export class GefInfosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.gefInfosUrl = 'assets/json/mocks/jsonFileConnection/'+this.tab+'.json';
-    // this.gefInfosUrl = apiUrl + this.tab + '/infos';
+    this.gefInfosUrl = apiUrl + this.tab + '/infos';
     this.LoadingService.loadingTrue('gefInfos');
 
     this.getGefInfosData()

@@ -33,10 +33,8 @@ export class OndemandUsersComponent {
 
   load(): void {
 
-    // this.onDemandUsersUrl = apiUrl + this.tab + '/users';
-    this.onDemandUsersUrl = "assets/json/mocks/ldapConnection/TESTONDEMAND.json";
+    this.onDemandUsersUrl = apiUrl + this.tab + '/users';
     
-
     this.LoadingService.loadingTrue('onDemandUsers');
 
     this.getOnDemandUserUsersData();

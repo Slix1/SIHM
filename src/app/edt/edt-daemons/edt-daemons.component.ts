@@ -26,7 +26,6 @@ export class EdtDaemonsComponent {
   public getEdtDaemonsData(request): Object {
     this.ApiService.getData(request.url)
       .then(edtDaemonsData => this.edtDaemonsData[request.env] = {...edtDaemonsData, environment: request.env})
-      // .then(edtDaemonsData => this.edtDaemonsList.length < edtDaemonsData.listeDaemons.length ? this.edtDaemonsList = new Array(edtDaemonsData.listeDaemons.length) : this.edtDaemonsList)
       .catch(error => this.edtDaemonsData[request.env] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
       .then(() => this.LoadingService.loading[request.env] = false);
 
@@ -41,11 +40,8 @@ export class EdtDaemonsComponent {
       this.environments = this.edtEnv['EdtInfosData'].environments;
                 
       this.environments.forEach((env: any, envIndex) => {
-        // this.edtDaemonsUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/daemons', env: env.environment};
-        // this.edtDaemonsUrl[envIndex] = {url: `${apiUrl}${this.edtEnv['tab']}/daemons`, env: env.environment};
-        this.edtDaemonsUrl[envIndex] = {url: `assets/json/api/edt/${env.environment}_daemon.json`, env: env.environment};
-        
-        
+        this.edtDaemonsUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/daemons', env: env.environment};
+                
       });
         
       this.edtDaemonsUrl.forEach((env: any) => {
