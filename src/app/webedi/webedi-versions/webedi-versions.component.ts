@@ -41,8 +41,8 @@ export class WebediVersionsComponent {
         this.environments = this.webediEnv['webEdiInfosData'].environments;
         
         this.environments.forEach((env: any, envIndex) => {
-          env.environment = env.environment.toLowerCase().replace(" ","");
-          this.webEdiVersionsUrl[envIndex] = {url: apiUrl + this.webediEnv['tab'] + '/' + env.environment + '/version', env: env.environment};
+          env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
+          this.webEdiVersionsUrl[envIndex] = {url: apiUrl + this.webediEnv['tab'] + '/' + env['urlEnv'] + '/version', env: env.environment};
         });
         
         this.webEdiVersionsUrl.forEach((env: any) => {

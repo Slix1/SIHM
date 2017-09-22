@@ -31,7 +31,9 @@ export class WebediUsersComponent {
 
 
   load(): void {
-    this.webediUsersUrl = apiUrl + this.tab + '/users';
+    // this.webediUsersUrl = apiUrl + this.tab + '/users';
+    this.webediUsersUrl = 'assets/json/mocks/ldapConnection/TESTWEBEDI.json';
+    
     this.LoadingService.loadingTrue('webediUser');
     this.getWebEdiUsersData();
   }

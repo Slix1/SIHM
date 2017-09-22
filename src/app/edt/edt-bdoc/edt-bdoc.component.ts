@@ -33,11 +33,11 @@ export class EdtbdocComponent {
 
   load(): void {
    if (this.edtEnv['EdtInfosData'].error == undefined) {
-        this.environments = this.edtEnv['EdtInfosData'].environments;
+        this.environments.push(this.edtEnv['EdtInfosData'].environments);
             
         this.environments.forEach((env: any, envIndex) => {
-          env.environment = env.environment.toLowerCase().replace(" ","");
-          this.edtBdocUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/' + env.environment + '/bdoc', env: env.environment};
+          env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
+          this.edtBdocUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/' + env['urlEnv'] + '/bdoc', env: env.environment};
         });
     
         this.edtBdocUrl.forEach((env: any) => {

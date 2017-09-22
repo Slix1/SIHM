@@ -38,8 +38,8 @@ export class FofdiskComponent {
       this.environments = this.fofEnv['fofInfosData'].environments;
                 
       this.environments.forEach((env: any, envIndex) => {
-        env.environment = env.environment.toLowerCase().replace(" ","");
-        this.fofDiskUrl[envIndex] = {url: apiUrl + this.fofEnv['tab'] + '/' + env.environment + '/disk', env: env.environment};
+        env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
+        this.fofDiskUrl[envIndex] = {url: apiUrl + this.fofEnv['tab'] + '/' + env['urlEnv'] + '/disk', env: env.environment};
       });
         
       this.fofDiskUrl.forEach((env: any) => {

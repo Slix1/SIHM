@@ -8,6 +8,7 @@ import { FofComponent } from './fof.component';
 import { FofinfosComponent } from './fof-infos/fof-infos.component';
 import { FofdiskComponent } from './fof-disk/fof-disk.component';
 import { FofpackageComponent } from './fof-package/fof-package.component';
+import { FofTagComponent } from './fof-tag/fof-tag.component';
 
 
 
@@ -20,7 +21,8 @@ const routes: Routes = [
     FofComponent,
     FofinfosComponent,
     FofdiskComponent,
-    FofpackageComponent
+    FofpackageComponent,
+    FofTagComponent
   ],
   imports: [
     CommonModule,

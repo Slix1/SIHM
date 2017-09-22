@@ -47,8 +47,8 @@ export class FofpackageComponent {
       this.environments = this.fofEnv['fofInfosData'].environments;
 
       this.environments.forEach((env: any, envIndex) => {
-        env.environment = env.environment.toLowerCase().replace(" ","");
-        this.fofPackageUrl[envIndex] = {url: apiUrl + this.fofEnv['tab'] + '/' + env.environment + '/package_version', env: env.environment};
+        env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
+        this.fofPackageUrl[envIndex] = {url: apiUrl + this.fofEnv['tab'] + '/' + env['urlEnv'] + '/package_version', env: env.environment};
        
       });
         

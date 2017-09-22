@@ -39,8 +39,8 @@ export class EdtdiskComponent {
       this.environments = this.edtEnv['EdtInfosData'].environments;
                 
       this.environments.forEach((env: any, envIndex) => {
-        env.environment = env.environment.toLowerCase().replace(" ","");
-        this.edtDiskUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/' + env.environment + '/disk', env: env.environment};
+        env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
+        this.edtDiskUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/' + env['urlEnv'] + '/disk', env: env.environment};
       });
         
       this.edtDiskUrl.forEach((env: any) => {

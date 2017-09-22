@@ -42,8 +42,8 @@ export class DocinjecteursComponent {
       this.environments = this.documentumEnv['documentumInfosData'].environments;
                 
       this.environments.forEach((env: any, envIndex) => {
-        env.environment = env.environment.toLowerCase().replace(" ","");
-        this.documentumInjecteursUrl[envIndex] = {url: apiUrl + this.documentumEnv['tab'] + '/' + env.environment + '/injecteurs', env: env.environment};
+        env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
+        this.documentumInjecteursUrl[envIndex] = {url: apiUrl + this.documentumEnv['tab'] + '/' + env['urlEnv'] + '/injecteurs', env: env.environment};
       });
         
       this.documentumInjecteursUrl.forEach((env: any) => {

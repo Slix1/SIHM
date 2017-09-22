@@ -34,7 +34,6 @@ export class EdtinfosComponent {
   }
 
   ngOnInit(): void {
-
     this.EdtInfosDataUrl= apiUrl + this.tab + '/infos';
     this.LoadingService.loadingTrue('EdtInfos');
 

@@ -41,8 +41,8 @@ export class GesmagVersionsComponent {
       this.environments = this.gesmagEnv['gesmagInfosData'].environments;
 
       this.environments.forEach((env: any, envIndex) => {
-        env.environment = env.environment.toLowerCase().replace(" ","");
-        this.gesmagVersionsUrl[envIndex] = { url: apiUrl + this.gesmagEnv['tab'] + '/' + env.environment + '/version', env: env.environment };
+        env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
+        this.gesmagVersionsUrl[envIndex] = { url: apiUrl + this.gesmagEnv['tab'] + '/' + env['urlEnv'] + '/version', env: env.environment };
       });
 
       this.gesmagVersionsUrl.forEach((env: any) => {

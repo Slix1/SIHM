@@ -48,24 +48,31 @@
 								<td class="text-center col-xs-1 displayCol">
 									<b>{{ user.group }} ({{ user.members.length }} Utilisateurs)</b>
 								</td>
-								<ng-container *ngIf="user.members.length < 10; else usersPanel">
-									<div *ngFor="let member of user.members">
-										<td class="text-center col-xs-1 displayCol">
-											<div class="users">{{ member }}</div>
-										</td>
-									</div>
-								</ng-container>
-								<ng-template #usersPanel>
+								<ng-container *ngIf="user.members.length == 0; else showUsers">
 									<td class="text-center col-xs-1 displayCol">
-										<a class="displayCell" type="button" data-toggle="collapse" [attr.href]= "'#' + user.group"  aria-expanded="false" aria-controls="collapseExample">
-											<span class="glyphicon glyphicon-menu-down black"></span>
-										</a>
-										<div class="collapse" attr.id= {{user.group}} >
+										<div class="displayCell">-</div>
+									</td>
+								</ng-container>
+								<ng-template #showUsers>
+									<ng-container *ngIf="user.members.length < 10; else usersPanel">
+										<td class="text-center col-xs-1 displayCol">
 											<div *ngFor="let member of user.members">
 												<div class="users">{{ member }}</div>
 											</div>
-										</div>
-									</td>
+										</td>
+									</ng-container>
+									<ng-template #usersPanel>
+											<td class="text-center col-xs-1 displayCol">
+												<a class="displayCell" type="button" data-toggle="collapse" [attr.href]= "'#' + user.group"  aria-expanded="false" aria-controls="collapseExample">
+													<span class="glyphicon glyphicon-menu-down black"></span>
+												</a>
+												<div class="collapse" attr.id= {{user.group}} >
+													<div *ngFor="let member of user.members">
+														<div class="users">{{ member }}</div>
+													</div>
+												</div>
+											</td>
+										</ng-template>
 								</ng-template>
 							</tr>
 						</ng-template>

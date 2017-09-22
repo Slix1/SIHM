@@ -43,8 +43,8 @@ export class GespaVersionsComponent {
           this.environments = this.gespaEnv['gespaInfosData'].environments;
       
           this.environments.forEach((env: any, envIndex) => {
-            env.environment = env.environment.toLowerCase().replace(" ","");
-            this.gespaVersionsUrl[envIndex] = {url: apiUrl + this.gespaEnv['tab'] + '/' + env.environment + '/version', env: env.environment};
+            env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
+            this.gespaVersionsUrl[envIndex] = {url: apiUrl + this.gespaEnv['tab'] + '/' + env['urlEnv'] + '/version', env: env.environment};
           });
       
           this.gespaVersionsUrl.forEach((env: any) => {
