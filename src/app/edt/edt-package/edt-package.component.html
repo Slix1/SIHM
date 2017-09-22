@@ -53,7 +53,7 @@
 							<tr *ngFor="let packageVersion of edtPackageData?.versionList?.list">
 								<td  class="text-center col-xs-1 displayCol">
 									<ng-container *ngIf="edtPackageData?.versionList?.detail[packageVersion].version == packageVersion">
-										<div data-toggle="tooltip" data-placement="bottom" title="{{edtPackageData?.versionList?.detail[packageVersion].detail}}" class="displayCell">
+										<div popover="{{edtPackageData?.versionList?.detail[packageVersion].detail}}" popoverPlacement="top" title="Cliquer pour voir le contenu du packaqe" [popoverCloseOnClickOutside]="true" class="displayCell">
 											{{ packageVersion }}
 										</div>
 									</ng-container>

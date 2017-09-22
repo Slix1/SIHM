@@ -53,7 +53,7 @@
                 <tr *ngFor="let tagVersion of fofTagData?.versionList?.list">
                   <td  class="text-center col-xs-1 displayCol">
                     <ng-container *ngIf="fofTagData?.versionList?.detail[tagVersion].version == tagVersion">
-                      <div data-toggle="tooltip" data-placement="bottom" title="{{fofTagData?.versionList?.detail[tagVersion].detail}}" class="displayCell">
+                      <div popover="{{fofTagData?.versionList?.detail[tagVersion].detail}}" popoverPlacement="top" title="Cliquer pour voir le contenu du packaqe" [popoverCloseOnClickOutside]="true" class="displayCell">
                         {{ tagVersion }}
                       </div>
                     </ng-container>

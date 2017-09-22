@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomPipesModule }     from './../pipes/custom-pipes.module';
+import { PopoverModule } from 'ng4-popover';
 
 
 import { EdtComponent } from './edt.component';
@@ -34,7 +35,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     CustomPipesModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    PopoverModule
   ],
   providers: [],
   bootstrap: [EdtComponent]

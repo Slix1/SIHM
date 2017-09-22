@@ -6,6 +6,7 @@ import { ErrorService } from './../../services/error.service';
 import { CmpVersionsService } from './../../services/compare-version-package.service';
 import { apiUrl } from './../../constants/api-url.constant';
 
+
 @Component({
   selector: 'app-edt-package',
   templateUrl: './edt-package.component.html',
@@ -16,6 +17,7 @@ export class EdtPackageComponent {
 
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService, private CmpVersionsService: CmpVersionsService) { }
+
 
   @Input() edtEnv: object;
   private edtPackageUrl: Array<any> = [];
@@ -53,6 +55,7 @@ export class EdtPackageComponent {
         this.LoadingService.loadingTrue(env.env);
         this.getEdtPackageData(env);
       });
+
     }
   }
 
