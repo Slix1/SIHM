@@ -30,6 +30,11 @@
 					</thead>
 					<tbody >
 						<tr>
+							<ng-container *ngIf="edtEnv['EdtInfosData']?.error">
+								<td class="text-center col-xs-1 displayCol">
+									<div class="displayCell">{{ edtEnv['EdtInfosData']?.error }}</div>
+								</td>
+							</ng-container>
 							<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
 								<ng-container *ngIf="edtDaemonsData[env.environment]?.error; else daemonData">
 									<div *ngIf="LoadingService.loading[env.environment]; else daemonError" class="displayCell">
