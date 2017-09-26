@@ -39,8 +39,9 @@ export class EdtDaemonsComponent {
       this.environments = this.edtEnv['EdtInfosData'].environments;
                 
       this.environments.forEach((env: any, envIndex) => {
-
+        env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
         this.edtDaemonsUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/daemons', env: env.environment};
+        
       });
         
       this.edtDaemonsUrl.forEach((env: any) => {
