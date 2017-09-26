@@ -39,7 +39,7 @@ export class EdtSqlComponent {
                 
       this.environments.forEach((env: any, envIndex) => {
         env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
-        this.edtSqlUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/sql_version', env: env.environment};
+        this.edtSqlUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/' + env['urlEnv'] + '/sql_version', env: env.environment};
       });
         
       this.edtSqlUrl.forEach((env: any) => {
