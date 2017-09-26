@@ -50,7 +50,7 @@
 									</div>
 									<ng-template #daemonBody>
 										<ng-container *ngFor="let daemon of edtDaemonsData[env.environment]?.listeDaemons">
-											<div *ngIf="daemon.application == '' || daemon.application == null ">Pas de données</div>
+											<div *ngIf="daemon.application == '' || daemon.application === null ">Pas de données</div>
 											<div data-toggle="tooltip" data-placement="bottom"
 											[ngClass]="{'text-danger' : daemon.alive == false, 'text-success' : daemon.alive == true && daemon.pidFilePresent == true, 'warning' : daemon.alive == true && daemon.pidFilePresent == false}"
 											title="{{ daemon.pidFilePresent ? '' : 'Aucun fichier PID présent&#10;'}}{{daemon.couloir}}&#10;{{daemon.type}}&#10;{{daemon.partage}}&#10;CPU: {{daemon.perCPU}}%&#10;MEM: {{daemon.perMEM}}%&#10;Démarré depuis {{daemon.startTime.nbDays}}j {{daemon.startTime.nbHours}}h {{daemon.startTime.nbMinutes}}min {{daemon.startTime.nbSeconds}}s" class="displayCell"><b>{{ daemon.application }}</b></div>

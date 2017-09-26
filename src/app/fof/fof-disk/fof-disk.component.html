@@ -37,10 +37,10 @@
 							<td class="text-center col-xs-1 displayCol">
 								<div class="displayCell">Data Use</div>
 							</td>
-							<td *ngIf="fofEnv['fofInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+							<td *ngIf="fofEnv['fofInfosData']?.error; else dataUse" class="text-center col-xs-1 displayCol">
 								<div class="displayCell">{{ fofEnv['fofInfosData']?.error }}</div>
 							</td>
-							<ng-template #disk>
+							<ng-template #dataUse>
 								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
 									<ng-container *ngIf="fofDiskData[env.environment]?.error; else diskDataUseData">
 										<div *ngIf="LoadingService.loading[env.environment]; else diskDataUseError" class="displayCell">
@@ -76,10 +76,10 @@
 							<td class="text-center col-xs-1 displayCol">
 								<div class="displayCell">Home Use</div>
 							</td>
-							<td *ngIf="fofEnv['fofInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+							<td *ngIf="fofEnv['fofInfosData']?.error; else homeUse" class="text-center col-xs-1 displayCol">
 								<div class="displayCell">{{ fofEnv['fofInfosData']?.error }}</div>
 							</td>
-							<ng-template #disk>
+							<ng-template #homeUse>
 								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
 									<ng-container *ngIf="fofDiskData[env.environment]?.error; else diskDataUseData">
 										<div *ngIf="LoadingService.loading[env.environment]; else diskDataUseError" class="displayCell">
@@ -115,10 +115,10 @@
 							<td class="text-center col-xs-1 displayCol">
 								<div class="displayCell">Sefas Use</div>
 							</td>
-							<td *ngIf="fofEnv['fofInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+							<td *ngIf="fofEnv['fofInfosData']?.error; else sefasUse" class="text-center col-xs-1 displayCol">
 								<div class="displayCell">{{ fofEnv['fofInfosData']?.error }}</div>
 							</td>
-							<ng-template #disk>
+							<ng-template #sefasUse>
 								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
 									<ng-container *ngIf="fofDiskData[env.environment]?.error; else diskDataUseData">
 										<div *ngIf="LoadingService.loading[env.environment]; else diskDataUseError" class="displayCell">
