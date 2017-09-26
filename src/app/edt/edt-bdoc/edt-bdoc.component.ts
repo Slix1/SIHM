@@ -33,7 +33,7 @@ export class EdtbdocComponent {
 
   load(): void {
    if (this.edtEnv['EdtInfosData'].error == undefined) {
-        this.environments.push(this.edtEnv['EdtInfosData'].environments);
+        this.environments = this.edtEnv['EdtInfosData'].environments;
             
         this.environments.forEach((env: any, envIndex) => {
           env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
