@@ -24,7 +24,7 @@
 						</th>
 						<ng-template #verHead>
 							<th *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
-								<div class="displayCell"><a href="{{ ondemandVersionData[env.environment]?.server }}/{{ondemandEnv['tab']}}/" target="_blank">{{ env.environment }}</a></div>
+								<div class="displayCell"><a href="http://{{ ondemandVersionData[env.environment]?.environment.server }}/{{ondemandEnv['tab']}}/" target="_blank">{{ env.environment }}</a></div>
 							</th>
 						</ng-template>
 					</tr>
@@ -42,7 +42,7 @@
 										Loading....
 									</div>
 									<ng-template #versionError>
-										<div *ngIf="env.environment == ondemandVersionData[env.environment]?.environment" class="displayCell">{{ ondemandVersionData[env.environment]?.error }}</div>
+										<div *ngIf="env.environment == ondemandVersionData[env.environment]?.environment.environment" class="displayCell">{{ ondemandVersionData[env.environment]?.error }}</div>
 									</ng-template>
 								</ng-container>
 								<ng-template #versionData>
@@ -50,7 +50,8 @@
 										Loading....
 									</div>
 									<ng-template #verBody>
-										<div *ngIf="env.environment == ondemandVersionData[env.environment]?.environment" class="displayCell">{{ ondemandVersionData[env.environment]?.versionApache }}</div>
+										<div *ngIf="ondemandVersionData[env.environment]?.versionApache == '' || ondemandVersionData[env.environment]?.versionApache == null" class="displayCell">-</div>
+										<div *ngIf="env.environment == ondemandVersionData[env.environment]?.environment.environment" class="displayCell">{{ ondemandVersionData[env.environment]?.versionApache }}</div>
 									</ng-template>
 								</ng-template>
 							</td>
@@ -69,7 +70,7 @@
 										Loading....
 									</div>
 									<ng-template #versionError>
-										<div *ngIf="env.environment == ondemandVersionData[env.environment]?.environment" class="displayCell">{{ ondemandVersionData[env.environment]?.error }}</div>
+										<div *ngIf="env.environment == ondemandVersionData[env.environment]?.environment.environment" class="displayCell">{{ ondemandVersionData[env.environment]?.error }}</div>
 									</ng-template>
 								</ng-container>
 								<ng-template #versionData>
@@ -77,7 +78,8 @@
 										Loading....
 									</div>
 									<ng-template #verBody>
-										<div *ngIf="env.environment == ondemandVersionData[env.environment]?.environment" class="displayCell">{{ ondemandVersionData[env.environment]?.versionWebLogic }}</div>
+										<div *ngIf="ondemandVersionData[env.environment]?.versionWebLogic == '' || ondemandVersionData[env.environment]?.versionWebLogic == null" class="displayCell">-</div>
+										<div *ngIf="env.environment == ondemandVersionData[env.environment]?.environment.environment" class="displayCell">{{ ondemandVersionData[env.environment]?.versionWebLogic }}</div>
 									</ng-template>
 								</ng-template>
 							</td>

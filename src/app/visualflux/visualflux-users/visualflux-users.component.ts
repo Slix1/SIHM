@@ -31,7 +31,7 @@ export class VisualfluxUsersComponent {
   load(): void {
 
     this.visualFluxUsersUrl = apiUrl + this.tab + '/users';
-    
+
     this.LoadingService.loadingTrue('visualFluxUsers');
 
     this.getVisualFluxUserUsersData();

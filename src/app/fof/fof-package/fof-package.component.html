@@ -53,7 +53,8 @@
 							<tr *ngFor="let packageVersion of fofPackageData?.versionList?.list">
 								<td  class="text-center col-xs-1 displayCol">
 									<ng-container *ngIf="fofPackageData?.versionList?.detail[packageVersion].version == packageVersion">
-										<div popover="{{fofPackageData?.versionList?.detail[packageVersion].detail}}" popoverPlacement="top" title="Cliquer pour voir le contenu du packaqe" [popoverCloseOnClickOutside]="true" class="displayCell">
+										<popover-content #packageVer placement="top" [closeOnClickOutside]="true"><div class="displayPackage">{{fofPackageData?.versionList?.detail[packageVersion].detail}}</div></popover-content>
+										<div [popover]="packageVer" title="Cliquer pour voir le contenu du packaqe" class="displayPackage">
 											{{ packageVersion }}
 										</div>
 									</ng-container>
@@ -64,7 +65,7 @@
 											Loading....
 										</div>
 										<ng-template #packageError>
-											<div class="displayCell">{{ fofPackageData[env.environment]?.error }}</div>
+											<div class="displayPackage">{{ fofPackageData[env.environment]?.error }}</div>
 										</ng-template>
 									</ng-container>
 									<ng-template #packageData>
@@ -73,7 +74,7 @@
 										</div>
 										<ng-template #packageBody>
 											<ng-container *ngFor="let package of fofPackageData[env.environment]?.listVersions">
-												<div *ngIf="packageVersion == package.num" class="displayCell">{{package.installDate | split:" ":0}}<br>{{package.installDate | split:" ":1}}</div>
+												<div *ngIf="packageVersion == package.num" class="displayPackage">{{package.installDate | split:" ":0}}<br>{{package.installDate | split:" ":1}}</div>
 											</ng-container>
 										</ng-template>
 									</ng-template>

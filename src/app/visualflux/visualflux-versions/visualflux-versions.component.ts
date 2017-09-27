@@ -26,9 +26,9 @@ export class VisualfluxVersionsComponent {
     public getVisualFluxVersionsData(request): Object {
   
       this.ApiService.getData(request.url)
-        .then(visualfluxVersionData => this.visualfluxVersionData[request.env] = {...visualfluxVersionData, environment: request.env})
-        .catch(error => this.visualfluxVersionData[request.env] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
-        .then(() => this.LoadingService.loading[request.env] = false);
+        .then(visualfluxVersionData => this.visualfluxVersionData[request.env.environment] = {...visualfluxVersionData, environment: request.env})
+        .catch(error => this.visualfluxVersionData[request.env.environment] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
+        .then(() => this.LoadingService.loading[request.env.environment] = false);
   
       return this.visualfluxVersionData;
   
@@ -42,12 +42,12 @@ export class VisualfluxVersionsComponent {
       
           this.environments.forEach((env: any, envIndex) => {
             env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
-            this.visualfluxVersionsUrl[envIndex] = {url: apiUrl + this.visualfluxEnv['tab'] + '/' + env['urlEnv'] + '/version', env: env.environment};
+            this.visualfluxVersionsUrl[envIndex] = {url: apiUrl + this.visualfluxEnv['tab'] + '/' + env['urlEnv'] + '/version', env: env};
           });
       
           this.visualfluxVersionsUrl.forEach((env: any) => {
       
-            this.LoadingService.loadingTrue(env.env);
+            this.LoadingService.loadingTrue(env.env.environment);
             this.getVisualFluxVersionsData(env);
           });
       

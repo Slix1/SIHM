@@ -23,7 +23,7 @@
 						</th>
 						<ng-template #verHead>
 							<th *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
-								<div class="displayCell"><a href="{{ webEdiVersionData[env.environment]?.server }}/{{webediEnv['tab']}}/" target="_blank">{{ env.environment }}</a></div>
+								<div class="displayCell"><a href="http://{{ webEdiVersionData[env.environment]?.environment.server }}/{{webediEnv['tab']}}/" target="_blank">{{ env.environment }}</a></div>
 							</th>
 						</ng-template>
 					</tr>
@@ -41,7 +41,7 @@
 										Loading....
 									</div>
 									<ng-template #versionError>
-										<div *ngIf="env.environment == webEdiVersionData[env.environment]?.environment" class="displayCell">{{ webEdiVersionData[env.environment]?.error }}</div>
+										<div *ngIf="env.environment == webEdiVersionData[env.environment]?.environment.environment" class="displayCell">{{ webEdiVersionData[env.environment]?.error }}</div>
 									</ng-template>
 								</ng-container>
 								<ng-template #versionData>
@@ -49,7 +49,8 @@
 										Loading....
 									</div>
 									<ng-template #verBody>
-										<div *ngIf="env.environment == webEdiVersionData[env.environment]?.environment" class="displayCell">{{ webEdiVersionData[env.environment]?.versionApache }}</div>
+										<div *ngIf="webEdiVersionData[env.environment]?.versionApache == '' || webEdiVersionData[env.environment]?.versionApache == null" class="displayCell">-</div>
+										<div *ngIf="env.environment == webEdiVersionData[env.environment]?.environment.environment" class="displayCell">{{ webEdiVersionData[env.environment]?.versionApache }}</div>
 									</ng-template>
 								</ng-template>
 							</td>
@@ -68,7 +69,7 @@
 										Loading....
 									</div>
 									<ng-template #versionError>
-										<div *ngIf="env.environment == webEdiVersionData[env.environment]?.environment" class="displayCell">{{ webEdiVersionData[env.environment]?.error }}</div>
+										<div *ngIf="env.environment == webEdiVersionData[env.environment]?.environment.environment" class="displayCell">{{ webEdiVersionData[env.environment]?.error }}</div>
 									</ng-template>
 								</ng-container>
 								<ng-template #versionData>
@@ -76,7 +77,8 @@
 										Loading....
 									</div>
 									<ng-template #verBody>
-										<div *ngIf="env.environment == webEdiVersionData[env.environment]?.environment" class="displayCell">{{ webEdiVersionData[env.environment]?.versionWebLogic }}</div>
+										<div *ngIf="webEdiVersionData[env.environment]?.versionWebLogic == '' || webEdiVersionData[env.environment]?.versionWebLogic == null" class="displayCell">-</div>
+										<div *ngIf="env.environment == webEdiVersionData[env.environment]?.environment.environment" class="displayCell">{{ webEdiVersionData[env.environment]?.versionWebLogic }}</div>
 									</ng-template>
 								</ng-template>
 							</td>

@@ -49,6 +49,7 @@ export class EdtPackageComponent {
       this.environments.forEach((env: any, envIndex) => {
         env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
         this.edtPackageUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/' + env['urlEnv'] + '/package_version', env: env.environment};
+        
       });
         
       this.edtPackageUrl.forEach((env: any) => {

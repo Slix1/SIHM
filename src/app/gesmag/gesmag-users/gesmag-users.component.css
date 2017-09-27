@@ -4,5 +4,18 @@
 }
 
 .glyphicon.glyphicon-menu-down {
-    font-size: 120%;
+    font-size: 125%;
 }
+
+.glyphicon.glyphicon-menu-up {
+    font-size: 125%;
+}
+
+.text-toogle[aria-expanded=false] .text-expanded {
+    display: none;
+  }
+.text-toogle[aria-expanded=true] .text-collapsed {
+    display: none;
+  }
+  
+  
