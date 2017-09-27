@@ -25,10 +25,10 @@ export class WebediVersionsComponent {
   public getWebEdiVersionsData(request): Object {
 
     this.ApiService.getData(request.url)
-      .then(webEdiVersionData => this.webEdiVersionData[request.env] = { ...webEdiVersionData, environment: request.env })
+      .then(webEdiVersionData => this.webEdiVersionData[request.env.environment] = { ...webEdiVersionData, environment: request.env })
       .then(()=> console.log(this.webEdiVersionData))
-      .catch(error => this.webEdiVersionData[request.env] = { error: this.ErrorService.getErrorMessage(error), environment: request.env })
-      .then(() => this.LoadingService.loading[request.env] = false);
+      .catch(error => this.webEdiVersionData[request.env.environment] = { error: this.ErrorService.getErrorMessage(error), environment: request.env })
+      .then(() => this.LoadingService.loading[request.env.environment] = false);
 
     return this.webEdiVersionData;
 
@@ -42,11 +42,11 @@ export class WebediVersionsComponent {
         
         this.environments.forEach((env: any, envIndex) => {
           env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
-          this.webEdiVersionsUrl[envIndex] = {url: apiUrl + this.webediEnv['tab'] + '/' + env['urlEnv'] + '/version', env: env.environment};
+          this.webEdiVersionsUrl[envIndex] = {url: apiUrl + this.webediEnv['tab'] + '/' + env['urlEnv'] + '/version', env: env};
         });
         
         this.webEdiVersionsUrl.forEach((env: any) => {
-          this.LoadingService.loadingTrue(env.env);
+          this.LoadingService.loadingTrue(env.env.environment);
           this.getWebEdiVersionsData(env);
         });
       }

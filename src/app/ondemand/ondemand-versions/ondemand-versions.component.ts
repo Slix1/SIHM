@@ -26,9 +26,9 @@ export class OndemandVersionsComponent {
     public getOnDemandVersionsData(request): Object {
   
       this.ApiService.getData(request.url)
-        .then(ondemandVersionData => this.ondemandVersionData[request.env] = {...ondemandVersionData, environment: request.env})
-        .catch(error => this.ondemandVersionData[request.env] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
-        .then(() => this.LoadingService.loading[request.env] = false);
+        .then(ondemandVersionData => this.ondemandVersionData[request.env.environment] = {...ondemandVersionData, environment: request.env})
+        .catch(error => this.ondemandVersionData[request.env.environment] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
+        .then(() => this.LoadingService.loading[request.env.environment] = false);
   
       return this.ondemandVersionData;
   
@@ -42,12 +42,12 @@ export class OndemandVersionsComponent {
       
           this.environments.forEach((env: any, envIndex) => {
             env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
-            this.ondemandVersionsUrl[envIndex] = {url: apiUrl + this.ondemandEnv['tab'] + '/' + env['urlEnv'] + '/version', env: env.environment};
+            this.ondemandVersionsUrl[envIndex] = {url: apiUrl + this.ondemandEnv['tab'] + '/' + env['urlEnv'] + '/version', env: env};
           });
       
           this.ondemandVersionsUrl.forEach((env: any) => {
       
-            this.LoadingService.loadingTrue(env.env);
+            this.LoadingService.loadingTrue(env.env.environment);
             this.getOnDemandVersionsData(env);
           });
       

@@ -4,11 +4,10 @@
 			Version
 			<div class="pull-right">
 				<a (click)="refresh()">
-							<span class="glyphicon glyphicon-refresh black"></span>
-						</a>
+					<span class="glyphicon glyphicon-refresh black"></span>
+				</a>
 				<a (click)="switch()" role="button" data-toggle="collapse" href="#visualfluxVersion" aria-expanded="false" aria-controls="visualfluxVersion">
 					<span [className]="SwitchGlyphiconsService.currentGlyphicon"></span>
-					
 				</a>
 			</div>
 		</h4>
@@ -24,7 +23,7 @@
 						</th>
 						<ng-template #verHead>
 							<th *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
-								<div class="displayCell"><a href="{{ visualfluxVersionData[env.environment]?.server }}/{{visualfluxEnv['tab']}}/" target="_blank">{{ env.environment }}</a></div>
+								<div class="displayCell"><a href="http://{{ visualfluxVersionData[env.environment]?.environment.server }}/{{visualfluxEnv['tab']}}/" target="_blank">{{ env.environment }}</a></div>
 							</th>
 						</ng-template>
 					</tr>
@@ -42,7 +41,7 @@
 										Loading....
 									</div>
 									<ng-template #versionError>
-										<div *ngIf="env.environment == visualfluxVersionData[env.environment]?.environment" class="displayCell">{{ visualfluxVersionData[env.environment]?.error }}</div>
+										<div *ngIf="env.environment == visualfluxVersionData[env.environment]?.environment.environment" class="displayCell">{{ visualfluxVersionData[env.environment]?.error }}</div>
 									</ng-template>
 								</ng-container>
 								<ng-template #versionData>
@@ -50,7 +49,8 @@
 										Loading....
 									</div>
 									<ng-template #verBody>
-										<div *ngIf="env.environment == visualfluxVersionData[env.environment]?.environment" class="displayCell">{{ visualfluxVersionData[env.environment]?.versionApache }}</div>
+										<div *ngIf="visualfluxVersionData[env.environment]?.versionApache == '' || visualfluxVersionData[env.environment]?.versionApache == null" class="displayCell">-</div>
+										<div *ngIf="env.environment == visualfluxVersionData[env.environment]?.environment.environment" class="displayCell">{{ visualfluxVersionData[env.environment]?.versionApache }}</div>
 									</ng-template>
 								</ng-template>
 							</td>
@@ -69,7 +69,7 @@
 										Loading....
 									</div>
 									<ng-template #versionError>
-										<div *ngIf="env.environment == visualfluxVersionData[env.environment]?.environment" class="displayCell">{{ visualfluxVersionData[env.environment]?.error }}</div>
+										<div *ngIf="env.environment == visualfluxVersionData[env.environment]?.environment.environment" class="displayCell">{{ visualfluxVersionData[env.environment]?.error }}</div>
 									</ng-template>
 								</ng-container>
 								<ng-template #versionData>
@@ -77,7 +77,8 @@
 										Loading....
 									</div>
 									<ng-template #verBody>
-										<div *ngIf="env.environment == visualfluxVersionData[env.environment]?.environment" class="displayCell">{{ visualfluxVersionData[env.environment]?.versionWebLogic }}</div>
+										<div *ngIf="visualfluxVersionData[env.environment]?.versionWebLogic == '' || visualfluxVersionData[env.environment]?.versionWebLogic == null" class="displayCell">-</div>
+										<div *ngIf="env.environment == visualfluxVersionData[env.environment]?.environment.environment" class="displayCell">{{ visualfluxVersionData[env.environment]?.versionWebLogic }}</div>
 									</ng-template>
 								</ng-template>
 							</td>

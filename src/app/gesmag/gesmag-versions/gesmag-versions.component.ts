@@ -26,9 +26,9 @@ export class GesmagVersionsComponent {
   public getGesmagVersionsData(request): Object {
 
     this.ApiService.getData(request.url)
-      .then(gesmagVersionData => this.gesmagVersionData[request.env] = { ...gesmagVersionData, environment: request.env})
-      .catch(error => this.gesmagVersionData[request.env] = { error: this.ErrorService.getErrorMessage(error), environment: request.env})
-      .then(() => this.LoadingService.loading[request.env] = false);
+      .then(gesmagVersionData => this.gesmagVersionData[request.env.environment] = { ...gesmagVersionData, environment: request.env})
+      .catch(error => this.gesmagVersionData[request.env.environment] = { error: this.ErrorService.getErrorMessage(error), environment: request.env})
+      .then(() => this.LoadingService.loading[request.env.environment] = false);
 
     return this.gesmagVersionData;
 
@@ -42,12 +42,12 @@ export class GesmagVersionsComponent {
 
       this.environments.forEach((env: any, envIndex) => {
         env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
-        this.gesmagVersionsUrl[envIndex] = { url: apiUrl + this.gesmagEnv['tab'] + '/' + env['urlEnv'] + '/version', env: env.environment };
+        this.gesmagVersionsUrl[envIndex] = { url: apiUrl + this.gesmagEnv['tab'] + '/' + env['urlEnv'] + '/version', env: env };
       });
 
       this.gesmagVersionsUrl.forEach((env: any) => {
 
-        this.LoadingService.loadingTrue(env.env);
+        this.LoadingService.loadingTrue(env.env.environment);
         this.getGesmagVersionsData(env);
       });
 

@@ -27,9 +27,9 @@ export class GespaVersionsComponent {
     public getGespaVersionsData(request): Object {
   
       this.ApiService.getData(request.url)
-        .then(gespaVersionData => this.gespaVersionData[request.env] = {...gespaVersionData, environment: request.env})
-        .catch(error => this.gespaVersionData[request.env] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
-        .then(() => this.LoadingService.loading[request.env] = false);
+        .then(gespaVersionData => this.gespaVersionData[request.env.environment] = {...gespaVersionData, environment: request.env})
+        .catch(error => this.gespaVersionData[request.env.environment] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
+        .then(() => this.LoadingService.loading[request.env.environment] = false);
   
       return this.gespaVersionData;
   
@@ -44,12 +44,12 @@ export class GespaVersionsComponent {
       
           this.environments.forEach((env: any, envIndex) => {
             env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
-            this.gespaVersionsUrl[envIndex] = {url: apiUrl + this.gespaEnv['tab'] + '/' + env['urlEnv'] + '/version', env: env.environment};
+            this.gespaVersionsUrl[envIndex] = {url: apiUrl + this.gespaEnv['tab'] + '/' + env['urlEnv'] + '/version', env: env};
           });
       
           this.gespaVersionsUrl.forEach((env: any) => {
       
-            this.LoadingService.loadingTrue(env.env);
+            this.LoadingService.loadingTrue(env.env.environment);
             this.getGespaVersionsData(env);
           });
       

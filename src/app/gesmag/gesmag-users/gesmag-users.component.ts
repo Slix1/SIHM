@@ -33,7 +33,7 @@ export class GesmagUsersComponent {
   load(): void {
 
     this.gesmagUsersUrl = apiUrl + this.tab + '/users';
-    
+       
     this.LoadingService.loadingTrue('gesmagUsers');
 
     this.getGesmagUserUsersData();

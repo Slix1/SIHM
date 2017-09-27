@@ -63,8 +63,9 @@
 									</ng-container>
 									<ng-template #usersPanel>
 										<td class="text-center col-xs-1 displayCol">
-											<a class="displayCell" type="button" data-toggle="collapse" [attr.href]= "'#' + user.group"  aria-expanded="false" aria-controls="collapseExample">
-												<span class="glyphicon glyphicon-menu-down black"></span>
+											<a class="displayCell text-toogle" type="button" data-toggle="collapse" [attr.href]= "'#' + user.group"  aria-expanded="false" aria-controls="collapseExample">
+												<span class="text-collapsed glyphicon glyphicon-menu-down black"></span>
+												<span class="text-expanded glyphicon glyphicon-menu-up black"></span>
 											</a>
 											<div class="collapse" attr.id= {{user.group}} >
 												<div *ngFor="let member of user.members">
