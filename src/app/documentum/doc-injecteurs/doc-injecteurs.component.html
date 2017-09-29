@@ -35,10 +35,10 @@
 							<td class="text-center col-xs-1 displayCol">
 								<div class="displayCell">Home Use</div>
 							</td>
-							<td *ngIf="documentumEnv['documentumInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+							<td *ngIf="documentumEnv['documentumInfosData']?.error; else homeUse" class="text-center col-xs-1 displayCol">
 								<div class="displayCell">{{ documentumEnv['documentumInfosData']?.error }}</div>
 							</td>
-							<ng-template #disk>
+							<ng-template #homeUse>
 								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
 									<ng-container *ngIf="documentumInjecteursData[env.environment]?.error; else diskHomeUseData">
 										<div *ngIf="LoadingService.loading[env.environment]; else diskHomeUseError" class="displayCell">
@@ -74,10 +74,10 @@
 							<td class="text-center col-xs-1 displayCol">
 								<div class="displayCell">Reception</div>
 							</td>
-							<td *ngIf="documentumEnv['documentumInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+							<td *ngIf="documentumEnv['documentumInfosData']?.error; else Reception" class="text-center col-xs-1 displayCol">
 								<div class="displayCell">{{ documentumEnv['documentumInfosData']?.error }}</div>
 							</td>
-							<ng-template #disk>
+							<ng-template #Reception>
 								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
 									<ng-container *ngIf="documentumInjecteursData[env.environment]?.error; else receptionData">
 										<div *ngIf="LoadingService.loading[env.environment]; else receptionError" class="displayCell">
@@ -110,10 +110,10 @@
 							<td class="text-center col-xs-1 displayCol">
 								<div class="displayCell">Erreur</div>
 							</td>
-							<td *ngIf="documentumEnv['documentumInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+							<td *ngIf="documentumEnv['documentumInfosData']?.error; else Erreur" class="text-center col-xs-1 displayCol">
 								<div class="displayCell">{{ documentumEnv['documentumInfosData']?.error }}</div>
 							</td>
-							<ng-template #disk>
+							<ng-template #Erreur>
 								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
 									<ng-container *ngIf="documentumInjecteursData[env.environment]?.error; else erreurData">
 										<div *ngIf="LoadingService.loading[env.environment]; else erreurError" class="displayCell">
@@ -145,10 +145,10 @@
 							<td class="text-center col-xs-1 displayCol">
 								<div class="displayCell">Erreur Intervention Requise</div>
 							</td>
-							<td *ngIf="documentumEnv['documentumInfosData']?.error; else disk" class="text-center col-xs-1 displayCol">
+							<td *ngIf="documentumEnv['documentumInfosData']?.error; else EIR" class="text-center col-xs-1 displayCol">
 								<div class="displayCell">{{ documentumEnv['documentumInfosData']?.error }}</div>
 							</td>
-							<ng-template #disk>
+							<ng-template #EIR>
 								<td *ngFor="let env of environments" class="text-center col-xs-1 displayCol">
 									<ng-container *ngIf="documentumInjecteursData[env.environment]?.error; else erreurInterReqData">
 										<div *ngIf="LoadingService.loading[env.environment]; else erreurInterReqError" class="displayCell">
