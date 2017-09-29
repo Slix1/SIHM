@@ -61,8 +61,8 @@
 											<ng-template #showData>
 												<div data-toggle="tooltip" data-placement="bottom" *ngIf="env.environment == fofDiskData[env.environment]?.environment" class="displayCell"
 												 title="Reste {{ fofDiskData[env.environment]?.diskSpaceInfosData.availableSize }}/{{ fofDiskData[env.environment]?.diskSpaceInfosData.globalSize }}"
-												 [ngClass]="{'bg-danger' : fofDiskData[env.environment]?.diskSpaceInfosData.percentageUse >= 80,
-															'bg-warning' : fofDiskData[env.environment]?.diskSpaceInfosData.percentageUse >= 60 && fofDiskData[env.environment]?.diskSpaceInfosData.percentageUse < 80}">
+												 [ngClass]="{'bg-danger' : fofDiskData[env.environment]?.diskSpaceInfosData.percentageUse >= 90,
+															'bg-warning' : fofDiskData[env.environment]?.diskSpaceInfosData.percentageUse >= 75 && fofDiskData[env.environment]?.diskSpaceInfosData.percentageUse < 90}">
 													{{ fofDiskData[env.environment]?.diskSpaceInfosData.percentageUse }}%
 												</div>
 											</ng-template>
@@ -100,8 +100,8 @@
 											<ng-template #showData>
 												<div data-toggle="tooltip" data-placement="bottom" *ngIf="env.environment == fofDiskData[env.environment]?.environment" class="displayCell"
 												 title="Reste {{ fofDiskData[env.environment]?.diskSpaceInfosHome.availableSize }}/{{ fofDiskData[env.environment]?.diskSpaceInfosHome.globalSize }}"
-												 [ngClass]="{'bg-danger' : fofDiskData[env.environment]?.diskSpaceInfosHome.percentageUse >= 80,
-															'bg-warning' : fofDiskData[env.environment]?.diskSpaceInfosHome.percentageUse >= 60 && fofDiskData[env.environment]?.diskSpaceInfosHome.percentageUse < 80}">
+												 [ngClass]="{'bg-danger' : fofDiskData[env.environment]?.diskSpaceInfosHome.percentageUse >= 90,
+															'bg-warning' : fofDiskData[env.environment]?.diskSpaceInfosHome.percentageUse >= 75 && fofDiskData[env.environment]?.diskSpaceInfosHome.percentageUse < 90}">
 													{{ fofDiskData[env.environment]?.diskSpaceInfosHome.percentageUse }}%
 												</div>
 											</ng-template>
@@ -139,8 +139,8 @@
 											<ng-template #showData>
 												<div data-toggle="tooltip" data-placement="bottom" *ngIf="env.environment == fofDiskData[env.environment]?.environment" class="displayCell"
 												 title="Reste {{ fofDiskData[env.environment]?.diskSpaceInfosSefas.availableSize }}/{{ fofDiskData[env.environment]?.diskSpaceInfosSefas.globalSize }}"
-												 [ngClass]="{'bg-danger' : fofDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse >= 80,
-															'bg-warning' : fofDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse >= 60 && fofDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse < 80}">
+												 [ngClass]="{'bg-danger' : fofDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse >= 90,
+															'bg-warning' : fofDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse >= 75 && fofDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse < 90}">
 													{{ fofDiskData[env.environment]?.diskSpaceInfosSefas.percentageUse }}%
 												</div>
 											</ng-template>
