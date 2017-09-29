@@ -53,10 +53,10 @@
 											Loading....
 										</div>
 										<ng-template #diskHomeUse>
-											<ng-container *ngIf="documentumInjecteursData[env.environment]?.diskSpaceInfosHome == null; else showData">
+											<ng-container *ngIf="documentumInjecteursData[env.environment]?.diskSpaceInfosHome == null; else showDataHomeUse">
 												<div *ngIf="env.environment == documentumInjecteursData[env.environment]?.environment" class="displayCell bg-danger">Pas de données</div>
 											</ng-container>
-											<ng-template #showData>
+											<ng-template #showDataHomeUse>
 												<div data-toggle="tooltip" data-placement="bottom" *ngIf="env.environment == documentumInjecteursData[env.environment]?.environment" class="displayCell"
 												 title="Reste {{ documentumInjecteursData[env.environment]?.diskSpaceInfosHome.availableSize }}/{{ documentumInjecteursData[env.environment]?.diskSpaceInfosHome.globalSize }}"
 												 [ngClass]="{'bg-danger' : documentumInjecteursData[env.environment]?.diskSpaceInfosHome.percentageUse >= 80,
@@ -92,10 +92,10 @@
 											Loading....
 										</div>
 										<ng-template #reception>
-											<ng-container *ngIf="documentumInjecteursData[env.environment]?.nbReception == 0; else showData">
+											<ng-container *ngIf="documentumInjecteursData[env.environment]?.nbReception == 0; else showDataReception">
 												<div class="displayCell">-</div>
 											</ng-container>
-											<ng-template #showData>
+											<ng-template #showDataReception>
 												<div data-toggle="tooltip" data-placement="bottom" title="{{documentumInjecteursData[env.environment]?.listeFichiersReception}}" class="displayCell">
 													{{documentumInjecteursData[env.environment]?.nbReception}} items
 												</div>
@@ -128,10 +128,10 @@
 											Loading....
 										</div>
 										<ng-template #erreur>
-											<ng-container *ngIf="documentumInjecteursData[env.environment]?.nbErreur == 0; else showData">
+											<ng-container *ngIf="documentumInjecteursData[env.environment]?.nbErreur == 0; else showDataError">
 												<div class="displayCell">-</div>
 											</ng-container>
-											<ng-template #showData>
+											<ng-template #showDataError>
 												<div data-toggle="tooltip" data-placement="bottom" title="{{documentumInjecteursData[env.environment]?.listeFichiersErreur}}" class="displayCell">
 													{{documentumInjecteursData[env.environment]?.nbErreur}} items
 												</div>
@@ -163,10 +163,10 @@
 											Loading....
 										</div>
 										<ng-template #erreurInterReq>
-											<ng-container *ngIf="documentumInjecteursData[env.environment]?.nbErreurInterReq == 0; else showData">
+											<ng-container *ngIf="documentumInjecteursData[env.environment]?.nbErreurInterReq == 0; else showDataErrorIR">
 												<div class="displayCell">-</div>
 											</ng-container>
-											<ng-template #showData>
+											<ng-template #showDataErrorIR>
 												<div data-toggle="tooltip" data-placement="bottom" title="{{documentumInjecteursData[env.environment]?.listeFichiersErreurInterReq}}" class="displayCell">
 													{{documentumInjecteursData[env.environment]?.nbErreurInterReq}} items
 												</div>
