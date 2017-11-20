@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingService } from './../../services/loading.service';
+import { PackageService } from './../../services/package_version.service';
 import { SwitchGlyphiconsService } from './../../services/switchglyphicons.service';
 import { ErrorService } from './../../services/error.service';
 import { CmpVersionsService } from './../../services/compare-version-package.service';
@@ -10,12 +11,12 @@ import { apiUrl } from './../../constants/api-url.constant';
   selector: 'app-fofpackage',
   templateUrl: './fof-package.component.html',
   styleUrls: ['./fof-package.component.css'],
-  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService, CmpVersionsService]
+  providers: [ApiService, LoadingService, SwitchGlyphiconsService, ErrorService, CmpVersionsService, PackageService]
 })
 export class FofpackageComponent {
 
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
-  private ErrorService: ErrorService, private CmpVersionsService: CmpVersionsService) { }
+  private ErrorService: ErrorService, private CmpVersionsService: CmpVersionsService, private PackageService: PackageService) { }
 
   @Input() fofEnv: object;
   private fofPackageUrl: Array<any> = [];
@@ -29,7 +30,7 @@ export class FofpackageComponent {
     this.ApiService.getData(request.url)
       .then(fofPackageData => this.fofPackageData[request.env] = {...fofPackageData})
       .then(fofPackageData => fofPackageData.listVersions.forEach((version: any) => { this.fofVersionsList.indexOf(version.num) === -1 ? this.fofVersionsList.push((version.num+'')) : this.fofVersionsList;
-           this.fofVersionsDetails.indexOf(version.versionContent) === -1 ? this.fofVersionsDetails[version.num] = { version: (version.num+''), detail: version.versionContent} : this.fofVersionsDetails}))
+           this.fofVersionsDetails.indexOf(version.num) === -1 ? this.fofVersionsDetails[version.num] = { version: (version.num+''), detail: this.PackageService.getPackageContent(request.url, (version.num+''))} : this.fofVersionsDetails}))
       .then(() => this.fofVersionsList.sort(this.CmpVersionsService.cmpVersions).reverse())
       .then(() => this.fofPackageData['versionList'] = {list: this.fofVersionsList, detail: this.fofVersionsDetails})
       .catch(error => this.fofPackageData[request.env] = {error: this.ErrorService.getErrorMessage(error)})
