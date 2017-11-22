@@ -29,8 +29,16 @@ export class FofpackageComponent {
   public getFofPackageData(request): Object {
     this.ApiService.getData(request.url)
       .then(fofPackageData => this.fofPackageData[request.env] = {...fofPackageData})
-      .then(fofPackageData => fofPackageData.listVersions.forEach((version: any) => { this.fofVersionsList.indexOf(version.num) === -1 ? this.fofVersionsList.push((version.num+'')) : this.fofVersionsList;
-           this.fofVersionsDetails.indexOf(version.num) === -1 ? this.fofVersionsDetails[version.num] = { version: (version.num+''), detail: this.PackageService.getPackageContent(request.url, (version.num+''))} : this.fofVersionsDetails}))
+      .then(edtPackageData => edtPackageData.listVersions.forEach((version: any) => {
+        this.fofVersionsList.indexOf(version.num) === -1 ?
+          (this.fofVersionsList.push((version.num + '')),
+            this.fofVersionsDetails[version.num] = this.PackageService.getPackageContent(request.url, version.num)
+              .then(data =>
+                this.fofVersionsDetails[version.num] = { version: version.num, content: data.versionContent }
+              )
+              .catch(error => this.fofPackageData[request.env] = { error: this.ErrorService.getErrorMessage(error), environment: request.env }))
+          : this.fofVersionsList;
+      }))
       .then(() => this.fofVersionsList.sort(this.CmpVersionsService.cmpVersions).reverse())
       .then(() => this.fofPackageData['versionList'] = {list: this.fofVersionsList, detail: this.fofVersionsDetails})
       .catch(error => this.fofPackageData[request.env] = {error: this.ErrorService.getErrorMessage(error)})
@@ -50,7 +58,6 @@ export class FofpackageComponent {
       this.environments.forEach((env: any, envIndex) => {
         env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
         this.fofPackageUrl[envIndex] = {url: apiUrl + this.fofEnv['tab'] + '/' + env['urlEnv'] + '/package_version', env: env.environment};
-       
       });
         
       this.fofPackageUrl.forEach((env: any) => {

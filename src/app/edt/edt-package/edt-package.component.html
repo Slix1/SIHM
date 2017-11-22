@@ -52,8 +52,8 @@
 						<ng-template #versionList>
 							<tr *ngFor="let packageVersion of edtPackageData?.versionList?.list">
 								<td  class="text-center col-xs-1 displayCol">
-									<ng-container *ngIf="edtPackageData?.versionList?.detail[packageVersion].version == packageVersion">
-										<popover-content #packageVer placement="top" [closeOnClickOutside]="true"><div class="displayPackage">{{edtPackageData?.versionList?.detail[packageVersion].detail}}</div></popover-content>
+									<ng-container *ngIf="edtPackageData?.versionList?.detail[packageVersion]?.version == packageVersion">
+										<popover-content #packageVer placement="top" [closeOnClickOutside]="true"><div class="displayPackage">{{edtPackageData?.versionList?.detail[packageVersion]?.content}}</div></popover-content>
 										<div [popover]="packageVer" title="Cliquer pour voir le contenu du packaqe" class="displayPackage">
 											{{ packageVersion }}
 										</div>

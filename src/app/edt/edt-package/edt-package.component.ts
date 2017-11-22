@@ -17,7 +17,7 @@ import { apiUrl } from './../../constants/api-url.constant';
 export class EdtPackageComponent {
 
   constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
-  private ErrorService: ErrorService, private CmpVersionsService: CmpVersionsService, private PackageService: PackageService) { }
+    private ErrorService: ErrorService, private CmpVersionsService: CmpVersionsService, private PackageService: PackageService) { }
 
 
   @Input() edtEnv: object;
@@ -28,31 +28,42 @@ export class EdtPackageComponent {
   public edtVersionsDetails: Array<any> = [];
 
   public getEdtPackageData(request): Object {
+
     this.ApiService.getData(request.url)
-      .then(edtPackageData => this.edtPackageData[request.env] = {...edtPackageData, environment: request.env})
-      .then(edtPackageData => edtPackageData.listVersions.forEach((version: any) => { this.edtVersionsList.indexOf(version.num) === -1 ? this.edtVersionsList.push((version.num+'')) : this.edtVersionsList;
-                                                                                      this.edtVersionsDetails.indexOf(version.num) === -1 ? this.edtVersionsDetails[version.num] = { version: (version.num+''), detail: this.PackageService.getPackageContent(request.url, (version.num+''))} : this.edtVersionsDetails}))
+      .then(edtPackageData => this.edtPackageData[request.env] = { ...edtPackageData, environment: request.env })
+
+      .then(edtPackageData => edtPackageData.listVersions.forEach((version: any) => {
+        this.edtVersionsList.indexOf(version.num) === -1 ?
+          (this.edtVersionsList.push((version.num + '')),
+            this.edtVersionsDetails[version.num] = this.PackageService.getPackageContent(request.url, version.num)
+              .then(data =>
+                this.edtVersionsDetails[version.num] = { version: version.num, content: data.versionContent }
+              )
+              .catch(error => this.edtPackageData[request.env] = { error: this.ErrorService.getErrorMessage(error), environment: request.env }))
+          : this.edtVersionsList;
+      }))
       .then(() => this.edtVersionsList.sort(this.CmpVersionsService.cmpVersions).reverse())
-      .then(() => this.edtPackageData['versionList'] = {list: this.edtVersionsList, detail: this.edtVersionsDetails})
-      .catch(error => this.edtPackageData[request.env] = {error: this.ErrorService.getErrorMessage(error), environment: request.env})
+      .then(() => this.edtPackageData['versionList'] = { list: this.edtVersionsList, detail: this.edtVersionsDetails })
+      .catch(error => this.edtPackageData[request.env] = { error: this.ErrorService.getErrorMessage(error), environment: request.env })
       .then(() => this.LoadingService.loading[request.env] = false);
 
     return this.edtPackageData
   }
 
+
   load(): void {
-    
+
     if (this.edtEnv['EdtInfosData'].error == undefined) {
       this.edtPackageData['versionList'] = [];
-      
+
       this.environments = this.edtEnv['EdtInfosData'].environments;
-                
+
       this.environments.forEach((env: any, envIndex) => {
-        env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g,"").replace(/[()]/g,"");
+        env['urlEnv'] = env.environment.toLowerCase().replace(/\s/g, "").replace(/[()]/g, "");
         this.edtPackageUrl[envIndex] = {url: apiUrl + this.edtEnv['tab'] + '/' + env['urlEnv'] + '/package_version', env: env.environment};
-       
+
       });
-        
+
       this.edtPackageUrl.forEach((env: any) => {
         this.LoadingService.loadingTrue(env.env);
         this.getEdtPackageData(env);

@@ -11,16 +11,12 @@ export class PackageService {
 
     public getPackageContent(url: string, version: string): Promise<any> {
 
-        let result;
+        let data;
         let spliteUrl = url.split('/package_version');
         let packageUrl = spliteUrl[0] + '/' + version + '/package_version';
-
-        this.http.get(packageUrl)
-            .toPromise()
-            .then(response => response.json())
-            .then(response => result = response.versionContent)
-
-        return result
+   
+        return this.http.get(packageUrl)
+                    .toPromise()
+                    .then(response => data = response.json())
     }
-
 }
