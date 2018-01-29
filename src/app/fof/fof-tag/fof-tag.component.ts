@@ -13,12 +13,12 @@ import { apiUrl } from './../../constants/api-url.constant';
 })
 export class FofTagComponent {
 
-  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  constructor(private ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
     private ErrorService: ErrorService) { }
 
     @Input() fofEnv: object;
     private fofTagUrl: Array<any> = [];
-    public fofTagData: object = {};
+    public fofTagData = { versionList : {list: null,detail : null}};
     public environments: Array<any> = [];
     public fofVersionsList: Array<any> = [];
     public fofVersionsDetails: Array<any> = [];
@@ -29,7 +29,7 @@ export class FofTagComponent {
       .then(fofTagData => fofTagData.listVersions.forEach((tag: any) => { this.fofVersionsList.indexOf(tag.num) === -1 ? this.fofVersionsList.push((tag.num)) : this.fofVersionsList;
            this.fofVersionsDetails.indexOf(tag.versionContent) === -1 ? this.fofVersionsDetails[tag.num] = { version: (tag.num), detail: tag.versionContent} : this.fofVersionsDetails}))
       .then(() => this.fofVersionsList.sort().reverse())
-      .then(() => this.fofTagData['versionList'] = {list: this.fofVersionsList, detail: this.fofVersionsDetails})
+      .then(() => this.fofTagData.versionList = {list: this.fofVersionsList, detail: this.fofVersionsDetails})
       .catch(error => this.fofTagData[request.env] = {error: this.ErrorService.getErrorMessage(error)})
       .then(() => this.LoadingService.loading[request.env] = false);
   

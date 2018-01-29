@@ -53,7 +53,7 @@
 							<tr *ngFor="let packageVersion of fofPackageData?.versionList?.list">
 								<td  class="text-center col-xs-1 displayCol">
 									<ng-container *ngIf="fofPackageData?.versionList?.detail[packageVersion].version == packageVersion">
-										<popover-content #packageVer placement="top" [closeOnClickOutside]="true"><div class="displayPackage">{{fofPackageData?.versionList?.detail[packageVersion].detail}}</div></popover-content>
+										<popover-content #packageVer placement="top" [closeOnClickOutside]="true"><div class="displayPackage">{{fofPackageData?.versionList?.detail[packageVersion]?.content}}</div></popover-content>
 										<div [popover]="packageVer" title="Cliquer pour voir le contenu du packaqe" class="displayPackage">
 											{{ packageVersion }}
 										</div>

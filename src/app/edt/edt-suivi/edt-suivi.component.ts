@@ -10,7 +10,7 @@ import { SwitchGlyphiconsService } from './../../services/switchglyphicons.servi
 })
 export class EdtSuiviComponent {
 
-  constructor(private SwitchGlyphiconsService: SwitchGlyphiconsService) { }
+  constructor(public SwitchGlyphiconsService: SwitchGlyphiconsService) { }
 
   
 

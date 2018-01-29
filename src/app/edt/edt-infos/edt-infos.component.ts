@@ -15,7 +15,7 @@ import { apiUrl } from './../../constants/api-url.constant';
 
 export class EdtinfosComponent {
 
-  constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
+  constructor(private ApiService: ApiService, public LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
   @Input() tab: object;
   private EdtInfosDataUrl: string;
@@ -34,10 +34,9 @@ export class EdtinfosComponent {
   }
 
   ngOnInit(): void {
-    this.EdtInfosDataUrl= apiUrl + this.tab + '/infos';
-   
-    this.LoadingService.loadingTrue('EdtInfos');
 
+    this.EdtInfosDataUrl= apiUrl + this.tab + '/infos';
+    this.LoadingService.loadingTrue('EdtInfos');
     this.getEdtInfosData()
   }
 

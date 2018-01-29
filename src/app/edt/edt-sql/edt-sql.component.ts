@@ -13,7 +13,7 @@ import { apiUrl } from './../../constants/api-url.constant';
 })
 export class EdtSqlComponent {
 
-  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  constructor(private ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
   private ErrorService: ErrorService) { }
 
   @Input() edtEnv: object;
