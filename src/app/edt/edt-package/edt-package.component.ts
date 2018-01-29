@@ -16,13 +16,13 @@ import { apiUrl } from './../../constants/api-url.constant';
 })
 export class EdtPackageComponent {
 
-  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
-    private ErrorService: ErrorService, private CmpVersionsService: CmpVersionsService, private PackageService: PackageService) { }
+  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+    public ErrorService: ErrorService, public CmpVersionsService: CmpVersionsService, public PackageService: PackageService) { }
 
 
   @Input() edtEnv: object;
   private edtPackageUrl: Array<any> = [];
-  public edtPackageData: object = {};
+  public edtPackageData = { versionList : {list: null,detail : null}};
   public environments: Array<any> = [];
   public edtVersionsList: Array<any> = [];
   public edtVersionsDetails: Array<any> = [];
@@ -54,7 +54,7 @@ export class EdtPackageComponent {
   load(): void {
 
     if (this.edtEnv['EdtInfosData'].error == undefined) {
-      this.edtPackageData['versionList'] = [];
+      this.edtPackageData.versionList = {list: null,detail : null};
 
       this.environments = this.edtEnv['EdtInfosData'].environments;
 

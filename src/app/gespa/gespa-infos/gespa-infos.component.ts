@@ -15,7 +15,7 @@ import { apiUrl } from './../../constants/api-url.constant';
 
 export class GespaInfosComponent {
 
-  constructor(private ApiService: ApiService, private LoadingService: LoadingService, private ErrorService: ErrorService) { }
+  constructor(private ApiService: ApiService, public LoadingService: LoadingService, private ErrorService: ErrorService) { }
 
   @Input() tab :string;
   private gespaInfosUrl: string;

@@ -15,12 +15,12 @@ import { apiUrl } from './../../constants/api-url.constant';
 })
 export class FofpackageComponent {
 
-  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
-  private ErrorService: ErrorService, private CmpVersionsService: CmpVersionsService, private PackageService: PackageService) { }
+  constructor(private ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
+  private ErrorService: ErrorService, private CmpVersionsService: CmpVersionsService, public PackageService: PackageService) { }
 
   @Input() fofEnv: object;
   private fofPackageUrl: Array<any> = [];
-  public fofPackageData: object = {};
+  public fofPackageData = { versionList : {list: null,detail : null}};
   public environments: Array<any> = [];
   public fofVersionsList: Array<any> = [];
   public fofVersionsDetails: Array<any> = [];
@@ -51,7 +51,7 @@ export class FofpackageComponent {
   load(): void {
     
     if (this.fofEnv['fofInfosData'].error == undefined) {
-      this.fofPackageData['versionList'] = [];
+      this.fofPackageData.versionList = {list: null,detail : null};
       
       this.environments = this.fofEnv['fofInfosData'].environments;
 

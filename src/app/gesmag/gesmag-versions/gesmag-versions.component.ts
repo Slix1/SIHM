@@ -15,7 +15,7 @@ export class GesmagVersionsComponent {
 
   @Input() gesmagEnv: object;
 
-  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
+  constructor(private ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
     private ErrorService: ErrorService) { }
 
   private gesmagVersionsUrl: Array<any> = [];

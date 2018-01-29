@@ -13,8 +13,8 @@ import { apiUrl } from './../../constants/api-url.constant';
 })
 export class EdtbdocComponent {
 
-  constructor(private ApiService: ApiService, private SwitchGlyphiconsService: SwitchGlyphiconsService, private LoadingService: LoadingService,
-  private ErrorService: ErrorService) { }
+  constructor(public ApiService: ApiService, public SwitchGlyphiconsService: SwitchGlyphiconsService, public LoadingService: LoadingService,
+    public ErrorService: ErrorService) { }
 
   @Input() edtEnv: object;
   private edtBdocUrl: Array<any> = [];
